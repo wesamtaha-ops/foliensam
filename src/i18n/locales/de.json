@@ -1,0 +1,269 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "services": "Leistungen",
+    "about": "Über uns",
+    "gallery": "Galerie",
+    "contact": "Kontakt",
+    "bookAppointment": "Termin buchen"
+  },
+  "hero": {
+    "tagline": "Premium Autofolierung",
+    "title": {
+      "premium": "Premium",
+      "vehicle": "Fahrzeug",
+      "refinement": "Veredelung"
+    },
+    "description": "Verwandeln Sie Ihr Fahrzeug in ein einzigartiges Kunstwerk mit unserer professionellen Folierung und Veredelung. Wir setzen Ihre Visionen in die Realität um.",
+    "watchShowreel": "Showreel ansehen",
+    "scrollForMore": "Scrollen Sie für mehr",
+    "stats": {
+      "projects": "946+ Projekte",
+      "experience": "12+ Jahre Erfahrung",
+      "warranty": "5 Jahre Garantie",
+      "expertise": "100% Kundenzufriedenheit"
+    }
+  },
+  "about": {
+    "imageAlt": "Professionelle Autofolierung",
+    "qualityBadge": "Premium Qualität",
+    "title": "Premium Fahrzeugfolierung in Berlin",
+    "description": "Seit über einem Jahrzehnt sind wir Ihr verlässlicher Partner für hochwertige Fahrzeugveredelung. Unsere Expertise in Vollfolierung, Scheibentönung und Designfolierung macht jeden Auftrag zu einem Meisterwerk. Wir setzen auf Qualität, Präzision und Kundenzufriedenheit.",
+    "stats": {
+      "experience": "Jahre Erfahrung",
+      "warranty": "Jahre Garantie",
+      "projects": "Abgeschlossene Projekte",
+      "expertise": "Kundenzufriedenheit"
+    },
+    "buttons": {
+      "contact": "Kontakt aufnehmen",
+      "services": "Unsere Leistungen"
+    }
+  },
+  "gallery": {
+    "title": "UNSERE ARBEITEN",
+    "subtitle": "Entdecken Sie unser Portfolio an Premium-Fahrzeugveredelungen",
+    "followTiktok": "Folgen Sie uns auf TikTok",
+    "imageAlt": "Fahrzeugfolierungs-Projekt"
+  },
+  "features": {
+    "title": "Warum FolienSam?",
+    "subtitle": "Entdecken Sie die Vorteile unserer Premium-Dienstleistungen",
+    "bookAppointment": "Jetzt Termin vereinbaren",
+    "premiumMaterials": {
+      "title": "Premium Materialien",
+      "description": "Ausschließliche Verwendung von zertifizierten 3M, Hexis und Avery Folien für maximale Haltbarkeit und ein perfektes Finish."
+    },
+    "perfectProcessing": {
+      "title": "Perfekte Verarbeitung",
+      "description": "Jedes Detail wird mit höchster Präzision und handwerklichem Können ausgeführt, um ein makelloses Ergebnis zu garantieren."
+    },
+    "fastExecution": {
+      "title": "Schnelle Ausführung",
+      "description": "Effiziente Prozesse garantieren minimale Standzeiten bei maximaler Qualität, damit Sie Ihr Fahrzeug schnell wieder nutzen können."
+    },
+    "warranty": {
+      "title": "5 Jahre Garantie",
+      "description": "Umfassende Garantie auf Material und Verarbeitung für Ihre Sicherheit und Zufriedenheit."
+    },
+    "modernTechnology": {
+      "title": "Modernste Technik",
+      "description": "Verwendung neuester Technologien und Werkzeuge für optimale Ergebnisse und eine langlebige Folierung."
+    },
+    "consultation": {
+      "title": "Individuelle Beratung",
+      "description": "Persönliche Betreuung und maßgeschneiderte Lösungen für Ihre individuellen Wünsche und Anforderungen."
+    }
+  },
+  "services": {
+    "title": "UNSERE LEISTUNGEN",
+    "subtitle": "Professionelle Fahrzeugveredelung mit Premium-Materialien",
+    "details": "Details anzeigen",
+    "duration": "Dauer",
+    "warranty": "Garantie",
+    "features": "Eigenschaften",
+    "process": "Ablauf",
+    "inquireNow": "Jetzt anfragen",
+    "carWrapping": {
+      "title": "Auto Vollfolierung",
+      "description": "Komplette Fahrzeugfolierung mit Premium-Folien von 3M, Avery oder Hexis. Inklusive Garantie und professioneller Beratung.",
+      "category": "Premium Service",
+      "duration": "2-3 Tage",
+      "warranty": "5 Jahre",
+      "fullDescription": "Unsere Vollfolierung transformiert Ihr Fahrzeug komplett mit hochwertigen Folien. Wir bieten eine große Auswahl an Farben und Finishes, von Matt bis Glänzend, metallic oder mit speziellen Effekten.",
+      "features": [
+        "Premium Folien von 3M, Avery, Hexis",
+        "Über 100 Farben verfügbar",
+        "Matt, glänzend oder metallic Finish",
+        "Kratzresistente Beschichtung",
+        "UV-beständig",
+        "Rückstandslose Entfernung"
+      ],
+      "process": [
+        "Fahrzeugreinigung und Vorbereitung",
+        "Demontage notwendiger Teile",
+        "Folierung der einzelnen Komponenten",
+        "Qualitätskontrolle",
+        "Remontage und Finish"
+      ]
+    },
+    "windowTinting": {
+      "title": "Scheibentönung",
+      "description": "Hochwertige Scheibentönung für UV-Schutz und elegantes Aussehen. Zertifizierte Folien mit maximaler Haltbarkeit.",
+      "category": "Schutz & Design",
+      "duration": "4-6 Stunden",
+      "warranty": "Lebenslang",
+      "fullDescription": "Professionelle Scheibentönung mit hochwertigen Folien für optimalen UV-Schutz, Blendschutz und ein elegantes Erscheinungsbild. Alle Tönungen entsprechen den gesetzlichen Vorschriften.",
+      "features": [
+        "99% UV-Schutz",
+        "Reduzierte Wärmeentwicklung",
+        "Blendschutz",
+        "Splitterschutz",
+        "Sichtschutz",
+        "Gesetzeskonforme Installation"
+      ],
+      "process": [
+        "Reinigung der Scheiben",
+        "Zuschnitt der Folie",
+        "Präzise Installation",
+        "Trocknung und Kontrolle",
+        "Abnahmeprüfung"
+      ]
+    },
+    "paintProtection": {
+      "title": "Lackschutzfolierung",
+      "description": "Transparente Schutzfolierung für maximalen Lackschutz. Speziell für Steinschläge und andere äußere Einflüsse.",
+      "category": "Schutz",
+      "duration": "1-2 Tage",
+      "warranty": "10 Jahre",
+      "fullDescription": "Schützen Sie Ihren Lack mit unserer hochwertigen Lackschutzfolie. Die transparente Folie bietet maximalen Schutz vor Steinschlägen, Kratzern und Umwelteinflüssen, während sie praktisch unsichtbar bleibt.",
+      "features": [
+        "Selbstheilende Oberfläche",
+        "Steinschlagschutz",
+        "Kratzresistent",
+        "UV-beständig",
+        "Unsichtbarer Schutz",
+        "Erhält den Fahrzeugwert"
+      ],
+      "process": [
+        "Gründliche Lackreinigung",
+        "Lackkorrektur falls nötig",
+        "Präzise Folienapplikation",
+        "Kantenversiegelung",
+        "Qualitätskontrolle"
+      ]
+    },
+    "designWrapping": {
+      "title": "Design Folierung",
+      "description": "Individuelle Designfolierung nach Ihren Wünschen. Von Teil- bis Komplettfolierung in allen Farben und Effekten.",
+      "category": "Design",
+      "duration": "2-4 Tage",
+      "warranty": "3 Jahre",
+      "fullDescription": "Verwirklichen Sie Ihre individuellen Designvorstellungen mit unserer maßgeschneiderten Designfolierung. Von subtilen Akzenten bis hin zu auffälligen Komplettdesigns - wir setzen Ihre Ideen professionell um.",
+      "features": [
+        "Individuelle Designs",
+        "Digitaldruck möglich",
+        "Farbverläufe",
+        "Strukturfolien",
+        "Teilfolierungen",
+        "Carbon-Look verfügbar"
+      ],
+      "process": [
+        "Designberatung",
+        "Digitale Visualisierung",
+        "Folienauswahl",
+        "Präzise Installation",
+        "Finish und Dokumentation"
+      ]
+    },
+    "chromeWrapping": {
+      "title": "Chromfolierung",
+      "description": "Edle Chromfolierung für einen einzigartigen Look. Verschiedene Farbtöne und Effekte verfügbar.",
+      "category": "Premium Design",
+      "duration": "3-4 Tage",
+      "warranty": "2 Jahre",
+      "fullDescription": "Mit unserer Chromfolierung setzen Sie spektakuläre Akzente. Wählen Sie aus verschiedenen Chromeffekten und Farbtönen für einen garantierten Blickfang.",
+      "features": [
+        "Verschiedene Chromtöne",
+        "Spiegeleffekt",
+        "Hochglanz-Finish",
+        "Kratzfeste Beschichtung",
+        "Teil- oder Vollfolierung",
+        "Einzigartiger Look"
+      ],
+      "process": [
+        "Beratung und Planung",
+        "Fahrzeugvorbereitung",
+        "Spezielle Chromfolierung",
+        "Versiegelung",
+        "Endkontrolle"
+      ]
+    },
+    "commercialWrapping": {
+      "title": "Firmenwerbung",
+      "description": "Professionelle Fahrzeugbeschriftung und Werbefolierung für Ihr Unternehmen. Corporate Design und Logo-Integration.",
+      "category": "Business",
+      "duration": "1-2 Tage",
+      "warranty": "5 Jahre",
+      "fullDescription": "Verwandeln Sie Ihre Fahrzeugflotte in mobile Werbeträger. Wir setzen Ihr Corporate Design professionell um und sorgen für einen einheitlichen, hochwertigen Auftritt.",
+      "features": [
+        "Corporate Design Integration",
+        "Flottenbeklebung",
+        "Logo-Integration",
+        "QR-Codes möglich",
+        "Wetterfest",
+        "Konform mit CI-Richtlinien"
+      ],
+      "process": [
+        "Design-Abstimmung",
+        "Druckvorbereitung",
+        "Produktion",
+        "Professionelle Montage",
+        "Dokumentation"
+      ]
+    }
+  },
+  "footer": {
+    "brandDescription": "Ihre erste Wahl für professionelle Fahrzeugveredelung und Folierung in der Region. Wir stehen für Qualität, Präzision und Kundenzufriedenheit.",
+    "whatsappMessage": "Hallo! Ich möchte einen Termin vereinbaren.",
+    "quickLinks": {
+      "title": "Schnellzugriff",
+      "items": [
+        "Startseite",
+        "Leistungen",
+        "Über uns",
+        "Galerie",
+        "Kontakt"
+      ]
+    },
+    "contact": {
+    "writeUs": "Schreiben Sie uns",
+    "info": "Kontaktinformationen",
+    "openingHours": "Öffnungszeiten",
+    "map": "Standort",
+    "form": {
+      "name": "Name",
+      "email": "E-Mail",
+      "subject": "Betreff",
+      "message": "Ihre Nachricht",
+      "send": "Nachricht senden"
+    },
+    "hours": {
+      "weekdays": "Mo - Fr: 9:00 - 18:00",
+      "saturday": "Sa: 10:00 - 14:00",
+      "sunday": "So: Geschlossen"
+    }
+  },
+    "copyright": "FolienSam. Alle Rechte vorbehalten.",
+    "services": {
+      "title": "Leistungen",
+      "items": [
+        "Vollfolierung",
+        "Scheibentönung",
+        "Lackschutzfolierung",
+        "Designfolierung",
+        "Felgenfolierung"
+      ]
+    }
+  }
+}

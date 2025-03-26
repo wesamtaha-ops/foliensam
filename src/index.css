@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Poppins', 'Almarai', system-ui, sans-serif;
+  }
+
+  /* RTL Support */
+  html[dir="rtl"] {
+    text-align: right;
+  }
+
+  html[dir="rtl"] h1,
+  html[dir="rtl"] h2,
+  html[dir="rtl"] h3,
+  html[dir="rtl"] h4,
+  html[dir="rtl"] h5,
+  html[dir="rtl"] h6,
+  html[dir="rtl"] p,
+  html[dir="rtl"] li {
+    text-align: right;
+    direction: rtl;
+  }
+
+  html[dir="rtl"] ul,
+  html[dir="rtl"] ol {
+    padding-right: 1.5rem;
+    padding-left: 0;
+  }
+
+  /* Flip icons in RTL */
+  html[dir="rtl"] .icon-flip {
+    transform: scaleX(-1);
+  }
+
+  /* Adjust margins and paddings for RTL */
+  html[dir="rtl"] .ml-auto {
+    margin-left: unset;
+    margin-right: auto;
+  }
+
+  html[dir="rtl"] .mr-auto {
+    margin-right: unset;
+    margin-left: auto;
+  }
+
+  /* Adjust flexbox for RTL */
+  html[dir="rtl"] .space-x-reverse > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 1;
+  }
+}

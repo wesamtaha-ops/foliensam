@@ -1,0 +1,269 @@
+{
+  "nav": {
+    "home": "Ana Sayfa",
+    "services": "Hizmetler",
+    "about": "Hakkımızda",
+    "gallery": "Galeri",
+    "contact": "İletişim",
+    "bookAppointment": "Randevu Al"
+  },
+  "hero": {
+    "tagline": "Premium Araç Kaplama",
+    "title": {
+      "premium": "Premium",
+      "vehicle": "Araç",
+      "refinement": "Kaplama"
+    },
+    "description": "Profesyonel kaplama ve yenileme hizmetlerimizle aracınızı benzersiz bir başyapıta dönüştürün. Vizyonunuzu gerçeğe dönüştürüyoruz.",
+    "watchShowreel": "Tanıtım Filmini İzle",
+    "scrollForMore": "Daha Fazlası İçin Kaydır",
+    "stats": {
+      "projects": "946+ Proje",
+      "experience": "12+ Yıl Deneyim",
+      "warranty": "5 Yıl Garanti",
+      "expertise": "100% Müşteri Memnuniyeti"
+    }
+  },
+  "about": {
+    "imageAlt": "Profesyonel Araç Kaplama",
+    "qualityBadge": "Premium Kalite",
+    "title": "Berlin'te Premium Araç Kaplama",
+    "description": "10 yılı aşkın süredir araç yenilemede güvenilir ortağınızız. Tam kaplama, cam filmi ve tasarım kaplamada uzmanlığımızla her projeyi başyapıta dönüştürüyoruz.",
+    "stats": {
+      "experience": "Yıllık Deneyim",
+      "warranty": "Yıl Garanti",
+      "projects": "Tamamlanan Proje",
+      "expertise": "Müşteri Memnuniyeti"
+    },
+    "buttons": {
+      "contact": "İletişime Geç",
+      "services": "Hizmetlerimiz"
+    }
+  },
+  "gallery": {
+    "title": "ÇALIŞMALARIMIZ",
+    "subtitle": "Premium Araç Kaplama Portföyümüzü Keşfedin",
+    "followTiktok": "TikTok'ta Bizi Takip Edin",
+    "imageAlt": "Araç Kaplama Projesi"
+  },
+  "features": {
+    "title": "Neden SAM Araç Kaplama?",
+    "subtitle": "Premium Hizmetlerimizin Avantajlarını Keşfedin",
+    "bookAppointment": "Şimdi Randevu Alın",
+    "premiumMaterials": {
+      "title": "Premium Malzemeler",
+      "description": "Maksimum dayanıklılık ve kusursuz bir sonuç için sertifikalı 3M, Hexis ve Avery folyoları kullanıyoruz."
+    },
+    "perfectProcessing": {
+      "title": "Mükemmel İşçilik",
+      "description": "Kusursuz bir sonuç için her detay en yüksek hassasiyet ve ustalıkla uygulanır."
+    },
+    "fastExecution": {
+      "title": "Hızlı Uygulama",
+      "description": "Verimli süreçler, maksimum kaliteyi korurken minimum bekleme süresi sağlar."
+    },
+    "warranty": {
+      "title": "5 Yıl Garanti",
+      "description": "Gönül rahatlığınız için malzeme ve işçilik üzerinde kapsamlı garanti."
+    },
+    "modernTechnology": {
+      "title": "Modern Teknoloji",
+      "description": "Optimal sonuçlar ve uzun ömürlü kaplamalar için en son teknolojiler."
+    },
+    "consultation": {
+      "title": "Kişisel Danışmanlık",
+      "description": "Bireysel ihtiyaç ve isteklerinize özel çözümler sunuyoruz."
+    }
+  },
+  "services": {
+    "title": "HİZMETLERİMİZ",
+    "subtitle": "Premium Malzemelerle Profesyonel Araç Kaplama",
+    "details": "Detayları Gör",
+    "duration": "Süre",
+    "warranty": "Garanti",
+    "features": "Özellikler",
+    "process": "Süreç",
+    "inquireNow": "Şimdi Bilgi Al",
+    "carWrapping": {
+      "title": "Tam Araç Kaplama",
+      "description": "3M, Avery veya Hexis'ten premium folyolarla eksiksiz araç kaplama. Garanti ve profesyonel danışmanlık dahil.",
+      "category": "Premium Hizmet",
+      "duration": "2-3 Gün",
+      "warranty": "5 Yıl",
+      "fullDescription": "Tam kaplamalarımız aracınızı yüksek kaliteli folyolarla baştan aşağı dönüştürür. Mat, parlak, metalik veya özel efektlerle geniş bir renk ve kaplama yelpazesi sunuyoruz.",
+      "features": [
+        "3M, Avery, Hexis premium folyolar",
+        "100'den fazla renk seçeneği",
+        "Mat, parlak veya metalik kaplama",
+        "Çizilmeye dayanıklı kaplama",
+        "UV dayanımlı",
+        "Kalıntı bırakmadan sökme"
+      ],
+      "process": [
+        "Araç temizliği ve hazırlık",
+        "Gerekli parçaların sökülmesi",
+        "Parçaların kaplanması",
+        "Kalite kontrolü",
+        "Montaj ve son işlemler"
+      ]
+    },
+    "windowTinting": {
+      "title": "Cam Filmi",
+      "description": "UV koruması ve şık görünüm için yüksek kaliteli cam filmi. Maksimum dayanıklılığa sahip sertifikalı filmler.",
+      "category": "Koruma & Tasarım",
+      "duration": "4-6 Saat",
+      "warranty": "Ömür Boyu",
+      "fullDescription": "Optimal UV koruması, parlama azaltma ve şık görünüm için yüksek kaliteli filmlerle profesyonel cam filmi uygulaması. Tüm uygulamalar yasal düzenlemelere uygundur.",
+      "features": [
+        "%99 UV koruması",
+        "Isı birikimini azaltma",
+        "Parlama önleme",
+        "Kırılma koruması",
+        "Mahremiyet",
+        "Yasal uyumlu uygulama"
+      ],
+      "process": [
+        "Camların temizlenmesi",
+        "Film kesimi",
+        "Hassas uygulama",
+        "Kuruma ve kontrol",
+        "Son onay"
+      ]
+    },
+    "paintProtection": {
+      "title": "Boya Koruma Filmi",
+      "description": "Maksimum boya koruması için şeffaf koruyucu film. Özellikle taş çarpmaları ve diğer dış etkilere karşı.",
+      "category": "Koruma",
+      "duration": "1-2 Gün",
+      "warranty": "10 Yıl",
+      "fullDescription": "Yüksek kaliteli boya koruma filmimizle boyayı koruyun. Şeffaf film, neredeyse görünmez kalırken taş çarpmaları, çizikler ve çevresel hasarlara karşı maksimum koruma sağlar.",
+      "features": [
+        "Kendini onaran yüzey",
+        "Taş çarpması koruması",
+        "Çizilmeye dayanıklı",
+        "UV dayanımlı",
+        "Görünmez koruma",
+        "Araç değerini korur"
+      ],
+      "process": [
+        "Detaylı boya temizliği",
+        "Gerekirse boya düzeltme",
+        "Hassas film uygulaması",
+        "Kenar mühürleme",
+        "Kalite kontrolü"
+      ]
+    },
+    "designWrapping": {
+      "title": "Tasarım Kaplama",
+      "description": "Tercihlerinize göre özel tasarım kaplama. Kısmi kaplamadan tam kaplamaya, tüm renk ve efektlerde.",
+      "category": "Tasarım",
+      "duration": "2-4 Gün",
+      "warranty": "3 Yıl",
+      "fullDescription": "Özel tasarım kaplamalarımızla benzersiz tasarım fikirlerinizi hayata geçirin. Hafif dokunuşlardan cesur tam tasarımlara kadar, vizyonunuzu profesyonelce uyguluyoruz.",
+      "features": [
+        "Özel tasarımlar",
+        "Dijital baskı mevcut",
+        "Renk geçişleri",
+        "Dokulu folyolar",
+        "Kısmi kaplamalar",
+        "Karbon görünümü mevcut"
+      ],
+      "process": [
+        "Tasarım danışmanlığı",
+        "Dijital görselleştirme",
+        "Folyo seçimi",
+        "Hassas uygulama",
+        "Son işlemler ve dokümantasyon"
+      ]
+    },
+    "chromeWrapping": {
+      "title": "Krom Kaplama",
+      "description": "Benzersiz bir görünüm için şık krom kaplama. Çeşitli tonlar ve efektler mevcut.",
+      "category": "Premium Tasarım",
+      "duration": "3-4 Gün",
+      "warranty": "2 Yıl",
+      "fullDescription": "Krom kaplamalarımızla fark yaratın. Garantili dikkat çekici bir görünüm için çeşitli krom efektleri ve tonları arasından seçim yapın.",
+      "features": [
+        "Çeşitli krom tonları",
+        "Ayna efekti",
+        "Yüksek parlaklık",
+        "Çizilmeye dayanıklı kaplama",
+        "Kısmi veya tam kaplama",
+        "Benzersiz görünüm"
+      ],
+      "process": [
+        "Danışmanlık ve planlama",
+        "Araç hazırlığı",
+        "Özel krom kaplama",
+        "Mühürleme",
+        "Son kontrol"
+      ]
+    },
+    "commercialWrapping": {
+      "title": "Ticari Kaplama",
+      "description": "İşletmeniz için profesyonel araç markalama ve reklam kaplamaları. Kurumsal tasarım ve logo entegrasyonu.",
+      "category": "Kurumsal",
+      "duration": "1-2 Gün",
+      "warranty": "5 Yıl",
+      "fullDescription": "Araç filonuzu mobil reklam panolarına dönüştürün. Kurumsal tasarımınızı profesyonelce uygulayarak tutarlı ve yüksek kaliteli bir görünüm sağlıyoruz.",
+      "features": [
+        "Kurumsal tasarım entegrasyonu",
+        "Filo markalama",
+        "Logo entegrasyonu",
+        "QR kod seçeneği",
+        "Hava koşullarına dayanıklı",
+        "Kurumsal kimlik uyumlu"
+      ],
+      "process": [
+        "Tasarım danışmanlığı",
+        "Baskı hazırlığı",
+        "Üretim",
+        "Profesyonel montaj",
+        "Dokümantasyon"
+      ]
+    }
+  },
+  "footer": {
+    "brandDescription": "Bölgenin profesyonel araç kaplama ve yenileme konusundaki ilk tercihi. Kalite, hassasiyet ve müşteri memnuniyeti için çalışıyoruz.",
+    "whatsappMessage": "Merhaba! Randevu almak istiyorum.",
+    "quickLinks": {
+      "title": "Hızlı Bağlantılar",
+      "items": [
+        "Ana Sayfa",
+        "Hizmetler",
+        "Hakkımızda",
+        "Galeri",
+        "İletişim"
+      ]
+    },
+    "contact": {
+      "writeUs": "Bize Yazın",
+      "info": "İletişim Bilgileri",
+      "openingHours": "Çalışma Saatleri",
+      "map": "Konum",
+      "form": {
+        "name": "İsim",
+        "email": "E-posta",
+        "subject": "Konu",
+        "message": "Mesajınız",
+        "send": "Mesaj Gönder"
+      },
+      "hours": {
+        "weekdays": "Pzt - Cum: 9:00 - 18:00",
+        "saturday": "Cmt: 10:00 - 14:00",
+        "sunday": "Pzr: Kapalı"
+      }
+    },
+    "copyright": "SAM Araç Kaplama. Tüm hakları saklıdır.",
+    "services": {
+      "title": "Hizmetler",
+      "items": [
+        "Tam Kaplama",
+        "Cam Filmi",
+        "Boya Koruma Filmi",
+        "Tasarım Kaplama",
+        "Krom Kaplama"
+      ]
+    }
+  }
+}

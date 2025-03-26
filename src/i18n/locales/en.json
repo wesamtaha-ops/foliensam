@@ -1,0 +1,269 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "about": "About Us",
+    "gallery": "Gallery",
+    "contact": "Contact",
+    "bookAppointment": "Book Appointment"
+  },
+  "hero": {
+    "tagline": "Premium Car Wrapping",
+    "title": {
+      "premium": "Premium",
+      "vehicle": "Vehicle",
+      "refinement": "Refinement"
+    },
+    "description": "Transform your vehicle into a unique masterpiece with our professional wrapping and refinement services. We bring your vision to life.",
+    "watchShowreel": "Watch Showreel",
+    "scrollForMore": "Scroll for More",
+    "stats": {
+      "projects": "946+ Projects",
+      "experience": "12+ Years of Experience",
+      "warranty": "5-Year Warranty",
+      "expertise": "100% Customer Satisfaction"
+    }
+  },
+  "about": {
+    "imageAlt": "Professional Car Wrapping",
+    "qualityBadge": "Premium Quality",
+    "title": "Premium Vehicle Wrapping in Berlin",
+    "description": "For over 10 years, we’ve been your trusted partner in high-quality vehicle refinement. With expertise in full wrapping, window tinting, and design wrapping, we deliver precision, quality, and satisfaction.",
+    "stats": {
+      "experience": "Years of Experience",
+      "warranty": "Years of Warranty",
+      "projects": "Completed Projects",
+      "expertise": "Customer Satisfaction"
+    },
+    "buttons": {
+      "contact": "Contact Us",
+      "services": "Our Services"
+    }
+  },
+  "gallery": {
+    "title": "OUR WORK",
+    "subtitle": "Explore Our Portfolio of Premium Vehicle Refinements",
+    "followTiktok": "Follow Us on TikTok",
+    "imageAlt": "Vehicle Wrapping Project"
+  },
+  "features": {
+    "title": "Why Choose FolienSam ?",
+    "subtitle": "Discover the Benefits of Our Premium Services",
+    "bookAppointment": "Book an Appointment Now",
+    "premiumMaterials": {
+      "title": "Premium Materials",
+      "description": "Exclusive use of certified 3M, Hexis, and Avery films for maximum durability and a flawless finish."
+    },
+    "perfectProcessing": {
+      "title": "Perfect Processing",
+      "description": "Every detail is executed with the highest precision and craftsmanship to ensure a flawless result."
+    },
+    "fastExecution": {
+      "title": "Fast Execution",
+      "description": "Efficient processes ensure minimal downtime while maintaining maximum quality, so you can get back on the road quickly."
+    },
+    "warranty": {
+      "title": "5-Year Warranty",
+      "description": "Comprehensive warranty on materials and workmanship for your peace of mind."
+    },
+    "modernTechnology": {
+      "title": "State-of-the-Art Technology",
+      "description": "Use of the latest technologies and tools for optimal results and long-lasting wraps."
+    },
+    "consultation": {
+      "title": "Personalized Consultation",
+      "description": "Tailored advice and customized solutions to meet your individual needs and desires."
+    }
+  },
+  "services": {
+    "title": "OUR SERVICES",
+    "subtitle": "Professional Vehicle Refinement with Premium Materials",
+    "details": "View Details",
+    "duration": "Duration",
+    "warranty": "Warranty",
+    "features": "Features",
+    "process": "Process",
+    "inquireNow": "Inquire Now",
+    "carWrapping": {
+      "title": "Full Car Wrap",
+      "description": "Complete vehicle wrapping with premium films from 3M, Avery, or Hexis. Includes warranty and professional consultation.",
+      "category": "Premium Service",
+      "duration": "2-3 Days",
+      "warranty": "5 Years",
+      "fullDescription": "Our full wrap transforms your vehicle entirely with high-quality films. We offer a wide range of colors and finishes, from matte to glossy, metallic, or with special effects.",
+      "features": [
+        "Premium films from 3M, Avery, Hexis",
+        "Over 100 colors available",
+        "Matte, glossy, or metallic finish",
+        "Scratch-resistant coating",
+        "UV-resistant",
+        "Residue-free removal"
+      ],
+      "process": [
+        "Vehicle cleaning and preparation",
+        "Disassembly of necessary parts",
+        "Wrapping of individual components",
+        "Quality control",
+        "Reassembly and finishing"
+      ]
+    },
+    "windowTinting": {
+      "title": "Window Tinting",
+      "description": "High-quality window tinting for UV protection and an elegant appearance. Certified films with maximum durability.",
+      "category": "Protection & Design",
+      "duration": "4-6 Hours",
+      "warranty": "Lifetime",
+      "fullDescription": "Professional window tinting with high-quality films for optimal UV protection, glare reduction, and an elegant appearance. All tints comply with legal regulations.",
+      "features": [
+        "99% UV protection",
+        "Reduced heat buildup",
+        "Glare reduction",
+        "Shatter protection",
+        "Privacy",
+        "Legally compliant installation"
+      ],
+      "process": [
+        "Window cleaning",
+        "Film cutting",
+        "Precise installation",
+        "Drying and inspection",
+        "Final approval"
+      ]
+    },
+    "paintProtection": {
+      "title": "Paint Protection Film",
+      "description": "Transparent protective film for maximum paint protection. Specifically designed for stone chips and other external impacts.",
+      "category": "Protection",
+      "duration": "1-2 Days",
+      "warranty": "10 Years",
+      "fullDescription": "Protect your paint with our high-quality paint protection film. The transparent film offers maximum protection against stone chips, scratches, and environmental damage while remaining virtually invisible.",
+      "features": [
+        "Self-healing surface",
+        "Stone chip protection",
+        "Scratch-resistant",
+        "UV-resistant",
+        "Invisible protection",
+        "Preserves vehicle value"
+      ],
+      "process": [
+        "Thorough paint cleaning",
+        "Paint correction if needed",
+        "Precise film application",
+        "Edge sealing",
+        "Quality control"
+      ]
+    },
+    "designWrapping": {
+      "title": "Design Wrapping",
+      "description": "Custom design wrapping tailored to your preferences. From partial to full wraps in all colors and effects.",
+      "category": "Design",
+      "duration": "2-4 Days",
+      "warranty": "3 Years",
+      "fullDescription": "Bring your unique design ideas to life with our custom design wrapping. From subtle accents to bold full designs, we professionally execute your vision.",
+      "features": [
+        "Custom designs",
+        "Digital printing available",
+        "Color gradients",
+        "Textured films",
+        "Partial wraps",
+        "Carbon look available"
+      ],
+      "process": [
+        "Design consultation",
+        "Digital visualization",
+        "Film selection",
+        "Precise installation",
+        "Finishing and documentation"
+      ]
+    },
+    "chromeWrapping": {
+      "title": "Chrome Wrapping",
+      "description": "Elegant chrome wrapping for a unique look. Various shades and effects available.",
+      "category": "Premium Design",
+      "duration": "3-4 Days",
+      "warranty": "2 Years",
+      "fullDescription": "Make a statement with our chrome wrapping. Choose from various chrome effects and shades for a guaranteed head-turner.",
+      "features": [
+        "Various chrome shades",
+        "Mirror effect",
+        "High-gloss finish",
+        "Scratch-resistant coating",
+        "Partial or full wrapping",
+        "Unique appearance"
+      ],
+      "process": [
+        "Consultation and planning",
+        "Vehicle preparation",
+        "Special chrome wrapping",
+        "Sealing",
+        "Final inspection"
+      ]
+    },
+    "commercialWrapping": {
+      "title": "Commercial Wrapping",
+      "description": "Professional vehicle branding and advertising wraps for your business. Corporate design and logo integration.",
+      "category": "Business",
+      "duration": "1-2 Days",
+      "warranty": "5 Years",
+      "fullDescription": "Transform your fleet into mobile advertisements. We professionally implement your corporate design, ensuring a consistent and high-quality appearance.",
+      "features": [
+        "Corporate design integration",
+        "Fleet branding",
+        "Logo integration",
+        "QR codes available",
+        "Weatherproof",
+        "Compliant with CI guidelines"
+      ],
+      "process": [
+        "Design consultation",
+        "Print preparation",
+        "Production",
+        "Professional installation",
+        "Documentation"
+      ]
+    }
+  },
+  "footer": {
+    "brandDescription": "Your first choice for professional vehicle refinement and wrapping in the region. We stand for quality, precision, and customer satisfaction.",
+    "whatsappMessage": "Hello! I would like to book an appointment.",
+    "quickLinks": {
+      "title": "Quick Links",
+      "items": [
+        "Home",
+        "Services",
+        "About Us",
+        "Gallery",
+        "Contact"
+      ]
+    },
+   "contact": {
+    "writeUs": "Write to Us",
+    "info": "Contact Information",
+    "openingHours": "Opening Hours",
+    "map": "Location",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Your Message",
+      "send": "Send Message"
+    },
+    "hours": {
+      "weekdays": "Mon - Fri: 9:00 - 18:00",
+      "saturday": "Sat: 10:00 - 14:00",
+      "sunday": "Sun: Closed"
+    }
+  },
+    "copyright": "FolienSam. All rights reserved.",
+    "services": {
+      "title": "Services",
+      "items": [
+        "Full Wrapping",
+        "Window Tinting",
+        "Paint Protection Film",
+        "Design Wrapping",
+        "Chrome Wrapping"
+      ]
+    }
+  }
+}

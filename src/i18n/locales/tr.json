@@ -250,7 +250,7 @@
       },
       "hours": {
         "weekdays": "Pzt - Cum: 9:00 - 18:00",
-        "saturday": "Cmt: 10:00 - 14:00",
+        "saturday": "Cmt: 9:00 - 18:00",
         "sunday": "Pzr: Kapalı"
       }
     },

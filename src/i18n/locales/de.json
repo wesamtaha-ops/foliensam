@@ -250,7 +250,7 @@
     },
     "hours": {
       "weekdays": "Mo - Fr: 9:00 - 18:00",
-      "saturday": "Sa: 10:00 - 14:00",
+      "saturday": "Sa: 9:00 - 18:00",
       "sunday": "So: Geschlossen"
     }
   },

@@ -50,7 +50,7 @@ const Navbar = () => {
             onClick={handleLogoClick}
           >
             <img 
-              src="https://images.cood.ai/samgo/logo-white.png" 
+              src="https://images.cood.ai/samgo/new-logo-white.png" 
               alt="FolienSam Logo" 
               className="h-10  "
             />

@@ -12,6 +12,13 @@ const Gallery = () => {
     const items = [
       {
         type: 'youtube',
+        videoId: 'udbvm6bulGU',
+        thumbnail: `https://i3.ytimg.com/vi/udbvm6bulGU/maxresdefault.jpg`,
+        title: "BMW",
+        category: "Folierung"
+      },
+      {
+        type: 'youtube',
         videoId: '-fNTp5sPt7Q',
         thumbnail: `https://i3.ytimg.com/vi/-fNTp5sPt7Q/maxresdefault.jpg`,
         title: "Dodge Charger",

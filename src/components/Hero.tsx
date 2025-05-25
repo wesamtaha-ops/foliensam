@@ -144,7 +144,7 @@ const Hero = () => {
           <div className="w-full max-w-4xl mx-4" onClick={e => e.stopPropagation()}>
             <div className="relative pt-[56.25%]">
               <iframe
-                src="https://www.youtube.com/embed/-fNTp5sPt7Q?autoplay=1"
+                src="https://www.youtube.com/embed/udbvm6bulGU?autoplay=1"
                 className="absolute inset-0 w-full h-full rounded-2xl"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen

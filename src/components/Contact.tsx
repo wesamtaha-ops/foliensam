@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle, AlertCircle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import emailjs from '@emailjs/browser';
@@ -67,23 +67,38 @@ const Contact = () => {
     setSubmitStatus('idle');
     
     try {
+      console.log('Starting email submission...');
+      console.log('Form data:', formData);
+      console.log('Form ref:', formRef.current);
+      
       // You'll need to replace these with your actual EmailJS service ID, template ID, and public key
       const result = await emailjs.sendForm(
         'service_b3wkg7l', // Replace with your EmailJS service ID
-        'template_76ez9xg', // Replace with your EmailJS template ID
+        'template_cwqjq09', // Replace with your EmailJS template ID
         formRef.current!,
         'hFOV6PjJt3UBqbeVD' // Replace with your EmailJS public key
       );
       
+      console.log('EmailJS result:', result);
+      
       if (result.status === 200) {
+        console.log('✅ Email sent successfully!');
         setSubmitStatus('success');
         setFormData({ name: '', email: '', subject: '', message: '', to_email: 'info@foliensam.de' });
         setTimeout(() => setSubmitStatus('idle'), 5000);
       } else {
+        console.error('❌ EmailJS returned non-200 status:', result.status);
         setSubmitStatus('error');
       }
     } catch (error) {
       console.error('EmailJS error:', error);
+      if (error instanceof Error) {
+        console.error('Error details:', {
+          message: error.message,
+          stack: error.stack,
+          name: error.name
+        });
+      }
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -95,6 +110,11 @@ const Contact = () => {
     setErrors({});
     setSubmitStatus('idle');
   };
+
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init('hFOV6PjJt3UBqbeVD');
+  }, []);
 
   return (
     <section className="py-24 bg-gray-100">
@@ -127,6 +147,9 @@ const Contact = () => {
               )}
               
               <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+                {/* Hidden field for recipient email */}
+                <input type="hidden" name="to_email" value={formData.to_email} />
+                
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <input

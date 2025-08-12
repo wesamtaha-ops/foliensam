@@ -241,6 +241,8 @@
     "info": "Kontaktinformationen",
     "openingHours": "Öffnungszeiten",
     "map": "Standort",
+    "phone": "+49 157 50000505",
+    "email": "info@foliensam.de",
     "form": {
       "name": "Name",
       "email": "E-Mail",
@@ -264,6 +266,21 @@
         "Designfolierung",
         "Felgenfolierung"
       ]
+    }
+  },
+  "contact": {
+    "success": "Nachricht erfolgreich gesendet! Wir melden uns bald bei Ihnen.",
+    "error": "Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt.",
+    "sending": "Wird gesendet...",
+    "sendAnother": "Weitere senden",
+    "whatsappAlternative": "Lieber WhatsApp?",
+    "whatsapp": "Über WhatsApp kontaktieren",
+    "errors": {
+      "nameRequired": "Name ist erforderlich",
+      "emailRequired": "E-Mail ist erforderlich",
+      "emailInvalid": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+      "subjectRequired": "Betreff ist erforderlich",
+      "messageRequired": "Nachricht ist erforderlich"
     }
   }
 }

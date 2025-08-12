@@ -241,6 +241,8 @@
       "info": "İletişim Bilgileri",
       "openingHours": "Çalışma Saatleri",
       "map": "Konum",
+      "phone": "+49 157 50000505",
+      "email": "info@foliensam.de",
       "form": {
         "name": "İsim",
         "email": "E-posta",
@@ -264,6 +266,21 @@
         "Tasarım Kaplama",
         "Krom Kaplama"
       ]
+    }
+  },
+  "contact": {
+    "success": "Mesaj başarıyla gönderildi! Yakında size geri döneceğiz.",
+    "error": "Mesaj gönderilemedi. Lütfen tekrar deneyin veya bizi doğrudan arayın.",
+    "sending": "Gönderiliyor...",
+    "sendAnother": "Başka Gönder",
+    "whatsappAlternative": "WhatsApp tercih eder misiniz?",
+    "whatsapp": "WhatsApp ile İletişim",
+    "errors": {
+      "nameRequired": "İsim gerekli",
+      "emailRequired": "E-posta gerekli",
+      "emailInvalid": "Lütfen geçerli bir e-posta adresi girin",
+      "subjectRequired": "Konu gerekli",
+      "messageRequired": "Mesaj gerekli"
     }
   }
 }

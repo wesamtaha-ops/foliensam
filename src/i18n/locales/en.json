@@ -241,6 +241,8 @@
     "info": "Contact Information",
     "openingHours": "Opening Hours",
     "map": "Location",
+    "phone": "+49 157 50000505",
+    "email": "info@foliensam.de",
     "form": {
       "name": "Name",
       "email": "Email",
@@ -264,6 +266,21 @@
         "Design Wrapping",
         "Chrome Wrapping"
       ]
+    }
+  },
+  "contact": {
+    "success": "Message sent successfully! We'll get back to you soon.",
+    "error": "Failed to send message. Please try again or contact us directly.",
+    "sending": "Sending...",
+    "sendAnother": "Send Another",
+    "whatsappAlternative": "Prefer WhatsApp?",
+    "whatsapp": "Contact via WhatsApp",
+    "errors": {
+      "nameRequired": "Name is required",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Please enter a valid email address",
+      "subjectRequired": "Subject is required",
+      "messageRequired": "Message is required"
     }
   }
 }

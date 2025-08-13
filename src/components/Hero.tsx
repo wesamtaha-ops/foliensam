@@ -138,17 +138,34 @@ const Hero = () => {
       {/* Video Modal */}
       {showVideo && (
         <div 
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4"
           onClick={() => setShowVideo(false)}
         >
-          <div className="w-full max-w-4xl mx-4" onClick={e => e.stopPropagation()}>
-            <div className="relative pt-[56.25%]">
+          <div className="w-full max-w-sm md:max-w-md lg:max-w-lg mx-auto" onClick={e => e.stopPropagation()}>
+            {/* Close button */}
+            <button
+              className="absolute top-4 right-4 text-white hover:text-accent-purple transition-colors z-10"
+              onClick={() => setShowVideo(false)}
+            >
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            
+            {/* Vertical video container for shorts */}
+            <div className="relative w-full h-[80vh] md:h-[70vh] bg-black rounded-2xl overflow-hidden">
               <iframe
-                src="https://www.youtube.com/embed/udbvm6bulGU?autoplay=1"
-                className="absolute inset-0 w-full h-full rounded-2xl"
+                src="https://www.youtube.com/embed/udbvm6bulGU?autoplay=1&modestbranding=1&rel=0&showinfo=0&controls=1&loop=1&playlist=udbvm6bulGU"
+                className="w-full h-full rounded-2xl"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               />
+              
+              {/* Video info overlay */}
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-transparent to-transparent p-4">
+                <h3 className="text-white font-semibold text-lg mb-2">BMW Car Wrapping</h3>
+                <p className="text-white/80 text-sm">Premium Vehicle Refinement</p>
+              </div>
             </div>
           </div>
         </div>

@@ -19,11 +19,6 @@ const Gallery = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [youtubeVideos, setYoutubeVideos] = useState<YouTubeVideo[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [touchStart, setTouchStart] = useState<number | null>(null);
-  const [touchEnd, setTouchEnd] = useState<number | null>(null);
-  const [isSwiping, setIsSwiping] = useState(false);
-  const [swipeDirection, setSwipeDirection] = useState<'up' | 'down' | null>(null);
 
   // Helper function to check if a video is new (published within last 7 days)
   const isNewVideo = (publishedAt: string) => {
@@ -33,57 +28,19 @@ const Gallery = () => {
     return videoDate > weekAgo;
   };
 
-  // Touch event handlers for mobile swipe navigation
-  const onTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientY);
-    setIsSwiping(false);
-    setSwipeDirection(null);
-  };
-
-  const onTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientY);
-    
-    if (touchStart) {
-      const distance = touchStart - e.targetTouches[0].clientY;
-      if (Math.abs(distance) > 20) {
-        setIsSwiping(true);
-        setSwipeDirection(distance > 0 ? 'up' : 'down');
-      }
-    }
-  };
-
-  const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-    
-    const distance = touchStart - touchEnd;
-    const isUpSwipe = distance > 50; // Minimum swipe distance
-    const isDownSwipe = distance < -50;
-
-    if (isUpSwipe) {
-      handleNext(); // Swipe up = next video
-    } else if (isDownSwipe) {
-      handlePrevious(); // Swipe down = previous video
-    }
-    
-    // Reset states
-    setIsSwiping(false);
-    setSwipeDirection(null);
-  };
-
   // Fetch YouTube videos on component mount
   useEffect(() => {
     const loadYouTubeVideos = async () => {
       try {
         setIsLoading(true);
-        setError(null);
         console.log('Fetching YouTube shorts...');
         const videos = await fetchAllChannelShorts(); // Fetch all available shorts
         console.log(`Loaded ${videos.length} videos:`, videos);
         setYoutubeVideos(videos);
       } catch (err) {
         console.error('Failed to load YouTube videos:', err);
-        setError(err instanceof Error ? err.message : 'Failed to load videos');
+        // Don't show error to user, just fallback to static content
+        setYoutubeVideos([]); // Empty array will show only static images
       } finally {
         setIsLoading(false);
       }
@@ -119,6 +76,34 @@ const Gallery = () => {
         publishedAt: video.publishedAt // Keep the date for reference
       }));
 
+    // Fallback static YouTube videos if API fails
+    const fallbackYoutubeItems: GalleryItem[] = youtubeVideos.length === 0 ? [
+      {
+        type: 'youtube' as const,
+        videoId: 'udbvm6bulGU',
+        thumbnail: `https://i3.ytimg.com/vi/udbvm6bulGU/maxresdefault.jpg`,
+        title: "BMW Car Wrapping",
+        category: "Folierung",
+        publishedAt: new Date().toISOString()
+      },
+      {
+        type: 'youtube' as const,
+        videoId: '-fNTp5sPt7Q',
+        thumbnail: `https://i3.ytimg.com/vi/-fNTp5sPt7Q/maxresdefault.jpg`,
+        title: "Dodge Charger Wrap",
+        category: "Folierung",
+        publishedAt: new Date(Date.now() - 86400000).toISOString() // 1 day ago
+      },
+      {
+        type: 'youtube' as const,
+        videoId: 'as5lyJ-4jPk',
+        thumbnail: `https://i3.ytimg.com/vi/as5lyJ-4jPk/maxresdefault.jpg`,
+        title: "Range Rover Wrap",
+        category: "Folierung",
+        publishedAt: new Date(Date.now() - 172800000).toISOString() // 2 days ago
+      }
+    ] : [];
+
     const staticItems: GalleryItem[] = [
       {
         type: 'image' as const,
@@ -152,8 +137,9 @@ const Gallery = () => {
       }
     ];
 
-    // Return YouTube videos first (newest to oldest), then static images
-    return [...youtubeItems, ...staticItems];
+    // Return fallback videos + static images if no API videos, otherwise API videos + static images
+    const allVideos = youtubeVideos.length > 0 ? youtubeItems : fallbackYoutubeItems;
+    return [...allVideos, ...staticItems];
   }, [youtubeVideos]);
 
   const handlePrevious = useCallback(() => {
@@ -200,17 +186,14 @@ const Gallery = () => {
   const renderMedia = (item: GalleryItem) => {
     if (item.type === 'youtube') {
       return (
-        <div className="relative w-full h-full flex justify-center">
-          {/* Mobile: Full screen video, Desktop: Vertical container */}
-          <div className="relative w-full h-full md:max-w-sm md:h-[80vh] bg-black rounded-lg overflow-hidden">
+        <div className="relative w-full flex justify-center">
+          {/* Mobile: Vertical video, Desktop: Vertical container */}
+          <div className="relative w-full max-w-sm h-[70vh] md:h-[60vh] bg-black rounded-2xl overflow-hidden">
             <iframe
-              key={item.videoId} // Unique key to prevent re-rendering issues
-              src={`https://www.youtube.com/embed/${item.videoId}?autoplay=1&modestbranding=1&rel=0&showinfo=0&controls=1&loop=1&playlist=${item.videoId}&mute=0&enablejsapi=1&origin=${window.location.origin}`}
-              className="w-full h-full rounded-lg"
+              src={`https://www.youtube.com/embed/${item.videoId}?autoplay=1&modestbranding=1&rel=0&showinfo=0&controls=1&loop=1&playlist=${item.videoId}`}
+              className="w-full h-full rounded-2xl"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
-              title={`YouTube video: ${item.title}`}
-              frameBorder="0"
             />
             {/* Video info overlay */}
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-transparent to-transparent p-4">
@@ -265,10 +248,7 @@ const Gallery = () => {
             <div className="col-span-full text-center py-12">
               <Loader2 className="h-12 w-12 text-accent-purple animate-spin" />
               <p className="mt-4 text-primary-silver">{t('gallery.loading')}</p>
-            </div>
-          ) : error ? (
-            <div className="col-span-full text-center py-12 text-red-400">
-              <p>{error}</p>
+              <p className="mt-2 text-primary-silver/60 text-sm">Loading videos from YouTube...</p>
             </div>
           ) : (
                          previews.map((item, index) => (
@@ -326,112 +306,53 @@ const Gallery = () => {
 
 
         {selectedItem && (
-          <div 
-            className="fixed inset-0 z-50 bg-black flex flex-col md:items-center md:justify-center md:p-4"
-            onTouchStart={onTouchStart}
-            onTouchMove={onTouchMove}
-            onTouchEnd={onTouchEnd}
-          >
-            {/* Mobile: Full screen, Desktop: Centered modal */}
-            <div className="md:hidden w-full h-full flex flex-col">
-              {/* Mobile header */}
-              <div className="flex items-center justify-between p-4 bg-gradient-to-b from-black/80 to-transparent">
-                <button
-                  className="text-white hover:text-accent-purple transition-colors"
-                  onClick={() => setSelectedItem(null)}
-                >
-                  <X className="w-6 h-6" />
-                </button>
-                
-                {/* Video counter for mobile */}
-                <div className="bg-black/50 backdrop-blur-sm px-3 py-1 rounded-full">
-                  <span className="text-white text-sm font-medium">
-                    {currentIndex + 1} / {previews.length}
-                  </span>
-                </div>
-                
-                <div className="w-6"></div> {/* Spacer for centering */}
-              </div>
-              
-                          {/* Mobile video container */}
-            <div className="flex-1 flex items-center justify-center px-4 relative">
-              {renderMedia(previews[currentIndex])}
-              
-              {/* Swipe feedback overlay */}
-              {isSwiping && (
-                <div className={`absolute inset-0 flex items-center justify-center pointer-events-none transition-opacity duration-200 ${
-                  swipeDirection === 'up' ? 'bg-green-500/20' : 'bg-blue-500/20'
-                }`}>
-                  <div className="text-white text-2xl font-bold">
-                    {swipeDirection === 'up' ? '⬆️ Next' : '⬇️ Previous'}
-                  </div>
-                </div>
-              )}
-            </div>
-              
-              {/* Mobile progress bar */}
-              <div className="px-4 pb-4">
-                <div className="w-full h-1 bg-white/20 rounded-full overflow-hidden">
-                  <div 
-                    className="h-full bg-accent-purple rounded-full transition-all duration-300"
-                    style={{ width: `${((currentIndex + 1) / previews.length) * 100}%` }}
-                  ></div>
-                </div>
-              </div>
-              
-              {/* Mobile swipe hints */}
-              <div className="text-center text-white/60 text-sm pb-8">
-                <div className="flex items-center justify-center gap-4">
-                  <div className="flex items-center gap-2">
-                    <span className="text-lg">⬇️</span>
-                    <span>Swipe down for previous</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span>Swipe up for next</span>
-                    <span className="text-lg">⬆️</span>
-                  </div>
-                </div>
-              </div>
+          <div className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex items-center justify-center p-4">
+            {/* Close button */}
+            <button
+              className="absolute top-4 right-4 text-white hover:text-accent-purple transition-colors z-10"
+              onClick={() => setSelectedItem(null)}
+            >
+              <X className="w-8 h-8" />
+            </button>
+            
+            {/* Video counter indicator */}
+            <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-sm px-3 py-1 rounded-full z-10">
+              <span className="text-white text-sm font-medium">
+                {currentIndex + 1} / {previews.length}
+              </span>
             </div>
             
-            {/* Desktop modal */}
-            <div className="hidden md:block relative w-full max-w-4xl">
-              <button
-                className="absolute top-4 right-4 text-white hover:text-accent-purple transition-colors z-10"
-                onClick={() => setSelectedItem(null)}
-              >
-                <X className="w-8 h-8" />
-              </button>
-              
-              {/* Video counter indicator for desktop */}
-              <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-sm px-3 py-1 rounded-full z-10">
-                <span className="text-white text-sm font-medium">
-                  {currentIndex + 1} / {previews.length}
-                </span>
-              </div>
-              
-              <button
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-accent-purple transition-colors z-10"
-                onClick={handlePrevious}
-              >
-                <ChevronLeft className="w-8 h-8" />
-              </button>
-              
-              <button
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-accent-purple transition-colors z-10"
-                onClick={handleNext}
-              >
-                <ChevronRight className="w-8 h-8" />
-              </button>
-
+            <div className="w-full max-w-sm md:max-w-md flex flex-col items-center">
+              {/* Video container */}
               <div className="w-full">
                 {renderMedia(previews[currentIndex])}
-                {/* Only show additional info for images, videos have overlay */}
-                {previews[currentIndex].type === 'image' && (
-                  <div className="mt-4 text-center">
-                    <h3 className="text-xl font-bold text-white">{previews[currentIndex].title}</h3>
-                    <p className="text-primary-silver">{previews[currentIndex].category}</p>
-                  </div>
+              </div>
+              
+              {/* Navigation buttons below video */}
+              <div className="flex items-center justify-center gap-6 mt-6">
+                <button
+                  className="text-white hover:text-accent-purple transition-colors bg-black/30 hover:bg-black/50 rounded-full p-3"
+                  onClick={handlePrevious}
+                >
+                  <ChevronLeft className="w-8 h-8" />
+                </button>
+                
+                <button
+                  className="text-white hover:text-accent-purple transition-colors bg-black/30 hover:bg-black/50 rounded-full p-3"
+                  onClick={handleNext}
+                >
+                  <ChevronRight className="w-8 h-8" />
+                </button>
+              </div>
+              
+              {/* Video info below navigation */}
+              <div className="mt-4 text-center">
+                <h3 className="text-xl font-bold text-white">{previews[currentIndex].title}</h3>
+                <p className="text-primary-silver">{previews[currentIndex].category}</p>
+                {previews[currentIndex].publishedAt && (
+                  <p className="text-sm text-primary-silver mt-2">
+                    Published: {new Date(previews[currentIndex].publishedAt!).toLocaleDateString()}
+                  </p>
                 )}
               </div>
             </div>

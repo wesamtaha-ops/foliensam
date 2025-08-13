@@ -19,6 +19,7 @@ const Gallery = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [youtubeVideos, setYoutubeVideos] = useState<YouTubeVideo[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [lastFetchTime, setLastFetchTime] = useState<number>(0);
 
   // Helper function to check if a video is new (published within last 7 days)
   const isNewVideo = (publishedAt: string) => {
@@ -31,23 +32,46 @@ const Gallery = () => {
   // Fetch YouTube videos on component mount
   useEffect(() => {
     const loadYouTubeVideos = async () => {
+      // Check if we should fetch (cache for 1 hour to save quota)
+      const now = Date.now();
+      const oneHour = 60 * 60 * 1000; // 1 hour in milliseconds
+      
+      if (youtubeVideos.length > 0 && (now - lastFetchTime) < oneHour) {
+        console.log('💾 Using cached videos, skipping API call to save quota');
+        setIsLoading(false);
+        return;
+      }
+
       try {
         setIsLoading(true);
-        console.log('Fetching YouTube shorts...');
+        console.log('🔄 Starting YouTube API fetch...');
+        console.log('📱 Gallery component mounted, attempting to load videos...');
+        
         const videos = await fetchAllChannelShorts(); // Fetch all available shorts
-        console.log(`Loaded ${videos.length} videos:`, videos);
+        console.log(`✅ Successfully loaded ${videos.length} videos from YouTube API:`, videos);
         setYoutubeVideos(videos);
+        setLastFetchTime(now);
+        
+        if (videos.length === 0) {
+          console.warn('⚠️ No videos returned from API, will show fallback content');
+        }
       } catch (err) {
-        console.error('Failed to load YouTube videos:', err);
+        console.error('❌ Failed to load YouTube videos:', err);
+        console.error('🔍 Error details:', {
+          message: err instanceof Error ? err.message : 'Unknown error',
+          stack: err instanceof Error ? err.stack : 'No stack trace',
+          error: err
+        });
         // Don't show error to user, just fallback to static content
         setYoutubeVideos([]); // Empty array will show only static images
       } finally {
         setIsLoading(false);
+        console.log('🏁 Finished loading attempt');
       }
     };
 
     loadYouTubeVideos();
-  }, []);
+  }, [youtubeVideos.length, lastFetchTime]);
 
   // Cleanup effect to stop videos when navigating or closing
   useEffect(() => {
@@ -80,6 +104,38 @@ const Gallery = () => {
     const fallbackYoutubeItems: GalleryItem[] = youtubeVideos.length === 0 ? [
       {
         type: 'youtube' as const,
+        videoId: 'XbYFMSOzbGY',
+        thumbnail: `https://i3.ytimg.com/vi/XbYFMSOzbGY/maxresdefault.jpg`,
+        title: "Car Wrapping Short",
+        category: "Folierung",
+        publishedAt: new Date(Date.now() - 259200000).toISOString() // 3 days ago
+      },
+      {
+        type: 'youtube' as const,
+        videoId: 'FFKCDfctTYk',
+        thumbnail: `https://i3.ytimg.com/vi/FFKCDfctTYk/maxresdefault.jpg`,
+        title: "Vehicle Wrap Process",
+        category: "Folierung",
+        publishedAt: new Date(Date.now() - 345600000).toISOString() // 4 days ago
+      },
+      {
+        type: 'youtube' as const,
+        videoId: 'DROwDW-014U',
+        thumbnail: `https://i3.ytimg.com/vi/DROwDW-014U/maxresdefault.jpg`,
+        title: "Premium Wrap Showcase",
+        category: "Folierung",
+        publishedAt: new Date(Date.now() - 432000000).toISOString() // 5 days ago
+      },
+      {
+        type: 'youtube' as const,
+        videoId: 'cRR7qhs80xU',
+        thumbnail: `https://i3.ytimg.com/vi/cRR7qhs80xU/maxresdefault.jpg`,
+        title: "Car Wrapping Art",
+        category: "Folierung",
+        publishedAt: new Date(Date.now() - 518400000).toISOString() // 6 days ago
+      },
+      {
+        type: 'youtube' as const,
         videoId: 'udbvm6bulGU',
         thumbnail: `https://i3.ytimg.com/vi/udbvm6bulGU/maxresdefault.jpg`,
         title: "BMW Car Wrapping",
@@ -101,7 +157,8 @@ const Gallery = () => {
         title: "Range Rover Wrap",
         category: "Folierung",
         publishedAt: new Date(Date.now() - 172800000).toISOString() // 2 days ago
-      }
+      },
+      
     ] : [];
 
     const staticItems: GalleryItem[] = [
@@ -232,6 +289,10 @@ const Gallery = () => {
           <p className="mt-6 text-lg text-primary-silver max-w-2xl mx-auto">
             {t('gallery.subtitle')}
           </p>
+          
+          
+       
+          
           <a 
             href="https://vm.tiktok.com/ZNew77xKv/"
             target="_blank"

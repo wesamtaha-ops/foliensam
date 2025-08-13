@@ -38,24 +38,39 @@ export const fetchChannelShorts = async (
     throw new Error('YouTube API key not found. Please set VITE_YOUTUBE_API_KEY in your environment variables.');
   }
 
+  const apiUrl = `https://www.googleapis.com/youtube/v3/search?` +
+    `key=${YOUTUBE_API_KEY}&` +
+    `channelId=${CHANNEL_ID}&` +
+    `part=snippet,id&` +
+    `order=date&` +
+    `maxResults=${maxResults}&` +
+    `type=video&` +
+    `${pageToken ? `pageToken=${pageToken}` : ''}`;
+
+  console.log('🔗 API URL:', apiUrl);
+  console.log('🔑 Using API Key:', YOUTUBE_API_KEY.substring(0, 10) + '...');
+  console.log('📺 Channel ID:', CHANNEL_ID);
+
   try {
     // First, get all videos from the channel
-    const response = await fetch(
-      `https://www.googleapis.com/youtube/v3/search?` +
-      `key=${YOUTUBE_API_KEY}&` +
-      `channelId=${CHANNEL_ID}&` +
-      `part=snippet,id&` +
-      `order=date&` +
-      `maxResults=${maxResults}&` +
-      `type=video&` +
-      `${pageToken ? `pageToken=${pageToken}` : ''}`
-    );
+    const response = await fetch(apiUrl);
+
+    console.log('📡 Response status:', response.status);
+    console.log('📡 Response headers:', Object.fromEntries(response.headers.entries()));
 
     if (!response.ok) {
-      throw new Error(`YouTube API error: ${response.status}`);
+      const errorText = await response.text();
+      console.error('❌ API Response error text:', errorText);
+      throw new Error(`YouTube API error: ${response.status} - ${errorText}`);
     }
 
     const data: YouTubeApiResponse = await response.json();
+    console.log('📊 API Response data:', data);
+    
+    if (!data.items || data.items.length === 0) {
+      console.warn('⚠️ No items returned from API');
+      return { videos: [], nextPageToken: undefined };
+    }
     
     // Filter for shorts (videos with duration < 60 seconds)
     // Note: YouTube doesn't have a direct "shorts" filter, so we'll get all videos
@@ -71,12 +86,14 @@ export const fetchChannelShorts = async (
       isShort: true // Assuming most recent videos are shorts
     }));
 
+    console.log('🎬 Processed videos:', videos);
+
     return {
       videos,
       nextPageToken: data.nextPageToken
     };
   } catch (error) {
-    console.error('Error fetching YouTube shorts:', error);
+    console.error('❌ Error fetching YouTube shorts:', error);
     throw error;
   }
 };
@@ -86,11 +103,11 @@ export const fetchAllChannelShorts = async (): Promise<YouTubeVideo[]> => {
   let allVideos: YouTubeVideo[] = [];
   let pageToken: string | undefined;
   let pageCount = 0;
-  const maxPages = 5; // Limit to prevent excessive API calls
+  const maxPages = 2; // Reduced from 5 to 2 to save quota (200 units instead of 500)
 
   try {
     while (pageCount < maxPages) {
-      const { videos, nextPageToken } = await fetchChannelShorts(50, pageToken);
+      const { videos, nextPageToken } = await fetchChannelShorts(25, pageToken); // Reduced from 50 to 25
       allVideos = [...allVideos, ...videos];
       
       if (!nextPageToken) break;
@@ -104,7 +121,7 @@ export const fetchAllChannelShorts = async (): Promise<YouTubeVideo[]> => {
 
     return allVideos;
   } catch (error) {
-    console.error('Error fetching all shorts:', error);
+    console.error('❌ Error fetching all shorts:', error);
     throw error;
   }
 };

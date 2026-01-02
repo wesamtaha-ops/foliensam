@@ -21,6 +21,7 @@ const GalleryManager: React.FC = () => {
     title: '',
     category: 'Folierung'
   });
+  const [autoFetchThumbnail, setAutoFetchThumbnail] = useState(true);
 
   useEffect(() => {
     loadImages();
@@ -30,6 +31,14 @@ const GalleryManager: React.FC = () => {
     const data = getGalleryImages();
     setImages(data);
   };
+
+  // Auto-fetch YouTube thumbnail when video ID changes
+  useEffect(() => {
+    if (formData.type === 'youtube' && formData.videoId && autoFetchThumbnail) {
+      const thumbnail = `https://i3.ytimg.com/vi/${formData.videoId}/maxresdefault.jpg`;
+      setFormData(prev => ({ ...prev, thumbnail }));
+    }
+  }, [formData.videoId, formData.type, autoFetchThumbnail]);
 
   const handleAdd = () => {
     setEditingImage(null);
@@ -41,6 +50,7 @@ const GalleryManager: React.FC = () => {
       title: '',
       category: 'Folierung'
     });
+    setAutoFetchThumbnail(true);
     setShowModal(true);
   };
 
@@ -54,6 +64,7 @@ const GalleryManager: React.FC = () => {
       title: image.title,
       category: image.category
     });
+    setAutoFetchThumbnail(false); // Don't auto-fetch when editing
     setShowModal(true);
   };
 
@@ -173,24 +184,64 @@ const GalleryManager: React.FC = () => {
                 <>
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
-                      YouTube Video ID
+                      YouTube Video ID or URL
                     </label>
                     <input
                       type="text"
                       value={formData.videoId}
-                      onChange={(e) => setFormData({ ...formData, videoId: e.target.value })}
+                      onChange={(e) => {
+                        let videoId = e.target.value;
+                        // Extract video ID from full URL if pasted
+                        if (videoId.includes('youtube.com') || videoId.includes('youtu.be')) {
+                          const match = videoId.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]+)/);
+                          if (match) videoId = match[1];
+                        }
+                        setFormData({ ...formData, videoId });
+                      }}
                       className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-accent-purple"
-                      placeholder="udbvm6bulGU"
+                      placeholder="udbvm6bulGU or paste full YouTube URL"
                       required
                     />
+                    <p className="mt-1 text-xs text-gray-500">
+                      💡 Paste full YouTube URL or just the video ID
+                    </p>
                   </div>
+                  
+                  {formData.videoId && (
+                    <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                      <p className="text-sm text-blue-700">
+                        <strong>Video ID:</strong> {formData.videoId}
+                      </p>
+                      <p className="text-xs text-blue-600 mt-1">
+                        Preview: https://youtube.com/watch?v={formData.videoId}
+                      </p>
+                    </div>
+                  )}
+
                   <ImageUpload
-                    label="Thumbnail Image"
+                    label="Thumbnail Image (Optional)"
                     value={formData.thumbnail}
-                    onChange={(value) => setFormData({ ...formData, thumbnail: value })}
-                    placeholder="https://i3.ytimg.com/vi/VIDEO_ID/maxresdefault.jpg"
-                    description="Upload thumbnail or enter URL"
+                    onChange={(value) => {
+                      setFormData({ ...formData, thumbnail: value });
+                      setAutoFetchThumbnail(false);
+                    }}
+                    placeholder="Auto-generated from YouTube"
+                    description="Leave empty to use YouTube's thumbnail"
                   />
+                  
+                  {formData.thumbnail && (
+                    <div className="text-center">
+                      <img 
+                        src={formData.thumbnail} 
+                        alt="Thumbnail preview" 
+                        className="max-h-32 mx-auto rounded-lg border-2 border-gray-200"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = 'none';
+                        }}
+                      />
+                    </div>
+                  )}
                 </>
               )}
 

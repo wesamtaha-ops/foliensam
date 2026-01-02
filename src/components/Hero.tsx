@@ -15,7 +15,9 @@ const Hero = () => {
   useEffect(() => {
     const loadHeroData = async () => {
       try {
+        console.log('🏠 Loading hero data...');
         const data = await getHeroData();
+        console.log('✅ Hero data loaded:', data);
         setHeroData(data);
       } catch (err) {
         console.error('❌ Failed to load hero data:', err);

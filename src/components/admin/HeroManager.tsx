@@ -28,6 +28,7 @@ const HeroManager: React.FC = () => {
 
   const handleSave = async () => {
     try {
+      console.log('💾 Saving hero data:', heroData);
       await updateHeroData(heroData);
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
@@ -64,7 +65,10 @@ const HeroManager: React.FC = () => {
         <ImageUpload
           label="Main Background Image"
           value={heroData.mainImageUrl}
-          onChange={(value) => setHeroData({ ...heroData, mainImageUrl: value })}
+          onChange={(value) => {
+            console.log('📝 Updating mainImageUrl to:', value);
+            setHeroData({ ...heroData, mainImageUrl: value });
+          }}
           placeholder="https://example.com/image.jpg"
           description="This image appears as the main background in the hero section"
         />
@@ -73,7 +77,10 @@ const HeroManager: React.FC = () => {
         <ImageUpload
           label="Hero Circle Video/GIF"
           value={heroData.videoUrl}
-          onChange={(value) => setHeroData({ ...heroData, videoUrl: value })}
+          onChange={(value) => {
+            console.log('📝 Updating videoUrl to:', value);
+            setHeroData({ ...heroData, videoUrl: value });
+          }}
           placeholder="https://example.com/video.gif"
           description="This appears in the circular video preview on the right side"
         />

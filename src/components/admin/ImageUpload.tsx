@@ -38,8 +38,9 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
     setUploading(true);
     
     try {
-      const base64Data = await saveUploadedImage(file);
-      onChange(base64Data);
+      const uploadedUrl = await saveUploadedImage(file);
+      console.log('🖼️ Image uploaded, calling onChange with URL:', uploadedUrl);
+      onChange(uploadedUrl);
       setError('');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Upload failed');

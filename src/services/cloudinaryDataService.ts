@@ -4,32 +4,53 @@
 const CLOUDINARY_CLOUD_NAME = 'dm2hybs2u';
 const CLOUDINARY_UPLOAD_PRESET = 'folien_sam_uploads';
 
-// Public IDs for our JSON files in Cloudinary
-const DATA_FILES = {
-  gallery: 'folien_sam_data/gallery',
-  hero: 'folien_sam_data/hero',
-  services: 'folien_sam_data/services',
-  translations: 'folien_sam_data/translations',
-  settings: 'folien_sam_data/settings',
+// Use localStorage to track latest version URLs
+const LATEST_URLS_KEY = 'folien_sam_cloudinary_urls';
+
+// Get stored URLs
+const getStoredUrls = (): Record<string, string> => {
+  try {
+    const stored = localStorage.getItem(LATEST_URLS_KEY);
+    return stored ? JSON.parse(stored) : {};
+  } catch {
+    return {};
+  }
+};
+
+// Save URL for a data type
+const saveUrl = (dataType: string, url: string): void => {
+  const urls = getStoredUrls();
+  urls[dataType] = url;
+  localStorage.setItem(LATEST_URLS_KEY, JSON.stringify(urls));
+};
+
+// Get URL for a data type
+const getUrl = (dataType: string): string | null => {
+  const urls = getStoredUrls();
+  return urls[dataType] || null;
 };
 
 /**
  * Upload JSON data to Cloudinary as a raw file
  */
 export const uploadJSONToCloudinary = async (
-  publicId: string,
+  dataType: string,
   data: any
 ): Promise<string> => {
   try {
-    console.log(`📤 Uploading JSON to Cloudinary: ${publicId}`);
+    // Generate unique filename with timestamp
+    const timestamp = Date.now();
+    const uniqueId = `folien_sam_${dataType}_${timestamp}`;
+    
+    console.log(`📤 Uploading JSON to Cloudinary: ${uniqueId}`);
+    console.log(`📦 Data to upload:`, data);
     
     const jsonString = JSON.stringify(data, null, 2);
     const blob = new Blob([jsonString], { type: 'application/json' });
     
     const formData = new FormData();
-    formData.append('file', blob, `${publicId.split('/').pop()}.json`);
+    formData.append('file', blob, `${uniqueId}.json`);
     formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
-    formData.append('public_id', publicId);
     
     const response = await fetch(
       `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/raw/upload`,
@@ -46,9 +67,16 @@ export const uploadJSONToCloudinary = async (
     }
 
     const result = await response.json();
-    console.log('✅ JSON uploaded to Cloudinary:', result.secure_url);
+    const url = result.secure_url;
+    
+    console.log('✅ JSON uploaded to Cloudinary:', url);
     console.log('   Public ID:', result.public_id);
-    return result.secure_url;
+    
+    // Store the URL for this data type
+    saveUrl(dataType, url);
+    console.log(`💾 Saved URL for ${dataType}:`, url);
+    
+    return url;
   } catch (error) {
     console.error('❌ Cloudinary JSON upload error:', error);
     throw error;
@@ -56,27 +84,43 @@ export const uploadJSONToCloudinary = async (
 };
 
 /**
- * Download JSON data from Cloudinary
+ * Download JSON data from Cloudinary using stored URL
  */
 export const downloadJSONFromCloudinary = async (
-  publicId: string
+  dataType: string
 ): Promise<any> => {
   try {
-    // Construct the raw file URL
-    const url = `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/raw/upload/${publicId}.json`;
+    // Get the stored URL for this data type
+    const storedUrl = getUrl(dataType);
     
-    const response = await fetch(url);
+    if (!storedUrl) {
+      console.warn(`⚠️ No stored URL for ${dataType}, data not initialized`);
+      return null;
+    }
+    
+    // Add cache busting
+    const timestamp = new Date().getTime();
+    const url = `${storedUrl}?_=${timestamp}`;
+    
+    console.log(`📥 Downloading ${dataType} from:`, url);
+    
+    const response = await fetch(url, {
+      cache: 'no-cache',
+      headers: {
+        'Cache-Control': 'no-cache'
+      }
+    });
     
     if (!response.ok) {
       if (response.status === 404) {
-        console.warn('⚠️ JSON file not found in Cloudinary:', publicId);
+        console.warn(`⚠️ JSON file not found: ${dataType}`);
         return null;
       }
       throw new Error(`Failed to fetch JSON: ${response.statusText}`);
     }
 
     const data = await response.json();
-    console.log('✅ JSON downloaded from Cloudinary:', publicId);
+    console.log(`✅ JSON downloaded for ${dataType}:`, data);
     return data;
   } catch (error) {
     console.error('❌ Cloudinary JSON download error:', error);
@@ -88,7 +132,7 @@ export const downloadJSONFromCloudinary = async (
  * Get gallery data from Cloudinary
  */
 export const getGalleryData = async (): Promise<any[]> => {
-  const data = await downloadJSONFromCloudinary(DATA_FILES.gallery);
+  const data = await downloadJSONFromCloudinary('gallery');
   
   if (!data) {
     // Return default gallery data
@@ -127,14 +171,14 @@ export const getGalleryData = async (): Promise<any[]> => {
  * Save gallery data to Cloudinary
  */
 export const saveGalleryData = async (data: any[]): Promise<void> => {
-  await uploadJSONToCloudinary(DATA_FILES.gallery, data);
+  await uploadJSONToCloudinary('gallery', data);
 };
 
 /**
  * Get hero data from Cloudinary
  */
 export const getHeroData = async (): Promise<any> => {
-  const data = await downloadJSONFromCloudinary(DATA_FILES.hero);
+  const data = await downloadJSONFromCloudinary('hero');
   
   if (!data) {
     // Return default hero data
@@ -152,14 +196,14 @@ export const getHeroData = async (): Promise<any> => {
  * Save hero data to Cloudinary
  */
 export const saveHeroData = async (data: any): Promise<void> => {
-  await uploadJSONToCloudinary(DATA_FILES.hero, data);
+  await uploadJSONToCloudinary('hero', data);
 };
 
 /**
  * Get services data from Cloudinary
  */
 export const getServicesData = async (): Promise<any[]> => {
-  const data = await downloadJSONFromCloudinary(DATA_FILES.services);
+  const data = await downloadJSONFromCloudinary('services');
   
   if (!data) {
     // Return default services data
@@ -187,14 +231,14 @@ export const getServicesData = async (): Promise<any[]> => {
  * Save services data to Cloudinary
  */
 export const saveServicesData = async (data: any[]): Promise<void> => {
-  await uploadJSONToCloudinary(DATA_FILES.services, data);
+  await uploadJSONToCloudinary('services', data);
 };
 
 /**
  * Get translations data from Cloudinary
  */
 export const getTranslationsData = async (): Promise<any> => {
-  const data = await downloadJSONFromCloudinary(DATA_FILES.translations);
+  const data = await downloadJSONFromCloudinary('translations');
   
   if (!data) {
     // Return empty object - will use default translations from locale files
@@ -208,14 +252,14 @@ export const getTranslationsData = async (): Promise<any> => {
  * Save translations data to Cloudinary
  */
 export const saveTranslationsData = async (data: any): Promise<void> => {
-  await uploadJSONToCloudinary(DATA_FILES.translations, data);
+  await uploadJSONToCloudinary('translations', data);
 };
 
 /**
  * Get settings data from Cloudinary
  */
 export const getSettingsData = async (): Promise<any> => {
-  const data = await downloadJSONFromCloudinary(DATA_FILES.settings);
+  const data = await downloadJSONFromCloudinary('settings');
   
   if (!data) {
     // Return default settings
@@ -234,7 +278,7 @@ export const getSettingsData = async (): Promise<any> => {
  * Save settings data to Cloudinary
  */
 export const saveSettingsData = async (data: any): Promise<void> => {
-  await uploadJSONToCloudinary(DATA_FILES.settings, data);
+  await uploadJSONToCloudinary('settings', data);
 };
 
 /**
@@ -244,12 +288,13 @@ export const initializeCloudinaryData = async (): Promise<void> => {
   try {
     console.log('🚀 Initializing Cloudinary data storage...');
     
-    // Check if files exist
-    const galleryExists = await downloadJSONFromCloudinary(DATA_FILES.gallery);
-    const heroExists = await downloadJSONFromCloudinary(DATA_FILES.hero);
-    const servicesExists = await downloadJSONFromCloudinary(DATA_FILES.services);
-    const translationsExists = await downloadJSONFromCloudinary(DATA_FILES.translations);
-    const settingsExists = await downloadJSONFromCloudinary(DATA_FILES.settings);
+    // Check if we already have stored URLs (already initialized)
+    const urls = getStoredUrls();
+    const galleryExists = urls['gallery'];
+    const heroExists = urls['hero'];
+    const servicesExists = urls['services'];
+    const translationsExists = urls['translations'];
+    const settingsExists = urls['settings'];
     
     // Create default files if they don't exist
     if (!galleryExists) {

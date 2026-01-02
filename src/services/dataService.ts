@@ -50,10 +50,13 @@ export interface Service {
 export const getHeroData = async (): Promise<HeroData> => {
   try {
     // Try Cloudinary first
+    console.log('📡 Fetching hero data from Cloudinary...');
     const data = await getHeroFromCloudinary();
     if (data) {
+      console.log('✅ Got hero data from Cloudinary:', data);
       return data;
     }
+    console.log('⚠️ No data from Cloudinary, trying localStorage...');
   } catch (error) {
     console.warn('Failed to load hero data from Cloudinary:', error);
   }
@@ -61,10 +64,12 @@ export const getHeroData = async (): Promise<HeroData> => {
   // Fallback to localStorage
   const stored = localStorage.getItem('folien_sam_hero_data');
   if (stored) {
+    console.log('📦 Using hero data from localStorage');
     return JSON.parse(stored);
   }
   
   // Default data
+  console.log('🔄 Using default hero data');
   return {
     mainImageUrl: 'https://images.cood.ai/cards.gif',
     videoUrl: 'https://images.cood.ai/cards.gif',
@@ -77,6 +82,10 @@ export const updateHeroData = async (data: HeroData): Promise<void> => {
     // Save to Cloudinary
     await saveHeroToCloudinary(data);
     console.log('✅ Hero data saved to Cloudinary');
+    
+    // Clear localStorage to ensure we use Cloudinary data
+    localStorage.removeItem('folien_sam_hero_data');
+    console.log('🗑️ Cleared localStorage hero data');
   } catch (error) {
     console.error('❌ Failed to save hero data to Cloudinary:', error);
     // Fallback to localStorage

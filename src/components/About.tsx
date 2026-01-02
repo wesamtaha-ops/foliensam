@@ -84,21 +84,7 @@ const About = () => {
       
         </div>
         
-        {/* Premium Quality GIF above description */}
-        {heroData.premiumQualityGifUrl && (
-          <div className="mt-12 mb-8 flex justify-center">
-            <div className="relative max-w-2xl w-full">
-              <div className="aspect-video rounded-2xl overflow-hidden shadow-2xl">
-                <img
-                  src={heroData.premiumQualityGifUrl}
-                  alt="Premium Qualität"
-                  className="object-cover w-full h-full"
-                />
-              </div>
-            </div>
-          </div>
-        )}
-        
+      
          <h3 className="text-xl mt-8 font-light text-gray-900">
                 {t('about.description')}
               </h3>

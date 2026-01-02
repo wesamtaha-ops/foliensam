@@ -27,6 +27,7 @@ export interface GalleryImage {
   title?: string; // Optional - auto-generated if not provided
   category: string;
   publishedAt?: string;
+  sortOrder?: number; // For manual ordering
 }
 
 export interface Service {
@@ -72,8 +73,16 @@ export const getGalleryImages = async (): Promise<GalleryImage[]> => {
   console.log('📡 Fetching gallery from PHP server...');
   const data = await getGalleryFromPHP();
   
-  // Sort by publishedAt (newest first)
+  // Sort by sortOrder first (if exists), then by publishedAt (newest first)
   const sorted = data.sort((a, b) => {
+    // If both have sortOrder, use that
+    if (a.sortOrder !== undefined && b.sortOrder !== undefined) {
+      return a.sortOrder - b.sortOrder;
+    }
+    // If only one has sortOrder, prioritize it
+    if (a.sortOrder !== undefined) return -1;
+    if (b.sortOrder !== undefined) return 1;
+    // Otherwise sort by date
     const dateA = new Date(a.publishedAt || 0).getTime();
     const dateB = new Date(b.publishedAt || 0).getTime();
     return dateB - dateA;
@@ -114,6 +123,19 @@ export const deleteGalleryImage = async (id: string): Promise<void> => {
   const images = await getGalleryImages();
   const filteredImages = images.filter(img => img.id !== id);
   await saveGalleryImages(filteredImages);
+};
+
+export const updateGallerySortOrder = async (orderedIds: string[]): Promise<void> => {
+  const images = await getGalleryImages();
+  // Update sortOrder for each image based on its position in orderedIds
+  const updatedImages = images.map(img => {
+    const index = orderedIds.indexOf(img.id);
+    return {
+      ...img,
+      sortOrder: index !== -1 ? index : undefined
+    };
+  });
+  await saveGalleryImages(updatedImages);
 };
 
 // ========================================

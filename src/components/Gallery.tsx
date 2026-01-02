@@ -12,6 +12,7 @@ interface GalleryItem {
   title?: string; // Optional - auto-generated if not provided
   category: string;
   publishedAt?: string; // Added for sorting
+  sortOrder?: number; // For manual ordering
 }
 
 type TabType = 'all' | 'images' | 'videos';
@@ -94,7 +95,8 @@ const Gallery = () => {
           url: img.url,
           title: img.title,
           category: img.category,
-          publishedAt: img.publishedAt
+          publishedAt: img.publishedAt,
+          sortOrder: img.sortOrder
         }));
         
         setGalleryImages(galleryItems);
@@ -223,8 +225,16 @@ const Gallery = () => {
 
     console.log(`📊 Gallery stats: ${allItems.length} total items → ${uniqueItems.length} unique items (${allItems.length - uniqueItems.length} duplicates removed)`);
     
-    // Sort ALL unique items by date (newest first) - images uploaded from admin will appear first!
+    // Sort ALL unique items by custom sortOrder first (if exists), then by date (newest first)
     return uniqueItems.sort((a, b) => {
+      // If both have sortOrder, use that
+      if (a.sortOrder !== undefined && b.sortOrder !== undefined) {
+        return a.sortOrder - b.sortOrder;
+      }
+      // If only one has sortOrder, prioritize it
+      if (a.sortOrder !== undefined) return -1;
+      if (b.sortOrder !== undefined) return 1;
+      // Otherwise sort by date (newest first)
       const dateA = a.publishedAt ? new Date(a.publishedAt).getTime() : 0;
       const dateB = b.publishedAt ? new Date(b.publishedAt).getTime() : 0;
       return dateB - dateA; // Descending order (newest first)

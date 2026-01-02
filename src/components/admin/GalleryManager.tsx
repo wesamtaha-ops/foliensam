@@ -1,18 +1,111 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Edit2, Trash2, X, Video } from 'lucide-react';
+import { Plus, Edit2, Trash2, X, Video, GripVertical, Image as ImageIcon } from 'lucide-react';
 import {
   getGalleryImages,
   addGalleryImage,
   updateGalleryImage,
   deleteGalleryImage,
+  updateGallerySortOrder,
   GalleryImage
 } from '../../services/dataService';
 import ImageUpload from './ImageUpload';
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+  rectSortingStrategy
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+
+// Sortable Item Component
+interface SortableItemProps {
+  image: GalleryImage;
+  onEdit: (image: GalleryImage) => void;
+  onDelete: (id: string) => void;
+}
+
+const SortableItem: React.FC<SortableItemProps> = ({ image, onEdit, onDelete }) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging
+  } = useSortable({ id: image.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      className="relative group border-2 border-gray-200 rounded-lg overflow-hidden"
+    >
+      {/* Drag Handle */}
+      <div
+        {...attributes}
+        {...listeners}
+        className="absolute top-2 right-2 z-10 bg-white/90 p-1.5 rounded cursor-grab active:cursor-grabbing hover:bg-white transition-colors"
+      >
+        <GripVertical className="h-4 w-4 text-gray-600" />
+      </div>
+
+      <div className="aspect-square">
+        <img
+          src={image.type === 'youtube' ? image.thumbnail : image.url}
+          alt={image.title}
+          className="w-full h-full object-cover"
+        />
+        {image.type === 'youtube' && (
+          <div className="absolute top-2 left-2">
+            <Video className="h-5 w-5 text-white drop-shadow-lg" />
+          </div>
+        )}
+      </div>
+      <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+        <button
+          onClick={() => onEdit(image)}
+          className="p-2 bg-white rounded-lg hover:bg-gray-100 transition-colors"
+        >
+          <Edit2 className="h-4 w-4 text-blue-600" />
+        </button>
+        <button
+          onClick={() => onDelete(image.id)}
+          className="p-2 bg-white rounded-lg hover:bg-gray-100 transition-colors"
+        >
+          <Trash2 className="h-4 w-4 text-red-600" />
+        </button>
+      </div>
+      <div className="p-2 sm:p-3 bg-white">
+        <p className="text-xs sm:text-sm font-medium text-gray-800 truncate">{image.title || 'Untitled'}</p>
+        <p className="text-xs text-gray-500">{image.category}</p>
+      </div>
+    </div>
+  );
+};
+
+type TabType = 'all' | 'images' | 'videos';
 
 const GalleryManager: React.FC = () => {
   const [images, setImages] = useState<GalleryImage[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [editingImage, setEditingImage] = useState<GalleryImage | null>(null);
+  const [activeTab, setActiveTab] = useState<TabType>('all');
   const [formData, setFormData] = useState({
     type: 'image' as 'image' | 'youtube',
     url: '',
@@ -22,6 +115,14 @@ const GalleryManager: React.FC = () => {
     category: 'Folierung'
   });
   const [autoFetchThumbnail, setAutoFetchThumbnail] = useState(true);
+
+  // Set up drag sensors
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   useEffect(() => {
     loadImages();
@@ -120,12 +221,38 @@ const GalleryManager: React.FC = () => {
     }
   };
 
+  const handleDragEnd = async (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (over && active.id !== over.id) {
+      const oldIndex = images.findIndex((img) => img.id === active.id);
+      const newIndex = images.findIndex((img) => img.id === over.id);
+
+      const newImages = arrayMove(images, oldIndex, newIndex);
+      setImages(newImages);
+
+      // Save the new order
+      const orderedIds = newImages.map(img => img.id);
+      await updateGallerySortOrder(orderedIds);
+    }
+  };
+
+  // Filter images based on active tab
+  const filteredImages = React.useMemo(() => {
+    if (activeTab === 'images') {
+      return images.filter(img => img.type === 'image');
+    } else if (activeTab === 'videos') {
+      return images.filter(img => img.type === 'youtube');
+    }
+    return images; // 'all' tab
+  }, [images, activeTab]);
+
   return (
     <div className="bg-white rounded-xl shadow-md p-4 sm:p-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <div>
           <h2 className="text-xl sm:text-2xl font-bold text-primary-dark">Gallery Management</h2>
-          <p className="text-sm sm:text-base text-gray-600">Add, edit, or remove gallery items</p>
+          <p className="text-sm sm:text-base text-gray-600">Drag to reorder, add, edit, or remove gallery items</p>
         </div>
         <button
           onClick={handleAdd}
@@ -136,42 +263,66 @@ const GalleryManager: React.FC = () => {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-        {images.map((image) => (
-          <div key={image.id} className="relative group border-2 border-gray-200 rounded-lg overflow-hidden">
-            <div className="aspect-square">
-              <img
-                src={image.type === 'youtube' ? image.thumbnail : image.url}
-                alt={image.title}
-                className="w-full h-full object-cover"
-              />
-              {image.type === 'youtube' && (
-                <div className="absolute top-2 left-2">
-                  <Video className="h-5 w-5 text-white drop-shadow-lg" />
-                </div>
-              )}
-            </div>
-            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-              <button
-                onClick={() => handleEdit(image)}
-                className="p-2 bg-white rounded-lg hover:bg-gray-100 transition-colors"
-              >
-                <Edit2 className="h-4 w-4 text-blue-600" />
-              </button>
-              <button
-                onClick={() => handleDelete(image.id)}
-                className="p-2 bg-white rounded-lg hover:bg-gray-100 transition-colors"
-              >
-                <Trash2 className="h-4 w-4 text-red-600" />
-              </button>
-            </div>
-            <div className="p-2 sm:p-3 bg-white">
-              <p className="text-xs sm:text-sm font-medium text-gray-800 truncate">{image.title || 'Untitled'}</p>
-              <p className="text-xs text-gray-500">{image.category}</p>
-            </div>
-          </div>
-        ))}
+      {/* Tabs */}
+      <div className="flex justify-start mb-6 border-b border-gray-200">
+        <button
+          onClick={() => setActiveTab('all')}
+          className={`flex items-center gap-2 px-4 py-3 font-semibold transition-all duration-300 border-b-2 ${
+            activeTab === 'all'
+              ? 'border-accent-purple text-accent-purple'
+              : 'border-transparent text-gray-500 hover:text-gray-700'
+          }`}
+        >
+          All ({images.length})
+        </button>
+        <button
+          onClick={() => setActiveTab('videos')}
+          className={`flex items-center gap-2 px-4 py-3 font-semibold transition-all duration-300 border-b-2 ${
+            activeTab === 'videos'
+              ? 'border-accent-purple text-accent-purple'
+              : 'border-transparent text-gray-500 hover:text-gray-700'
+          }`}
+        >
+          <Video className="w-4 h-4" />
+          Videos ({images.filter(img => img.type === 'youtube').length})
+        </button>
+        <button
+          onClick={() => setActiveTab('images')}
+          className={`flex items-center gap-2 px-4 py-3 font-semibold transition-all duration-300 border-b-2 ${
+            activeTab === 'images'
+              ? 'border-accent-purple text-accent-purple'
+              : 'border-transparent text-gray-500 hover:text-gray-700'
+          }`}
+        >
+          <ImageIcon className="w-4 h-4" />
+          Images ({images.filter(img => img.type === 'image').length})
+        </button>
       </div>
+
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+      >
+        <SortableContext items={filteredImages.map(img => img.id)} strategy={rectSortingStrategy}>
+          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+            {filteredImages.length === 0 ? (
+              <div className="col-span-full text-center py-12 text-gray-500">
+                <p className="text-lg">No items in this category</p>
+              </div>
+            ) : (
+              filteredImages.map((image) => (
+                <SortableItem
+                  key={image.id}
+                  image={image}
+                  onEdit={handleEdit}
+                  onDelete={handleDelete}
+                />
+              ))
+            )}
+          </div>
+        </SortableContext>
+      </DndContext>
 
       {/* Add/Edit Modal */}
       {showModal && (

@@ -194,6 +194,21 @@ export interface Settings {
   siteName?: string;
   contactEmail?: string;
   whatsappNumber?: string;
+  seo?: {
+    title?: string;
+    description?: string;
+    keywords?: string;
+    ogTitle?: string;
+    ogDescription?: string;
+    ogImage?: string;
+    ogUrl?: string;
+    twitterTitle?: string;
+    twitterDescription?: string;
+    twitterImage?: string;
+    canonicalUrl?: string;
+    author?: string;
+    robots?: string;
+  };
 }
 
 export const getSettings = async (): Promise<Settings> => {
@@ -206,7 +221,22 @@ export const getSettings = async (): Promise<Settings> => {
     youtubeChannelId: '',
     siteName: 'FolienSam',
     contactEmail: 'info@foliensam.de',
-    whatsappNumber: '+49 157 50000505'
+    whatsappNumber: '+49 157 50000505',
+    seo: {
+      title: 'FolienSam Autofolierung Berlin | Premium Fahrzeugveredelung & Car Wrapping',
+      description: 'Ihre Experten für professionelle Fahrzeugfolierung in Berlin ➤ Scheibentönung ➤ Lackschutzfolierung ➤ PPF ➤ 5 Jahre Garantie ✓ Premium 3M Materialien ✓ Zertifizierte Experten ✆ Jetzt Termin vereinbaren!',
+      keywords: 'Autofolierung Berlin, Fahrzeugfolierung, Car Wrapping, Scheibentönung, Lackschutzfolierung PPF, Chromfolierung, Mattfolierung, Carbonfolierung, Steinschlagschutzfolie, Folie Auto, KFZ Folierung, Carwrapping Berlin, Auto umfolieren, Teilfolierung, Vollfolierung, Fahrzeugdesign, 3M Folierung, Avery Dennison, Premium Folierung, Folierung Preise',
+      ogTitle: 'FolienSam Autofolierung Berlin | Premium Fahrzeugveredelung & Car Wrapping',
+      ogDescription: 'Ihre Experten für professionelle Fahrzeugfolierung in Berlin ➤ Scheibentönung ➤ Lackschutzfolierung ➤ PPF ➤ 5 Jahre Garantie ✓ Premium 3M Materialien ✓ Zertifizierte Experten ✆ Jetzt Termin vereinbaren!',
+      ogImage: 'https://images.cood.ai/samgo/car1.png',
+      ogUrl: 'https://foliensam.de/',
+      twitterTitle: 'FolienSam Autofolierung Berlin | Premium Fahrzeugveredelung & Car Wrapping',
+      twitterDescription: 'Ihre Experten für professionelle Fahrzeugfolierung in Berlin ➤ Scheibentönung ➤ Lackschutzfolierung ➤ PPF ➤ 5 Jahre Garantie ✓ Premium 3M Materialien ✓ Zertifizierte Experten ✆ Jetzt Termin vereinbaren!',
+      twitterImage: 'https://images.cood.ai/samgo/car1.png',
+      canonicalUrl: 'https://foliensam.de/',
+      author: 'FolienSam Autofolierung',
+      robots: 'index, follow'
+    }
   };
 };
 

@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-import { LogOut, Image, Images, Briefcase, Settings, Languages, Database } from 'lucide-react';
+import { LogOut, Image, Images, Briefcase, Settings, Languages, Database, Search } from 'lucide-react';
 import HeroManager from './HeroManager';
 import GalleryManager from './GalleryManager';
 import ServicesManager from './ServicesManager';
 import SettingsManager from './SettingsManager';
 import TranslationManager from './TranslationManager';
 import DataInitializer from './DataInitializer';
+import SEOManager from './SEOManager';
 
 interface AdminDashboardProps {
   onLogout: () => void;
 }
 
-type TabType = 'init' | 'hero' | 'gallery' | 'services' | 'translations' | 'settings';
+type TabType = 'init' | 'hero' | 'gallery' | 'services' | 'translations' | 'seo' | 'settings';
 
 const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
   const [activeTab, setActiveTab] = useState<TabType>('init');
@@ -23,6 +24,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
     { id: 'gallery' as TabType, label: 'Gallery', icon: <Images className="h-5 w-5" /> },
     { id: 'services' as TabType, label: 'Services', icon: <Briefcase className="h-5 w-5" /> },
     { id: 'translations' as TabType, label: 'Translations', icon: <Languages className="h-5 w-5" /> },
+    { id: 'seo' as TabType, label: 'SEO Settings', icon: <Search className="h-5 w-5" /> },
     { id: 'settings' as TabType, label: 'Settings', icon: <Settings className="h-5 w-5" /> },
   ];
 
@@ -104,6 +106,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
           {activeTab === 'gallery' && <GalleryManager />}
           {activeTab === 'services' && <ServicesManager />}
           {activeTab === 'translations' && <TranslationManager />}
+          {activeTab === 'seo' && <SEOManager />}
           {activeTab === 'settings' && <SettingsManager />}
         </main>
       </div>

@@ -10,10 +10,12 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import Admin from './components/admin/Admin';
+import SEO from './components/SEO';
 
 function HomePage() {
   return (
     <div className="min-h-screen">
+      <SEO />
       <header>
         <Navbar />
       </header>

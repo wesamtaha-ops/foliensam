@@ -1,25 +1,23 @@
 import React, { useState } from 'react';
-import { LogOut, Image, Images, Briefcase, Settings, Languages, Database, Search } from 'lucide-react';
+import { LogOut, Image, Images, Briefcase, Settings, Languages, Search } from 'lucide-react';
 import HeroManager from './HeroManager';
 import GalleryManager from './GalleryManager';
 import ServicesManager from './ServicesManager';
 import SettingsManager from './SettingsManager';
 import TranslationManager from './TranslationManager';
-import DataInitializer from './DataInitializer';
 import SEOManager from './SEOManager';
 
 interface AdminDashboardProps {
   onLogout: () => void;
 }
 
-type TabType = 'init' | 'hero' | 'gallery' | 'services' | 'translations' | 'seo' | 'settings';
+type TabType = 'hero' | 'gallery' | 'services' | 'translations' | 'seo' | 'settings';
 
 const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
-  const [activeTab, setActiveTab] = useState<TabType>('init');
+  const [activeTab, setActiveTab] = useState<TabType>('hero');
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const tabs = [
-    { id: 'init' as TabType, label: 'Setup', icon: <Database className="h-5 w-5" /> },
     { id: 'hero' as TabType, label: 'Hero Section', icon: <Image className="h-5 w-5" /> },
     { id: 'gallery' as TabType, label: 'Gallery', icon: <Images className="h-5 w-5" /> },
     { id: 'services' as TabType, label: 'Services', icon: <Briefcase className="h-5 w-5" /> },
@@ -101,7 +99,6 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
 
         {/* Main Content */}
         <main className="flex-1 p-4 sm:p-6 lg:p-8 w-full lg:w-auto overflow-x-hidden">
-          {activeTab === 'init' && <DataInitializer />}
           {activeTab === 'hero' && <HeroManager />}
           {activeTab === 'gallery' && <GalleryManager />}
           {activeTab === 'services' && <ServicesManager />}

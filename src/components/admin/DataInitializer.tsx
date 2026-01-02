@@ -1,18 +1,18 @@
 import { useState } from 'react';
-import { AlertCircle, CheckCircle, Upload } from 'lucide-react';
-import { initializeCloudinaryData } from '../../services/cloudinaryDataService';
-
-const CLOUDINARY_UPLOAD_PRESET = 'folien_sam_uploads';
+import { AlertCircle, CheckCircle, Upload, Link2 } from 'lucide-react';
+import { initializeCloudinaryData, getManifestUrl } from '../../services/cloudinaryDataService';
 
 /**
  * DataInitializer Component
  * 
  * One-time setup to initialize Cloudinary JSON storage
- * Run this once to create the data files in Cloudinary
+ * After initialization, ALL devices read from the SAME hardcoded manifest URL
  */
 export default function DataInitializer() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
+
+  const manifestUrl = getManifestUrl();
 
   const handleInitialize = async () => {
     setStatus('loading');
@@ -22,31 +22,54 @@ export default function DataInitializer() {
       console.log('🚀 Starting Cloudinary initialization...');
       await initializeCloudinaryData();
       setStatus('success');
-      setMessage('✅ Cloudinary data storage initialized successfully! Check console for details.');
+      setMessage('✅ Cloudinary data storage initialized successfully!');
     } catch (error) {
       console.error('❌ Initialization failed:', error);
       setStatus('error');
       const errorMsg = error instanceof Error ? error.message : 'Unknown error';
-      setMessage(`❌ Failed to initialize: ${errorMsg}\n\nCheck browser console (F12) for details.\n\nMake sure your Cloudinary upload preset "${CLOUDINARY_UPLOAD_PRESET}" allows raw file uploads.`);
+      setMessage(`❌ Failed to initialize: ${errorMsg}`);
     }
   };
 
   return (
     <div className="space-y-6">
+      {/* Hardcoded Manifest URL */}
+      <div className="bg-blue-50 rounded-lg shadow-sm p-6 border border-blue-200">
+        <div className="flex items-center space-x-2 mb-3">
+          <Link2 className="w-5 h-5 text-blue-600" />
+          <h3 className="text-lg font-bold text-blue-900">
+            Hardcoded Manifest URL
+          </h3>
+        </div>
+        
+        <p className="text-sm text-blue-800 mb-3">
+          This is the <strong>SINGLE source of truth</strong> for ALL devices. 
+          No localStorage - everyone reads from this URL:
+        </p>
+        
+        <div className="bg-white border border-blue-300 rounded-lg px-4 py-3">
+          <code className="text-sm text-gray-800 break-all">{manifestUrl}</code>
+        </div>
+        
+        <p className="text-xs text-blue-700 mt-2">
+          ✓ Works on all browsers • ✓ Works on mobile • ✓ No sync needed
+        </p>
+      </div>
+
+      {/* Initialize Storage */}
       <div className="bg-white rounded-lg shadow-sm p-6">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">
-          Cloudinary Data Initializer
+          Initialize Cloudinary Storage
         </h2>
         
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
           <div className="flex items-start space-x-3">
-            <AlertCircle className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
-            <div className="text-sm text-blue-900">
-              <p className="font-semibold mb-2">First-Time Setup</p>
+            <AlertCircle className="w-5 h-5 text-yellow-600 mt-0.5 flex-shrink-0" />
+            <div className="text-sm text-yellow-900">
+              <p className="font-semibold mb-2">⚠️ First-Time Setup Only</p>
               <p>
-                This will create JSON data files in your Cloudinary account.
-                You only need to do this once. After initialization, your
-                gallery and hero data will be stored in Cloudinary.
+                Run this once to create the initial data files in Cloudinary.
+                After that, all devices will automatically read from the same source.
               </p>
             </div>
           </div>
@@ -56,36 +79,12 @@ export default function DataInitializer() {
           <div className="bg-gray-50 rounded-lg p-4">
             <h3 className="font-semibold text-gray-900 mb-2">What will be created:</h3>
             <ul className="list-disc list-inside space-y-1 text-gray-700 text-sm">
-              <li>
-                <code className="text-xs bg-gray-200 px-2 py-1 rounded">
-                  folien_sam_data/gallery.json
-                </code>
-                {' '}- Gallery images and videos
-              </li>
-              <li>
-                <code className="text-xs bg-gray-200 px-2 py-1 rounded">
-                  folien_sam_data/hero.json
-                </code>
-                {' '}- Hero section data
-              </li>
-              <li>
-                <code className="text-xs bg-gray-200 px-2 py-1 rounded">
-                  folien_sam_data/services.json
-                </code>
-                {' '}- Services information
-              </li>
-              <li>
-                <code className="text-xs bg-gray-200 px-2 py-1 rounded">
-                  folien_sam_data/translations.json
-                </code>
-                {' '}- Custom translations
-              </li>
-              <li>
-                <code className="text-xs bg-gray-200 px-2 py-1 rounded">
-                  folien_sam_data/settings.json
-                </code>
-                {' '}- Admin settings & password
-              </li>
+              <li>Gallery images and videos</li>
+              <li>Hero section data</li>
+              <li>Services information</li>
+              <li>Custom translations</li>
+              <li>Admin settings & password</li>
+              <li><strong>Manifest file</strong> - central index of all data</li>
             </ul>
           </div>
 
@@ -100,7 +99,7 @@ export default function DataInitializer() {
           >
             <Upload className="w-5 h-5" />
             <span>
-              {status === 'loading' ? 'Initializing...' : 'Initialize Cloudinary Storage'}
+              {status === 'loading' ? 'Initializing...' : 'Initialize Storage'}
             </span>
           </button>
 
@@ -120,78 +119,52 @@ export default function DataInitializer() {
               {status === 'error' && (
                 <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
               )}
-              <p
-                className={`text-sm ${
-                  status === 'success'
-                    ? 'text-green-900'
-                    : status === 'error'
-                    ? 'text-red-900'
-                    : 'text-blue-900'
-                }`}
-              >
+              <p className={`text-sm whitespace-pre-wrap ${
+                status === 'success' ? 'text-green-900' : status === 'error' ? 'text-red-900' : 'text-blue-900'
+              }`}>
                 {message}
-              </p>
-            </div>
-          )}
-
-          {status === 'success' && (
-            <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-              <p className="text-sm text-green-900 font-semibold mb-2">
-                🎉 Setup Complete!
-              </p>
-              <p className="text-sm text-green-800 mb-3">
-                All data files created successfully in Cloudinary! You can now:
-              </p>
-              <ul className="text-sm text-green-800 list-disc list-inside space-y-1">
-                <li>Add gallery images and videos</li>
-                <li>Update hero section</li>
-                <li>Manage services</li>
-                <li>Edit translations</li>
-                <li>Change admin settings</li>
-              </ul>
-              <p className="text-sm text-green-800 mt-3">
-                All changes sync to Cloudinary automatically! ✨
               </p>
             </div>
           )}
         </div>
       </div>
 
+      {/* How It Works */}
       <div className="bg-white rounded-lg shadow-sm p-6">
         <h3 className="text-lg font-bold text-gray-900 mb-3">
           How It Works
         </h3>
         <div className="space-y-3 text-sm text-gray-700">
           <div className="flex items-start space-x-3">
-            <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-              <span className="text-blue-600 font-bold text-xs">1</span>
+            <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+              <span className="text-green-600 font-bold text-xs">1</span>
             </div>
             <p>
-              <strong>Images:</strong> Uploaded to Cloudinary (unlimited storage, CDN delivery)
+              <strong>One Manifest URL:</strong> Hardcoded in the code, same for everyone
             </p>
           </div>
           <div className="flex items-start space-x-3">
-            <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-              <span className="text-blue-600 font-bold text-xs">2</span>
+            <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+              <span className="text-green-600 font-bold text-xs">2</span>
             </div>
             <p>
-              <strong>Data:</strong> Stored as JSON files in Cloudinary (gallery, hero, services, translations, settings)
+              <strong>Manifest Points to Data:</strong> Contains URLs to gallery, hero, services, etc.
             </p>
           </div>
           <div className="flex items-start space-x-3">
-            <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-              <span className="text-blue-600 font-bold text-xs">3</span>
+            <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+              <span className="text-green-600 font-bold text-xs">3</span>
             </div>
             <p>
-              <strong>Production:</strong> Your website reads data directly from Cloudinary
+              <strong>Updates:</strong> When you save, new data file is created and manifest is updated
             </p>
           </div>
           <div className="flex items-start space-x-3">
-            <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-              <span className="text-blue-600 font-bold text-xs">4</span>
+            <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+              <span className="text-green-600 font-bold text-xs">✓</span>
             </div>
             <p>
-              <strong>No Server Needed:</strong> Everything works client-side, deploys to Vercel
+              <strong>All Devices Sync:</strong> Everyone reads from the same manifest = same data
             </p>
           </div>
         </div>
@@ -199,4 +172,3 @@ export default function DataInitializer() {
     </div>
   );
 }
-

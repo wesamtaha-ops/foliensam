@@ -1,5 +1,5 @@
 // Data Service for managing website content
-// Now uses Cloudinary for JSON storage (no server needed!)
+// ALL data comes from Cloudinary - NO localStorage
 
 import {
   getGalleryData as getGalleryFromCloudinary,
@@ -48,50 +48,16 @@ export interface Service {
 // ========================================
 
 export const getHeroData = async (): Promise<HeroData> => {
-  try {
-    // Try Cloudinary first
-    console.log('📡 Fetching hero data from Cloudinary...');
-    const data = await getHeroFromCloudinary();
-    if (data) {
-      console.log('✅ Got hero data from Cloudinary:', data);
-      return data;
-    }
-    console.log('⚠️ No data from Cloudinary, trying localStorage...');
-  } catch (error) {
-    console.warn('Failed to load hero data from Cloudinary:', error);
-  }
-  
-  // Fallback to localStorage
-  const stored = localStorage.getItem('folien_sam_hero_data');
-  if (stored) {
-    console.log('📦 Using hero data from localStorage');
-    return JSON.parse(stored);
-  }
-  
-  // Default data
-  console.log('🔄 Using default hero data');
-  return {
-    mainImageUrl: 'https://images.cood.ai/cards.gif',
-    videoUrl: 'https://images.cood.ai/cards.gif',
-    youtubeVideoId: 'udbvm6bulGU'
-  };
+  console.log('📡 Fetching hero data from Cloudinary...');
+  const data = await getHeroFromCloudinary();
+  console.log('✅ Got hero data:', data);
+  return data;
 };
 
 export const updateHeroData = async (data: HeroData): Promise<void> => {
-  try {
-    // Save to Cloudinary
-    await saveHeroToCloudinary(data);
-    console.log('✅ Hero data saved to Cloudinary');
-    
-    // Clear localStorage to ensure we use Cloudinary data
-    localStorage.removeItem('folien_sam_hero_data');
-    console.log('🗑️ Cleared localStorage hero data');
-  } catch (error) {
-    console.error('❌ Failed to save hero data to Cloudinary:', error);
-    // Fallback to localStorage
-    localStorage.setItem('folien_sam_hero_data', JSON.stringify(data));
-    console.log('⚠️ Hero data saved to localStorage (fallback)');
-  }
+  console.log('💾 Saving hero data to Cloudinary...');
+  await saveHeroToCloudinary(data);
+  console.log('✅ Hero data saved');
 };
 
 // ========================================
@@ -99,56 +65,24 @@ export const updateHeroData = async (data: HeroData): Promise<void> => {
 // ========================================
 
 export const getGalleryImages = async (): Promise<GalleryImage[]> => {
-  try {
-    // Try Cloudinary first
-    const data = await getGalleryFromCloudinary();
-    if (data && data.length > 0) {
-      // Sort by publishedAt (newest first)
-      return data.sort((a, b) => {
-        const dateA = new Date(a.publishedAt || 0).getTime();
-        const dateB = new Date(b.publishedAt || 0).getTime();
-        return dateB - dateA;
-      });
-    }
-  } catch (error) {
-    console.warn('Failed to load gallery data from Cloudinary:', error);
-  }
+  console.log('📡 Fetching gallery from Cloudinary...');
+  const data = await getGalleryFromCloudinary();
   
-  // Fallback to localStorage
-  const stored = localStorage.getItem('folien_sam_gallery_images');
-  if (stored) {
-    const data = JSON.parse(stored);
-    return data.sort((a: GalleryImage, b: GalleryImage) => {
-      const dateA = new Date(a.publishedAt || 0).getTime();
-      const dateB = new Date(b.publishedAt || 0).getTime();
-      return dateB - dateA;
-    });
-  }
+  // Sort by publishedAt (newest first)
+  const sorted = data.sort((a, b) => {
+    const dateA = new Date(a.publishedAt || 0).getTime();
+    const dateB = new Date(b.publishedAt || 0).getTime();
+    return dateB - dateA;
+  });
   
-  // Default data
-  return [
-    {
-      id: '1',
-      type: 'image',
-      url: 'https://images.cood.ai/samgo/001.png',
-      title: 'Premium Folierung',
-      category: 'Folierung',
-      publishedAt: new Date().toISOString()
-    }
-  ];
+  console.log('✅ Got gallery images:', sorted.length);
+  return sorted;
 };
 
 const saveGalleryImages = async (images: GalleryImage[]): Promise<void> => {
-  try {
-    // Save to Cloudinary
-    await saveGalleryToCloudinary(images);
-    console.log('✅ Gallery data saved to Cloudinary');
-  } catch (error) {
-    console.error('❌ Failed to save gallery data to Cloudinary:', error);
-    // Fallback to localStorage
-    localStorage.setItem('folien_sam_gallery_images', JSON.stringify(images));
-    console.log('⚠️ Gallery data saved to localStorage (fallback)');
-  }
+  console.log('💾 Saving gallery to Cloudinary...');
+  await saveGalleryToCloudinary(images);
+  console.log('✅ Gallery saved');
 };
 
 export const addGalleryImage = async (image: Omit<GalleryImage, 'id'>): Promise<GalleryImage> => {
@@ -158,7 +92,7 @@ export const addGalleryImage = async (image: Omit<GalleryImage, 'id'>): Promise<
     id: Date.now().toString(),
     publishedAt: image.publishedAt || new Date().toISOString()
   };
-  images.unshift(newImage); // Add to beginning (newest first)
+  images.unshift(newImage);
   await saveGalleryImages(images);
   return newImage;
 };
@@ -183,51 +117,16 @@ export const deleteGalleryImage = async (id: string): Promise<void> => {
 // ========================================
 
 export const getServices = async (): Promise<Service[]> => {
-  try {
-    // Try Cloudinary first
-    const data = await getServicesFromCloudinary();
-    if (data && data.length > 0) {
-      return data;
-    }
-  } catch (error) {
-    console.warn('Failed to load services from Cloudinary:', error);
-  }
-  
-  // Fallback to localStorage
-  const stored = localStorage.getItem('folien_sam_services');
-  if (stored) {
-    return JSON.parse(stored);
-  }
-  
-  // Default services
-  return [
-    {
-      id: '1',
-      titleKey: 'services.carWrapping.title',
-      descriptionKey: 'services.carWrapping.description',
-      image: 'https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?auto=format&fit=crop&q=80',
-      icon: 'Car',
-      categoryKey: 'services.carWrapping.category',
-      durationKey: 'services.carWrapping.duration',
-      warrantyKey: 'services.carWrapping.warranty',
-      fullDescriptionKey: 'services.carWrapping.fullDescription',
-      featuresKey: 'services.carWrapping.features',
-      processKey: 'services.carWrapping.process'
-    }
-  ];
+  console.log('📡 Fetching services from Cloudinary...');
+  const data = await getServicesFromCloudinary();
+  console.log('✅ Got services:', data.length);
+  return data;
 };
 
 const saveServices = async (services: Service[]): Promise<void> => {
-  try {
-    // Save to Cloudinary
-    await saveServicesToCloudinary(services);
-    console.log('✅ Services data saved to Cloudinary');
-  } catch (error) {
-    console.error('❌ Failed to save services to Cloudinary:', error);
-    // Fallback to localStorage
-    localStorage.setItem('folien_sam_services', JSON.stringify(services));
-    console.log('⚠️ Services saved to localStorage (fallback)');
-  }
+  console.log('💾 Saving services to Cloudinary...');
+  await saveServicesToCloudinary(services);
+  console.log('✅ Services saved');
 };
 
 export const addService = async (service: Omit<Service, 'id'>): Promise<Service> => {
@@ -260,40 +159,24 @@ export const deleteService = async (id: string): Promise<void> => {
 // SETTINGS & ADMIN AUTHENTICATION
 // ========================================
 
-export const getSettings = async (): Promise<any> => {
-  try {
-    // Try Cloudinary first
-    const data = await getSettingsFromCloudinary();
-    if (data) {
-      return data;
-    }
-  } catch (error) {
-    console.warn('Failed to load settings from Cloudinary:', error);
-  }
-  
-  // Fallback to localStorage
-  const storedPassword = localStorage.getItem('folien_sam_admin_password');
-  return {
-    adminPassword: storedPassword || 'admin123',
-    siteName: 'FolienSam',
-    contactEmail: 'info@foliensam.de',
-    whatsappNumber: '+491234567890'
-  };
+interface Settings {
+  adminPassword: string;
+  siteName: string;
+  contactEmail: string;
+  whatsappNumber: string;
+}
+
+export const getSettings = async (): Promise<Settings> => {
+  console.log('📡 Fetching settings from Cloudinary...');
+  const data = await getSettingsFromCloudinary();
+  console.log('✅ Got settings');
+  return data;
 };
 
-export const saveSettings = async (settings: any): Promise<void> => {
-  try {
-    // Save to Cloudinary
-    await saveSettingsToCloudinary(settings);
-    console.log('✅ Settings saved to Cloudinary');
-  } catch (error) {
-    console.error('❌ Failed to save settings to Cloudinary:', error);
-    // Fallback to localStorage
-    if (settings.adminPassword) {
-      localStorage.setItem('folien_sam_admin_password', settings.adminPassword);
-    }
-    console.log('⚠️ Settings saved to localStorage (fallback)');
-  }
+export const saveSettings = async (settings: Settings): Promise<void> => {
+  console.log('💾 Saving settings to Cloudinary...');
+  await saveSettingsToCloudinary(settings);
+  console.log('✅ Settings saved');
 };
 
 export const checkAdminPassword = async (password: string): Promise<boolean> => {

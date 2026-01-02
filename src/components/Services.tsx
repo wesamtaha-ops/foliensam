@@ -1,12 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Car, Shield, Sparkles, Palette, Sun, Building, X, Clock, Check, ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { getServices, Service as ServiceType } from '../services/dataService';
 
 const Services = () => {
   const { t } = useTranslation();
-  const [selectedService, setSelectedService] = useState(null);
+  const [selectedService, setSelectedService] = useState<any>(null);
+  const [servicesData, setServicesData] = useState<ServiceType[]>([]);
 
-  const services = [
+  useEffect(() => {
+    const data = getServices();
+    setServicesData(data);
+  }, []);
+
+  // Icon mapping
+  const getIcon = (iconName: string) => {
+    const icons: { [key: string]: JSX.Element } = {
+      'Car': <Car className="h-6 w-6" />,
+      'Shield': <Shield className="h-6 w-6" />,
+      'Sparkles': <Sparkles className="h-6 w-6" />,
+      'Palette': <Palette className="h-6 w-6" />,
+      'Sun': <Sun className="h-6 w-6" />,
+      'Building': <Building className="h-6 w-6" />
+    };
+    return icons[iconName] || <Car className="h-6 w-6" />;
+  };
+
+  const services = servicesData.map(service => ({
+    title: t(service.titleKey),
+    description: t(service.descriptionKey),
+    image: service.image,
+    icon: getIcon(service.icon),
+    category: t(service.categoryKey),
+    details: {
+      duration: t(service.durationKey),
+      warranty: t(service.warrantyKey),
+      description: t(service.fullDescriptionKey),
+      features: t(service.featuresKey, { returnObjects: true }),
+      process: t(service.processKey, { returnObjects: true })
+    }
+  }));
+
+  // Fallback services if no data in localStorage
+  const fallbackServices = [
     {
       title: t('services.carWrapping.title'),
       description: t('services.carWrapping.description'),
@@ -93,6 +129,9 @@ const Services = () => {
     }
   ];
 
+  // Use fallback services if no custom services are available
+  const displayServices = services.length > 0 ? services : fallbackServices;
+
   return (
     <section className="py-16 md:py-24 bg-gradient-to-b from-white to-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -107,7 +146,7 @@ const Services = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {services.map((service, index) => (
+          {displayServices.map((service, index) => (
             <div 
               key={index} 
               className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:translate-y-[-4px] cursor-pointer"

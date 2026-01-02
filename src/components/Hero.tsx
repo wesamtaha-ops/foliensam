@@ -1,17 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Car, Play } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { getHeroData, HeroData } from '../services/dataService';
 
 const Hero = () => {
   const { t } = useTranslation();
   const [showVideo, setShowVideo] = useState(false);
+  const [heroData, setHeroData] = useState<HeroData>({
+    mainImageUrl: 'https://images.cood.ai/cards.gif',
+    videoUrl: 'https://images.cood.ai/cards.gif',
+    youtubeVideoId: 'udbvm6bulGU'
+  });
+
+  useEffect(() => {
+    const data = getHeroData();
+    setHeroData(data);
+  }, []);
 
   return (
     <div className="relative min-h-screen overflow-hidden">
       {/* Background Video/GIF */}
       <div className="absolute inset-0">
         <img
-          src="https://images.cood.ai/cards.gif"
+          src={heroData.mainImageUrl}
           alt="Car Wrapping Process"
           className="absolute w-full h-full object-cover"
           style={{ objectPosition: 'center 75%' }}
@@ -118,7 +129,7 @@ const Hero = () => {
                 {/* Inner circle with gradient */}
                 <div className="relative w-96 h-96 rounded-full overflow-hidden group-hover:scale-105 transition-transform duration-500">
                   <img
-                    src="https://images.cood.ai/cards.gif"
+                    src={heroData.videoUrl}
                     alt="Car Wrapping Preview"
                     className="w-full h-full object-cover"
                   />
@@ -155,7 +166,7 @@ const Hero = () => {
             {/* Vertical video container for shorts */}
             <div className="relative w-full h-[80vh] md:h-[70vh] bg-black rounded-2xl overflow-hidden">
               <iframe
-                src="https://www.youtube.com/embed/udbvm6bulGU?autoplay=1&modestbranding=1&rel=0&showinfo=0&controls=1&loop=1&playlist=udbvm6bulGU"
+                src={`https://www.youtube.com/embed/${heroData.youtubeVideoId}?autoplay=1&modestbranding=1&rel=0&showinfo=0&controls=1&loop=1&playlist=${heroData.youtubeVideoId}`}
                 className="w-full h-full rounded-2xl"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen

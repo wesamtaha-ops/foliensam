@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { X, ChevronLeft, ChevronRight, Play, Loader2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { fetchAllChannelShorts, YouTubeVideo } from '../services/youtubeApi';
+import { getGalleryImages } from '../services/dataService';
 
 interface GalleryItem {
   type: 'youtube' | 'image';
@@ -161,42 +162,19 @@ const Gallery = () => {
       
     ] : [];
 
-    const staticItems: GalleryItem[] = [
-      {
-        type: 'image' as const,
-        url: "https://images.cood.ai/samgo/001.png",
-        title: "Premium Folierung",
-        category: "Folierung"
-      },
-      {
-        type: 'image' as const,
-        url: "https://images.cood.ai/samgo/002.png",
-        title: "Mattfolierung",
-        category: "Folierung"
-      },
-      {
-        type: 'image' as const,
-        url: "https://images.cood.ai/samgo/003.png",
-        title: "Chromfolierung",
-        category: "Folierung"
-      },
-      {
-        type: 'image' as const,
-        url: "https://images.cood.ai/samgo/004.png",
-        title: "Designfolierung",
-        category: "Folierung"
-      },
-      {
-        type: 'image' as const,
-        url: "https://images.cood.ai/samgo/005.png",
-        title: "Vollfolierung",
-        category: "Folierung"
-      }
-    ];
+    // Load custom gallery images from localStorage/dataService
+    const staticItems: GalleryItem[] = getGalleryImages();
 
     // Return fallback videos + static images if no API videos, otherwise API videos + static images
     const allVideos = youtubeVideos.length > 0 ? youtubeItems : fallbackYoutubeItems;
-    return [...allVideos, ...staticItems];
+    const allItems = [...allVideos, ...staticItems];
+    
+    // Sort ALL items by date (newest first) - images uploaded from admin will appear first!
+    return allItems.sort((a, b) => {
+      const dateA = a.publishedAt ? new Date(a.publishedAt).getTime() : 0;
+      const dateB = b.publishedAt ? new Date(b.publishedAt).getTime() : 0;
+      return dateB - dateA; // Descending order (newest first)
+    });
   }, [youtubeVideos]);
 
   const handlePrevious = useCallback(() => {

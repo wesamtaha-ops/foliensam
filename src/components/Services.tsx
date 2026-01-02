@@ -9,8 +9,16 @@ const Services = () => {
   const [servicesData, setServicesData] = useState<ServiceType[]>([]);
 
   useEffect(() => {
-    const data = getServices();
-    setServicesData(data);
+    const loadServices = async () => {
+      try {
+        const data = await getServices();
+        setServicesData(data);
+      } catch (err) {
+        console.error('Failed to load services:', err);
+        setServicesData([]);
+      }
+    };
+    loadServices();
   }, []);
 
   // Icon mapping

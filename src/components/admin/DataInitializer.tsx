@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { AlertCircle, CheckCircle, Upload } from 'lucide-react';
 import { initializeCloudinaryData } from '../../services/cloudinaryDataService';
 
+const CLOUDINARY_UPLOAD_PRESET = 'folien_sam_uploads';
+
 /**
  * DataInitializer Component
  * 
@@ -17,12 +19,15 @@ export default function DataInitializer() {
     setMessage('Initializing Cloudinary data storage...');
     
     try {
+      console.log('🚀 Starting Cloudinary initialization...');
       await initializeCloudinaryData();
       setStatus('success');
-      setMessage('✅ Cloudinary data storage initialized successfully!');
+      setMessage('✅ Cloudinary data storage initialized successfully! Check console for details.');
     } catch (error) {
+      console.error('❌ Initialization failed:', error);
       setStatus('error');
-      setMessage(`❌ Failed to initialize: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+      setMessage(`❌ Failed to initialize: ${errorMsg}\n\nCheck browser console (F12) for details.\n\nMake sure your Cloudinary upload preset "${CLOUDINARY_UPLOAD_PRESET}" allows raw file uploads.`);
     }
   };
 

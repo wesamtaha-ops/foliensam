@@ -21,15 +21,15 @@ export const uploadJSONToCloudinary = async (
   data: any
 ): Promise<string> => {
   try {
+    console.log(`📤 Uploading JSON to Cloudinary: ${publicId}`);
+    
     const jsonString = JSON.stringify(data, null, 2);
     const blob = new Blob([jsonString], { type: 'application/json' });
     
     const formData = new FormData();
-    formData.append('file', blob, `${publicId}.json`);
+    formData.append('file', blob, `${publicId.split('/').pop()}.json`);
     formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
     formData.append('public_id', publicId);
-    formData.append('resource_type', 'raw'); // Important: upload as raw file
-    formData.append('folder', 'folien_sam_data');
     
     const response = await fetch(
       `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/raw/upload`,
@@ -41,11 +41,13 @@ export const uploadJSONToCloudinary = async (
 
     if (!response.ok) {
       const errorData = await response.json();
+      console.error('❌ Cloudinary upload failed:', errorData);
       throw new Error(errorData.error?.message || 'Cloudinary upload failed');
     }
 
     const result = await response.json();
     console.log('✅ JSON uploaded to Cloudinary:', result.secure_url);
+    console.log('   Public ID:', result.public_id);
     return result.secure_url;
   } catch (error) {
     console.error('❌ Cloudinary JSON upload error:', error);

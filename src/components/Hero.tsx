@@ -13,8 +13,17 @@ const Hero = () => {
   });
 
   useEffect(() => {
-    const data = getHeroData();
-    setHeroData(data);
+    const loadHeroData = async () => {
+      try {
+        const data = await getHeroData();
+        setHeroData(data);
+      } catch (err) {
+        console.error('❌ Failed to load hero data:', err);
+        // Keep default data
+      }
+    };
+    
+    loadHeroData();
   }, []);
 
   return (

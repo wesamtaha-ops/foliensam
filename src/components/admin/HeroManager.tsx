@@ -5,21 +5,36 @@ import ImageUpload from './ImageUpload';
 
 const HeroManager: React.FC = () => {
   const [heroData, setHeroData] = useState<HeroData>({
-    mainImageUrl: '',
-    videoUrl: '',
-    youtubeVideoId: ''
+    mainImageUrl: 'https://images.cood.ai/cards.gif',
+    videoUrl: 'https://images.cood.ai/cards.gif',
+    youtubeVideoId: 'udbvm6bulGU'
   });
   const [saved, setSaved] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const data = getHeroData();
-    setHeroData(data);
+    const loadData = async () => {
+      try {
+        const data = await getHeroData();
+        setHeroData(data);
+      } catch (err) {
+        console.error('Failed to load hero data:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadData();
   }, []);
 
-  const handleSave = () => {
-    updateHeroData(heroData);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 3000);
+  const handleSave = async () => {
+    try {
+      await updateHeroData(heroData);
+      setSaved(true);
+      setTimeout(() => setSaved(false), 3000);
+    } catch (err) {
+      console.error('Failed to save hero data:', err);
+      alert('Failed to save. Please try again.');
+    }
   };
 
   return (

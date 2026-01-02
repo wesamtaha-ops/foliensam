@@ -11,13 +11,19 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLogin }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (checkAdminPassword(password)) {
-      onLogin();
-      setError('');
-    } else {
-      setError('Invalid password');
+    try {
+      const isValid = await checkAdminPassword(password);
+      if (isValid) {
+        onLogin();
+        setError('');
+      } else {
+        setError('Invalid password');
+      }
+    } catch (err) {
+      console.error('Failed to check password:', err);
+      setError('Failed to verify password. Please try again.');
     }
   };
 

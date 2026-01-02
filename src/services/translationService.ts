@@ -6,6 +6,7 @@ import enTranslations from '../i18n/locales/en.json';
 import arTranslations from '../i18n/locales/ar.json';
 import ruTranslations from '../i18n/locales/ru.json';
 import trTranslations from '../i18n/locales/tr.json';
+import { getTranslationsData, saveTranslationsData } from './cloudinaryDataService';
 
 export type SupportedLanguage = 'de' | 'en' | 'ar' | 'ru' | 'tr';
 
@@ -36,8 +37,19 @@ const getDefaultTranslations = (lang: SupportedLanguage): TranslationData => {
   }
 };
 
-// Get translations for a specific language (from localStorage or defaults)
-export const getTranslations = (lang: SupportedLanguage): TranslationData => {
+// Get translations for a specific language (from Cloudinary, localStorage or defaults)
+export const getTranslations = async (lang: SupportedLanguage): Promise<TranslationData> => {
+  try {
+    // Try Cloudinary first
+    const cloudinaryData = await getTranslationsData();
+    if (cloudinaryData && cloudinaryData[lang]) {
+      return cloudinaryData[lang];
+    }
+  } catch (error) {
+    console.warn(`Failed to load translations from Cloudinary for ${lang}:`, error);
+  }
+  
+  // Fallback to localStorage
   const storageKey = `${STORAGE_KEY_PREFIX}${lang}`;
   const stored = localStorage.getItem(storageKey);
   
@@ -54,16 +66,47 @@ export const getTranslations = (lang: SupportedLanguage): TranslationData => {
 };
 
 // Save translations for a specific language
-export const saveTranslations = (lang: SupportedLanguage, translations: TranslationData): void => {
-  const storageKey = `${STORAGE_KEY_PREFIX}${lang}`;
-  localStorage.setItem(storageKey, JSON.stringify(translations));
+export const saveTranslations = async (lang: SupportedLanguage, translations: TranslationData): Promise<void> => {
+  try {
+    // Get all translations from Cloudinary
+    const allTranslations = await getTranslationsData() || {};
+    
+    // Update the specific language
+    allTranslations[lang] = translations;
+    
+    // Save back to Cloudinary
+    await saveTranslationsData(allTranslations);
+    console.log(`✅ Translations for ${lang} saved to Cloudinary`);
+  } catch (error) {
+    console.error(`❌ Failed to save translations to Cloudinary for ${lang}:`, error);
+    
+    // Fallback to localStorage
+    const storageKey = `${STORAGE_KEY_PREFIX}${lang}`;
+    localStorage.setItem(storageKey, JSON.stringify(translations));
+    console.log(`⚠️ Translations for ${lang} saved to localStorage (fallback)`);
+  }
   
   // Trigger a custom event to notify components to reload translations
   window.dispatchEvent(new CustomEvent('translationsUpdated', { detail: { lang } }));
 };
 
 // Reset translations to defaults for a specific language
-export const resetTranslations = (lang: SupportedLanguage): void => {
+export const resetTranslations = async (lang: SupportedLanguage): Promise<void> => {
+  try {
+    // Get all translations from Cloudinary
+    const allTranslations = await getTranslationsData() || {};
+    
+    // Remove the specific language (will fallback to defaults)
+    delete allTranslations[lang];
+    
+    // Save back to Cloudinary
+    await saveTranslationsData(allTranslations);
+    console.log(`✅ Translations for ${lang} reset in Cloudinary`);
+  } catch (error) {
+    console.error(`❌ Failed to reset translations in Cloudinary for ${lang}:`, error);
+  }
+  
+  // Also remove from localStorage
   const storageKey = `${STORAGE_KEY_PREFIX}${lang}`;
   localStorage.removeItem(storageKey);
   
@@ -146,8 +189,8 @@ export const searchTranslations = (
 };
 
 // Export translations as JSON file
-export const exportTranslations = (lang: SupportedLanguage): void => {
-  const translations = getTranslations(lang);
+export const exportTranslations = async (lang: SupportedLanguage): Promise<void> => {
+  const translations = await getTranslations(lang);
   const dataStr = JSON.stringify(translations, null, 2);
   const dataBlob = new Blob([dataStr], { type: 'application/json' });
   const url = URL.createObjectURL(dataBlob);
@@ -163,11 +206,11 @@ export const importTranslations = (lang: SupportedLanguage, file: File): Promise
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     
-    reader.onload = (e) => {
+    reader.onload = async (e) => {
       try {
         const content = e.target?.result as string;
         const translations = JSON.parse(content);
-        saveTranslations(lang, translations);
+        await saveTranslations(lang, translations);
         resolve();
       } catch (error) {
         reject(new Error('Invalid JSON file'));

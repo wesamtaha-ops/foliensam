@@ -28,13 +28,17 @@ const TranslationManager: React.FC = () => {
     loadTranslations(selectedLanguage);
   }, [selectedLanguage]);
 
-  const loadTranslations = (lang: SupportedLanguage) => {
-    const data = getTranslations(lang);
-    const flattened = flattenTranslations(data);
-    setTranslations(flattened);
-    setEditedTranslations(flattened);
-    setHasChanges(false);
-    setSearchQuery('');
+  const loadTranslations = async (lang: SupportedLanguage) => {
+    try {
+      const data = await getTranslations(lang);
+      const flattened = flattenTranslations(data);
+      setTranslations(flattened);
+      setEditedTranslations(flattened);
+      setHasChanges(false);
+      setSearchQuery('');
+    } catch (err) {
+      console.error('Failed to load translations:', err);
+    }
   };
 
   const handleTranslationChange = (key: string, value: string) => {
@@ -45,29 +49,44 @@ const TranslationManager: React.FC = () => {
     setHasChanges(true);
   };
 
-  const handleSave = () => {
-    const unflattened = unflattenTranslations(editedTranslations);
-    saveTranslations(selectedLanguage, unflattened);
-    setTranslations(editedTranslations);
-    setHasChanges(false);
-    setSaved(true);
-    
-    // Reload i18n translations
-    i18n.reloadResources(selectedLanguage);
-    
-    setTimeout(() => setSaved(false), 3000);
-  };
-
-  const handleReset = () => {
-    if (confirm(`Reset ${LANGUAGE_NAMES[selectedLanguage]} to defaults? This cannot be undone.`)) {
-      resetTranslations(selectedLanguage);
-      loadTranslations(selectedLanguage);
+  const handleSave = async () => {
+    try {
+      const unflattened = unflattenTranslations(editedTranslations);
+      await saveTranslations(selectedLanguage, unflattened);
+      setTranslations(editedTranslations);
+      setHasChanges(false);
+      setSaved(true);
+      
+      // Reload i18n translations
       i18n.reloadResources(selectedLanguage);
+      
+      setTimeout(() => setSaved(false), 3000);
+    } catch (err) {
+      console.error('Failed to save translations:', err);
+      alert('Failed to save translations. Please try again.');
     }
   };
 
-  const handleExport = () => {
-    exportTranslations(selectedLanguage);
+  const handleReset = async () => {
+    if (confirm(`Reset ${LANGUAGE_NAMES[selectedLanguage]} to defaults? This cannot be undone.`)) {
+      try {
+        await resetTranslations(selectedLanguage);
+        await loadTranslations(selectedLanguage);
+        i18n.reloadResources(selectedLanguage);
+      } catch (err) {
+        console.error('Failed to reset translations:', err);
+        alert('Failed to reset translations. Please try again.');
+      }
+    }
+  };
+
+  const handleExport = async () => {
+    try {
+      await exportTranslations(selectedLanguage);
+    } catch (err) {
+      console.error('Failed to export translations:', err);
+      alert('Failed to export translations. Please try again.');
+    }
   };
 
   const handleImport = async (e: React.ChangeEvent<HTMLInputElement>) => {

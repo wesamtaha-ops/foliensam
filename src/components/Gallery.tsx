@@ -19,6 +19,7 @@ const Gallery = () => {
   const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [youtubeVideos, setYoutubeVideos] = useState<YouTubeVideo[]>([]);
+  const [galleryImages, setGalleryImages] = useState<GalleryItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [lastFetchTime, setLastFetchTime] = useState<number>(0);
 
@@ -73,6 +74,35 @@ const Gallery = () => {
 
     loadYouTubeVideos();
   }, [youtubeVideos.length, lastFetchTime]);
+
+  // Load gallery images from Cloudinary/localStorage
+  useEffect(() => {
+    const loadGalleryImages = async () => {
+      try {
+        console.log('🖼️ Loading gallery images from dataService...');
+        const images = await getGalleryImages();
+        console.log(`✅ Loaded ${images.length} gallery images:`, images);
+        
+        // Convert to GalleryItem format
+        const galleryItems: GalleryItem[] = images.map(img => ({
+          type: img.type as 'youtube' | 'image',
+          videoId: img.videoId,
+          thumbnail: img.thumbnail,
+          url: img.url,
+          title: img.title,
+          category: img.category,
+          publishedAt: img.publishedAt
+        }));
+        
+        setGalleryImages(galleryItems);
+      } catch (err) {
+        console.error('❌ Failed to load gallery images:', err);
+        setGalleryImages([]); // Empty array as fallback
+      }
+    };
+
+    loadGalleryImages();
+  }, []); // Run once on mount
 
   // Cleanup effect to stop videos when navigating or closing
   useEffect(() => {
@@ -162,12 +192,9 @@ const Gallery = () => {
       
     ] : [];
 
-    // Load custom gallery images from localStorage/dataService
-    const staticItems: GalleryItem[] = getGalleryImages();
-
     // Return fallback videos + static images if no API videos, otherwise API videos + static images
     const allVideos = youtubeVideos.length > 0 ? youtubeItems : fallbackYoutubeItems;
-    const allItems = [...allVideos, ...staticItems];
+    const allItems = [...allVideos, ...galleryImages];
     
     // Sort ALL items by date (newest first) - images uploaded from admin will appear first!
     return allItems.sort((a, b) => {
@@ -175,7 +202,7 @@ const Gallery = () => {
       const dateB = b.publishedAt ? new Date(b.publishedAt).getTime() : 0;
       return dateB - dateA; // Descending order (newest first)
     });
-  }, [youtubeVideos]);
+  }, [youtubeVideos, galleryImages]);
 
   const handlePrevious = useCallback(() => {
     // Stop current video before navigating

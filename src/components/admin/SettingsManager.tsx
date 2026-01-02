@@ -9,7 +9,7 @@ const SettingsManager: React.FC = () => {
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState<'success' | 'error'>('success');
 
-  const handlePasswordChange = (e: React.FormEvent) => {
+  const handlePasswordChange = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (newPassword !== confirmPassword) {
@@ -24,16 +24,22 @@ const SettingsManager: React.FC = () => {
       return;
     }
 
-    updateAdminPassword(newPassword);
-    setMessageType('success');
-    setMessage('Password updated successfully! Please remember your new password.');
-    
-    // Reset form
-    setCurrentPassword('');
-    setNewPassword('');
-    setConfirmPassword('');
-    
-    setTimeout(() => setMessage(''), 5000);
+    try {
+      await updateAdminPassword(newPassword);
+      setMessageType('success');
+      setMessage('Password updated successfully! Please remember your new password.');
+      
+      // Reset form
+      setCurrentPassword('');
+      setNewPassword('');
+      setConfirmPassword('');
+      
+      setTimeout(() => setMessage(''), 5000);
+    } catch (err) {
+      console.error('Failed to update password:', err);
+      setMessageType('error');
+      setMessage('Failed to update password. Please try again.');
+    }
   };
 
   return (
@@ -118,8 +124,8 @@ const SettingsManager: React.FC = () => {
         <ul className="text-sm text-yellow-700 space-y-1">
           <li>• Make sure to remember your new password</li>
           <li>• There is no password recovery system in this version</li>
-          <li>• All data is stored in your browser's localStorage</li>
-          <li>• Clearing browser data will reset everything to defaults</li>
+          <li>• All data including password is stored in Cloudinary</li>
+          <li>• Changes sync across all devices automatically</li>
         </ul>
       </div>
     </div>

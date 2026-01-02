@@ -30,9 +30,14 @@ const ServicesManager: React.FC = () => {
     loadServices();
   }, []);
 
-  const loadServices = () => {
-    const data = getServices();
-    setServices(data);
+  const loadServices = async () => {
+    try {
+      const data = await getServices();
+      setServices(data);
+    } catch (err) {
+      console.error('Failed to load services:', err);
+      setServices([]);
+    }
   };
 
   const handleAdd = () => {
@@ -69,24 +74,29 @@ const ServicesManager: React.FC = () => {
     setShowModal(true);
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     if (confirm('Are you sure you want to delete this service?')) {
-      deleteService(id);
-      loadServices();
+      await deleteService(id);
+      await loadServices();
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (editingService) {
-      updateService(editingService.id, formData);
-    } else {
-      addService(formData);
+    try {
+      if (editingService) {
+        await updateService(editingService.id, formData);
+      } else {
+        await addService(formData);
+      }
+      
+      setShowModal(false);
+      await loadServices();
+    } catch (err) {
+      console.error('Failed to save service:', err);
+      alert('Failed to save. Please try again.');
     }
-    
-    setShowModal(false);
-    loadServices();
   };
 
   const iconOptions = ['Car', 'Shield', 'Sparkles', 'Palette', 'Sun', 'Building'];

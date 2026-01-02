@@ -27,9 +27,14 @@ const GalleryManager: React.FC = () => {
     loadImages();
   }, []);
 
-  const loadImages = () => {
-    const data = getGalleryImages();
-    setImages(data);
+  const loadImages = async () => {
+    try {
+      const data = await getGalleryImages();
+      setImages(data);
+    } catch (err) {
+      console.error('Failed to load gallery images:', err);
+      setImages([]);
+    }
   };
 
   // Auto-fetch YouTube thumbnail when video ID changes
@@ -68,24 +73,29 @@ const GalleryManager: React.FC = () => {
     setShowModal(true);
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     if (confirm('Are you sure you want to delete this item?')) {
-      deleteGalleryImage(id);
-      loadImages();
+      await deleteGalleryImage(id);
+      await loadImages();
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (editingImage) {
-      updateGalleryImage(editingImage.id, formData);
-    } else {
-      addGalleryImage(formData);
+    try {
+      if (editingImage) {
+        await updateGalleryImage(editingImage.id, formData);
+      } else {
+        await addGalleryImage(formData);
+      }
+      
+      setShowModal(false);
+      await loadImages();
+    } catch (err) {
+      console.error('Failed to save gallery item:', err);
+      alert('Failed to save. Please try again.');
     }
-    
-    setShowModal(false);
-    loadImages();
   };
 
   return (

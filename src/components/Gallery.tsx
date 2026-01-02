@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { X, ChevronLeft, ChevronRight, Play, Loader2 } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, Play, Loader2, Image as ImageIcon, Video } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { fetchAllChannelShorts, YouTubeVideo } from '../services/youtubeApi';
 import { getGalleryImages } from '../services/dataService';
@@ -9,10 +9,12 @@ interface GalleryItem {
   videoId?: string;
   thumbnail?: string;
   url?: string;
-  title: string;
+  title?: string; // Optional - auto-generated if not provided
   category: string;
   publishedAt?: string; // Added for sorting
 }
+
+type TabType = 'all' | 'images' | 'videos';
 
 const Gallery = () => {
   const { t } = useTranslation();
@@ -22,6 +24,7 @@ const Gallery = () => {
   const [galleryImages, setGalleryImages] = useState<GalleryItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [lastFetchTime, setLastFetchTime] = useState<number>(0);
+  const [activeTab, setActiveTab] = useState<TabType>('videos');
 
   // Helper function to check if a video is new (published within last 7 days)
   const isNewVideo = (publishedAt: string) => {
@@ -118,7 +121,7 @@ const Gallery = () => {
     }
   }, [selectedItem]);
 
-  // Combined array of YouTube videos and static images
+  // Combined array of YouTube videos and static images with deduplication
   const previews = React.useMemo((): GalleryItem[] => {
     const youtubeItems: GalleryItem[] = youtubeVideos
       .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()) // Sort by newest first (DESC)
@@ -192,12 +195,36 @@ const Gallery = () => {
       
     ] : [];
 
-    // Return fallback videos + static images if no API videos, otherwise API videos + static images
+    // Combine all sources
     const allVideos = youtubeVideos.length > 0 ? youtubeItems : fallbackYoutubeItems;
     const allItems = [...allVideos, ...galleryImages];
     
-    // Sort ALL items by date (newest first) - images uploaded from admin will appear first!
-    return allItems.sort((a, b) => {
+    // DEDUPLICATION: Remove duplicate YouTube videos by videoId
+    const seenVideoIds = new Set<string>();
+    const seenImageUrls = new Set<string>();
+    const uniqueItems = allItems.filter(item => {
+      if (item.type === 'youtube' && item.videoId) {
+        if (seenVideoIds.has(item.videoId)) {
+          console.log(`🔄 Skipping duplicate video: ${item.videoId} - ${item.title}`);
+          return false; // Skip duplicate
+        }
+        seenVideoIds.add(item.videoId);
+        return true;
+      } else if (item.type === 'image' && item.url) {
+        if (seenImageUrls.has(item.url)) {
+          console.log(`🔄 Skipping duplicate image: ${item.url}`);
+          return false; // Skip duplicate
+        }
+        seenImageUrls.add(item.url);
+        return true;
+      }
+      return true;
+    });
+
+    console.log(`📊 Gallery stats: ${allItems.length} total items → ${uniqueItems.length} unique items (${allItems.length - uniqueItems.length} duplicates removed)`);
+    
+    // Sort ALL unique items by date (newest first) - images uploaded from admin will appear first!
+    return uniqueItems.sort((a, b) => {
       const dateA = a.publishedAt ? new Date(a.publishedAt).getTime() : 0;
       const dateB = b.publishedAt ? new Date(b.publishedAt).getTime() : 0;
       return dateB - dateA; // Descending order (newest first)
@@ -259,7 +286,7 @@ const Gallery = () => {
             />
             {/* Video info overlay */}
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-transparent to-transparent p-4">
-              <h3 className="text-white font-semibold text-lg mb-2">{item.title}</h3>
+              <h3 className="text-white font-semibold text-lg mb-2">{item.title || 'YouTube Video'}</h3>
               {item.publishedAt && (
                 <p className="text-white/80 text-sm">
                   {new Date(item.publishedAt).toLocaleDateString('en-US', { 
@@ -278,12 +305,22 @@ const Gallery = () => {
       <div className="w-full max-w-4xl">
         <img
           src={item.url}
-          alt={item.title}
+          alt={item.title || 'Gallery Image'}
           className="w-full h-auto rounded-lg"
         />
       </div>
     );
   };
+
+  // Filter items based on active tab
+  const filteredPreviews = React.useMemo(() => {
+    if (activeTab === 'images') {
+      return previews.filter(item => item.type === 'image');
+    } else if (activeTab === 'videos') {
+      return previews.filter(item => item.type === 'youtube');
+    }
+    return previews; // 'all' tab
+  }, [previews, activeTab]);
 
   return (
     <section className="py-16 md:py-24 bg-primary-dark">
@@ -294,9 +331,6 @@ const Gallery = () => {
           <p className="mt-6 text-lg text-primary-silver max-w-2xl mx-auto">
             {t('gallery.subtitle')}
           </p>
-          
-          
-       
           
           <a 
             href="https://vm.tiktok.com/ZNew77xKv/"
@@ -309,63 +343,105 @@ const Gallery = () => {
           </a>
         </div>
 
+        {/* Tabs */}
+        <div className="flex justify-center mb-8">
+          <div className="inline-flex bg-primary-light rounded-full p-1 gap-2">
+            <button
+              onClick={() => setActiveTab('videos')}
+              className={`flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
+                activeTab === 'videos'
+                  ? 'bg-accent-purple text-white shadow-lg shadow-accent-purple/50 scale-105'
+                  : 'text-primary-silver hover:text-white hover:bg-primary-dark/50'
+              }`}
+            >
+              <Video className="w-5 h-5" />
+              {t('gallery.tabs.videos')}
+            </button>
+            <button
+              onClick={() => setActiveTab('images')}
+              className={`flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
+                activeTab === 'images'
+                  ? 'bg-accent-purple text-white shadow-lg shadow-accent-purple/50 scale-105'
+                  : 'text-primary-silver hover:text-white hover:bg-primary-dark/50'
+              }`}
+            >
+              <ImageIcon className="w-5 h-5" />
+              {t('gallery.tabs.images')}
+            </button>
+          </div>
+        </div>
+
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
           {isLoading ? (
             <div className="col-span-full text-center py-12">
-              <Loader2 className="h-12 w-12 text-accent-purple animate-spin" />
+              <Loader2 className="h-12 w-12 text-accent-purple animate-spin mx-auto" />
               <p className="mt-4 text-primary-silver">{t('gallery.loading')}</p>
               <p className="mt-2 text-primary-silver/60 text-sm">Loading videos from YouTube...</p>
             </div>
+          ) : filteredPreviews.length === 0 ? (
+            <div className="col-span-full text-center py-12">
+              <p className="text-primary-silver text-lg">{t('gallery.noItems')}</p>
+            </div>
           ) : (
-                         previews.map((item, index) => (
-               <div 
-                 key={index}
-                 className="group relative cursor-pointer aspect-square"
-                 onClick={() => {
-                   setSelectedItem(item);
-                   setCurrentIndex(index);
-                 }}
-               >
-                <div className="absolute inset-0 rounded-full overflow-hidden border-4 border-accent-purple/20 group-hover:border-accent-gold/30 transition-colors duration-300">
-                  <img
-                    src={item.type === 'youtube' ? item.thumbnail : item.url}
-                    alt={item.title}
-                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
-                  />
-                                   {item.type === 'youtube' && (
-                   <>
-                     <div className="absolute inset-0 flex items-center justify-center">
-                       <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
-                         <Play className="w-6 h-6 text-white" />
-                       </div>
-                     </div>
-                     {/* NEW badge for recent videos */}
-                     {item.publishedAt && isNewVideo(item.publishedAt) && (
-                       <div className="absolute top-2 right-2">
-                         <span className="inline-block px-2 py-1 bg-red-500 text-white text-xs font-bold rounded-full animate-pulse">
-                           NEW
-                         </span>
-                       </div>
-                     )}
-                   </>
-                 )}
-                                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                   <div className="absolute bottom-0 left-0 right-0 p-4 text-center">
-                     <span className="inline-block px-2 py-1 bg-accent-purple/80 text-white text-xs rounded-full mb-1">
-                       {item.category}
-                     </span>
-                     <h3 className="text-sm font-bold text-white">
-                       {item.publishedAt ? new Date(item.publishedAt).toLocaleDateString('en-US', { 
-                         year: 'numeric', 
-                         month: 'short', 
-                         day: 'numeric'
-                       }) : item.title}
-                     </h3>
-                   </div>
-                 </div>
+            filteredPreviews.map((item, index) => {
+              const actualIndex = previews.findIndex(p => p === item);
+              return (
+                <div 
+                  key={index}
+                  className="group relative cursor-pointer aspect-square animate-fade-in"
+                  style={{ animationDelay: `${index * 0.05}s` }}
+                  onClick={() => {
+                    setSelectedItem(item);
+                    setCurrentIndex(actualIndex);
+                  }}
+                >
+                  <div className="absolute inset-0 rounded-2xl overflow-hidden border-2 border-accent-purple/30 group-hover:border-accent-purple group-hover:shadow-2xl group-hover:shadow-accent-purple/30 transition-all duration-500 transform group-hover:-translate-y-2 group-hover:scale-105">
+                    <img
+                      src={item.type === 'youtube' ? item.thumbnail : item.url}
+                      alt={item.title}
+                      className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                    />
+                    
+                    {/* Overlay gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-300" />
+                    
+                    {item.type === 'youtube' && (
+                      <>
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="w-12 h-12 bg-accent-purple/60 backdrop-blur-sm rounded-full flex items-center justify-center transform group-hover:scale-110 group-hover:bg-accent-purple/80 transition-all duration-300 shadow-lg">
+                            <Play className="w-6 h-6 text-white opacity-90 ml-0.5" fill="currentColor" />
+                          </div>
+                        </div>
+                        {/* NEW badge for recent videos */}
+                        {item.publishedAt && isNewVideo(item.publishedAt) && (
+                          <div className="absolute top-3 right-3 z-10">
+                            <span className="inline-flex items-center gap-1 px-3 py-1 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs font-bold rounded-full animate-pulse shadow-lg">
+                              ✨ NEW
+                            </span>
+                          </div>
+                        )}
+                      </>
+                    )}
+                    
+                    {/* Info overlay - always visible at bottom */}
+                    <div className="absolute bottom-0 left-0 right-0 p-3 transform translate-y-0 group-hover:translate-y-0 transition-transform duration-300">
+                      <div className="flex flex-col items-center gap-1">
+                        <span className="inline-block px-3 py-1 bg-accent-purple text-white text-xs font-semibold rounded-full">
+                          {item.category}
+                        </span>
+                        <p className="text-xs text-white/90 font-medium text-center line-clamp-1">
+                          {item.publishedAt ? new Date(item.publishedAt).toLocaleDateString('en-US', { 
+                            year: 'numeric', 
+                            month: 'short', 
+                            day: 'numeric'
+                          }) : item.title}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))
+              );
+            })
           )}
         </div>
 
@@ -413,7 +489,7 @@ const Gallery = () => {
               
               {/* Video info below navigation */}
               <div className="mt-4 text-center">
-                <h3 className="text-xl font-bold text-white">{previews[currentIndex].title}</h3>
+                <h3 className="text-xl font-bold text-white">{previews[currentIndex].title || 'Gallery Item'}</h3>
                 <p className="text-primary-silver">{previews[currentIndex].category}</p>
                 {previews[currentIndex].publishedAt && (
                   <p className="text-sm text-primary-silver mt-2">

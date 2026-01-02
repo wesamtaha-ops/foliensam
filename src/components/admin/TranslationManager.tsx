@@ -113,28 +113,28 @@ const TranslationManager: React.FC = () => {
   const translationKeys = Object.keys(filteredTranslations).sort();
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-6">
+    <div className="bg-white rounded-xl shadow-md p-4 sm:p-6">
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col gap-4 mb-6">
         <div>
-          <h2 className="text-2xl font-bold text-primary-dark flex items-center gap-2">
-            <Languages className="h-6 w-6" />
+          <h2 className="text-xl sm:text-2xl font-bold text-primary-dark flex items-center gap-2">
+            <Languages className="h-5 w-5 sm:h-6 sm:w-6" />
             Translation Management
           </h2>
-          <p className="text-gray-600">Edit website translations for all languages</p>
+          <p className="text-sm sm:text-base text-gray-600">Edit website translations for all languages</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <button
             onClick={handleExport}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-600 rounded-lg hover:bg-blue-200 transition-colors"
+            className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-blue-100 text-blue-600 rounded-lg hover:bg-blue-200 transition-colors text-sm"
             title="Export translations"
           >
             <Download className="h-4 w-4" />
-            Export
+            <span className="hidden sm:inline">Export</span>
           </button>
-          <label className="flex items-center gap-2 px-4 py-2 bg-green-100 text-green-600 rounded-lg hover:bg-green-200 transition-colors cursor-pointer">
+          <label className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-green-100 text-green-600 rounded-lg hover:bg-green-200 transition-colors cursor-pointer text-sm">
             <Upload className="h-4 w-4" />
-            Import
+            <span className="hidden sm:inline">Import</span>
             <input
               type="file"
               accept=".json"
@@ -144,11 +144,11 @@ const TranslationManager: React.FC = () => {
           </label>
           <button
             onClick={handleReset}
-            className="flex items-center gap-2 px-4 py-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors"
+            className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors text-sm"
             title="Reset to defaults"
           >
             <RotateCcw className="h-4 w-4" />
-            Reset
+            <span className="hidden sm:inline">Reset</span>
           </button>
         </div>
       </div>
@@ -221,24 +221,24 @@ const TranslationManager: React.FC = () => {
 
       {/* Translation Editor */}
       <div className="border-2 border-gray-200 rounded-lg overflow-hidden">
-        <div className="bg-gray-50 px-4 py-3 border-b-2 border-gray-200">
-          <div className="grid grid-cols-2 gap-4">
-            <p className="text-sm font-semibold text-gray-700">Translation Key</p>
-            <p className="text-sm font-semibold text-gray-700">Value</p>
+        <div className="bg-gray-50 px-3 sm:px-4 py-3 border-b-2 border-gray-200">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4">
+            <p className="text-xs sm:text-sm font-semibold text-gray-700">Translation Key</p>
+            <p className="text-xs sm:text-sm font-semibold text-gray-700">Value</p>
           </div>
         </div>
 
-        <div className="max-h-[600px] overflow-y-auto">
+        <div className="max-h-[500px] sm:max-h-[600px] overflow-y-auto">
           {translationKeys.length === 0 ? (
-            <div className="p-8 text-center text-gray-500">
+            <div className="p-8 text-center text-gray-500 text-sm">
               {searchQuery ? 'No translations found matching your search' : 'No translations available'}
             </div>
           ) : (
             <div className="divide-y divide-gray-200">
               {translationKeys.map((key) => (
-                <div key={key} className="grid grid-cols-2 gap-4 p-4 hover:bg-gray-50">
+                <div key={key} className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 p-3 sm:p-4 hover:bg-gray-50">
                   <div className="flex items-start">
-                    <code className="text-sm text-gray-600 break-all">{key}</code>
+                    <code className="text-xs sm:text-sm text-gray-600 break-all">{key}</code>
                   </div>
                   <div>
                     {editedTranslations[key].includes('[') || editedTranslations[key].includes('{') ? (

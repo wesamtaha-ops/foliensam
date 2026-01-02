@@ -28,14 +28,14 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLogin }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-dark to-gray-900 flex items-center justify-center px-4">
-      <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md">
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-accent-purple rounded-full mb-4">
-            <Lock className="h-8 w-8 text-white" />
+    <div className="min-h-screen bg-gradient-to-br from-primary-dark to-gray-900 flex items-center justify-center px-4 py-8">
+      <div className="bg-white rounded-2xl shadow-2xl p-6 sm:p-8 w-full max-w-md">
+        <div className="text-center mb-6 sm:mb-8">
+          <div className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-accent-purple rounded-full mb-3 sm:mb-4">
+            <Lock className="h-7 w-7 sm:h-8 sm:w-8 text-white" />
           </div>
-          <h1 className="text-3xl font-bold text-primary-dark">Admin Panel</h1>
-          <p className="text-gray-600 mt-2">Enter your password to continue</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-primary-dark">Admin Panel</h1>
+          <p className="text-sm sm:text-base text-gray-600 mt-2">Enter your password to continue</p>
         </div>
 
         <form onSubmit={handleSubmit}>
@@ -68,13 +68,13 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLogin }) => {
 
           <button
             type="submit"
-            className="w-full bg-accent-purple text-white py-3 rounded-lg font-semibold hover:bg-accent-purple/90 transition-colors"
+            className="w-full bg-accent-purple text-white py-2.5 sm:py-3 rounded-lg text-sm sm:text-base font-semibold hover:bg-accent-purple/90 transition-colors"
           >
             Login
           </button>
         </form>
 
-        <div className="mt-6 text-center text-sm text-gray-500">
+        <div className="mt-4 sm:mt-6 text-center text-xs sm:text-sm text-gray-500">
           <p>Default password: admin123</p>
         </div>
       </div>

@@ -44,7 +44,13 @@
     "title": "UNSERE ARBEITEN",
     "subtitle": "Entdecken Sie unser Portfolio an Premium-Fahrzeugveredelungen",
     "followTiktok": "Folgen Sie uns auf TikTok",
-    "imageAlt": "Fahrzeugfolierungs-Projekt"
+    "imageAlt": "Fahrzeugfolierungs-Projekt",
+    "loading": "Lade YouTube-Shorts...",
+    "noItems": "Keine Elemente in dieser Kategorie gefunden",
+    "tabs": {
+      "videos": "Videos",
+      "images": "Bilder"
+    }
   },
   "features": {
     "title": "Warum FolienSam?",

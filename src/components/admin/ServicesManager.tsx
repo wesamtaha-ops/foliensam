@@ -102,22 +102,22 @@ const ServicesManager: React.FC = () => {
   const iconOptions = ['Car', 'Shield', 'Sparkles', 'Palette', 'Sun', 'Building'];
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-6">
-      <div className="flex items-center justify-between mb-6">
+    <div className="bg-white rounded-xl shadow-md p-4 sm:p-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <div>
-          <h2 className="text-2xl font-bold text-primary-dark">Services Management</h2>
-          <p className="text-gray-600">Add, edit, or remove services</p>
+          <h2 className="text-xl sm:text-2xl font-bold text-primary-dark">Services Management</h2>
+          <p className="text-sm sm:text-base text-gray-600">Add, edit, or remove services</p>
         </div>
         <button
           onClick={handleAdd}
-          className="flex items-center gap-2 px-4 py-2 bg-accent-purple text-white rounded-lg hover:bg-accent-purple/90 transition-colors"
+          className="flex items-center justify-center gap-2 px-4 py-2 bg-accent-purple text-white rounded-lg hover:bg-accent-purple/90 transition-colors whitespace-nowrap"
         >
           <Plus className="h-4 w-4" />
           Add Service
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4">
         {services.map((service) => (
           <div key={service.id} className="border-2 border-gray-200 rounded-lg overflow-hidden">
             <div className="aspect-video">
@@ -158,21 +158,21 @@ const ServicesManager: React.FC = () => {
 
       {/* Add/Edit Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl shadow-xl max-w-2xl w-full p-6 max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/50 flex items-center justify-center p-3 sm:p-4">
+          <div className="bg-white rounded-xl shadow-xl max-w-2xl w-full p-4 sm:p-6 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xl font-bold text-primary-dark">
+              <h3 className="text-lg sm:text-xl font-bold text-primary-dark">
                 {editingService ? 'Edit Service' : 'Add New Service'}
               </h3>
               <button
                 onClick={() => setShowModal(false)}
-                className="text-gray-500 hover:text-gray-700"
+                className="text-gray-500 hover:text-gray-700 flex-shrink-0"
               >
-                <X className="h-6 w-6" />
+                <X className="h-5 w-5 sm:h-6 sm:w-6" />
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -316,17 +316,17 @@ const ServicesManager: React.FC = () => {
                 </div>
               </div>
 
-              <div className="flex gap-3 pt-4">
+              <div className="flex gap-2 sm:gap-3 pt-3 sm:pt-4">
                 <button
                   type="submit"
-                  className="flex-1 bg-accent-purple text-white py-2 rounded-lg hover:bg-accent-purple/90 transition-colors"
+                  className="flex-1 bg-accent-purple text-white py-2 text-sm sm:text-base rounded-lg hover:bg-accent-purple/90 transition-colors"
                 >
                   {editingService ? 'Update' : 'Add'}
                 </button>
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg hover:bg-gray-300 transition-colors"
+                  className="flex-1 bg-gray-200 text-gray-700 py-2 text-sm sm:text-base rounded-lg hover:bg-gray-300 transition-colors"
                 >
                   Cancel
                 </button>

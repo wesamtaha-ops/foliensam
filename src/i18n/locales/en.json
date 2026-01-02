@@ -45,7 +45,12 @@
     "subtitle": "Explore Our Portfolio of Premium Vehicle Refinements",
     "followTiktok": "Follow Us on TikTok",
     "imageAlt": "Vehicle Wrapping Project",
-    "loading": "Loading YouTube shorts..."
+    "loading": "Loading YouTube shorts...",
+    "noItems": "No items found in this category",
+    "tabs": {
+      "videos": "Videos",
+      "images": "Images"
+    }
   },
   "features": {
     "title": "Why Choose FolienSam ?",

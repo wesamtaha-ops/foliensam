@@ -5,10 +5,13 @@ const PHP_DATA_URL = `${PHP_BASE_URL}/data.php`;
 
 export interface GalleryItem {
   id: string;
-  imageUrl: string;
-  youtubeVideoId?: string;
-  isVideo: boolean;
-  publishedAt: string;
+  type: 'image' | 'youtube';
+  url?: string;
+  videoId?: string;
+  thumbnail?: string;
+  title?: string; // Optional - auto-generated if not provided
+  category: string;
+  publishedAt?: string;
 }
 
 export interface HeroData {
@@ -21,7 +24,14 @@ export interface Service {
   id: string;
   titleKey: string;
   descriptionKey: string;
+  image: string;
   icon: string;
+  categoryKey: string;
+  durationKey: string;
+  warrantyKey: string;
+  fullDescriptionKey: string;
+  featuresKey: string;
+  processKey: string;
 }
 
 export interface TranslationData {
@@ -33,6 +43,10 @@ export interface TranslationData {
 export interface SettingsData {
   adminPassword: string;
   youtubeApiKey?: string;
+  youtubeChannelId?: string;
+  siteName?: string;
+  contactEmail?: string;
+  whatsappNumber?: string;
 }
 
 // ==================== IMAGE UPLOAD ====================
@@ -173,56 +187,127 @@ export async function initializeAllData(): Promise<void> {
   console.log('🚀 Initializing all data on PHP server...');
 
   const defaultData = {
+    // Start with empty gallery - YouTube API will fetch videos automatically
+    // This prevents duplication with API results
     gallery: [] as GalleryItem[],
     hero: {
-      mainImageUrl: 'https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=1920&h=1080&fit=crop',
-      videoUrl: '',
-      youtubeVideoId: '',
+      mainImageUrl: 'https://images.cood.ai/cards.gif',
+      videoUrl: 'https://images.cood.ai/cards.gif',
+      youtubeVideoId: 'udbvm6bulGU',
     } as HeroData,
     services: [
       {
         id: '1',
-        titleKey: 'services.tinting.title',
-        descriptionKey: 'services.tinting.description',
-        icon: '🎨',
+        titleKey: 'services.carWrapping.title',
+        descriptionKey: 'services.carWrapping.description',
+        image: 'https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?auto=format&fit=crop&q=80',
+        icon: 'Car',
+        categoryKey: 'services.carWrapping.category',
+        durationKey: 'services.carWrapping.duration',
+        warrantyKey: 'services.carWrapping.warranty',
+        fullDescriptionKey: 'services.carWrapping.fullDescription',
+        featuresKey: 'services.carWrapping.features',
+        processKey: 'services.carWrapping.process'
       },
       {
         id: '2',
-        titleKey: 'services.protection.title',
-        descriptionKey: 'services.protection.description',
-        icon: '🛡️',
+        titleKey: 'services.windowTinting.title',
+        descriptionKey: 'services.windowTinting.description',
+        image: 'https://images.cood.ai/samgo/car1.png',
+        icon: 'Sun',
+        categoryKey: 'services.windowTinting.category',
+        durationKey: 'services.windowTinting.duration',
+        warrantyKey: 'services.windowTinting.warranty',
+        fullDescriptionKey: 'services.windowTinting.fullDescription',
+        featuresKey: 'services.windowTinting.features',
+        processKey: 'services.windowTinting.process'
       },
       {
         id: '3',
-        titleKey: 'services.wrapping.title',
-        descriptionKey: 'services.wrapping.description',
-        icon: '✨',
+        titleKey: 'services.paintProtection.title',
+        descriptionKey: 'services.paintProtection.description',
+        image: 'https://images.unsplash.com/photo-1619405399517-d7fce0f13302?auto=format&fit=crop&q=80',
+        icon: 'Shield',
+        categoryKey: 'services.paintProtection.category',
+        durationKey: 'services.paintProtection.duration',
+        warrantyKey: 'services.paintProtection.warranty',
+        fullDescriptionKey: 'services.paintProtection.fullDescription',
+        featuresKey: 'services.paintProtection.features',
+        processKey: 'services.paintProtection.process'
       },
+      {
+        id: '4',
+        titleKey: 'services.designWrapping.title',
+        descriptionKey: 'services.designWrapping.description',
+        image: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&q=80',
+        icon: 'Palette',
+        categoryKey: 'services.designWrapping.category',
+        durationKey: 'services.designWrapping.duration',
+        warrantyKey: 'services.designWrapping.warranty',
+        fullDescriptionKey: 'services.designWrapping.fullDescription',
+        featuresKey: 'services.designWrapping.features',
+        processKey: 'services.designWrapping.process'
+      },
+      {
+        id: '5',
+        titleKey: 'services.chromeWrapping.title',
+        descriptionKey: 'services.chromeWrapping.description',
+        image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80',
+        icon: 'Sparkles',
+        categoryKey: 'services.chromeWrapping.category',
+        durationKey: 'services.chromeWrapping.duration',
+        warrantyKey: 'services.chromeWrapping.warranty',
+        fullDescriptionKey: 'services.chromeWrapping.fullDescription',
+        featuresKey: 'services.chromeWrapping.features',
+        processKey: 'services.chromeWrapping.process'
+      },
+      {
+        id: '6',
+        titleKey: 'services.commercialWrapping.title',
+        descriptionKey: 'services.commercialWrapping.description',
+        image: 'https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?auto=format&fit=crop&q=80',
+        icon: 'Building',
+        categoryKey: 'services.commercialWrapping.category',
+        durationKey: 'services.commercialWrapping.duration',
+        warrantyKey: 'services.commercialWrapping.warranty',
+        fullDescriptionKey: 'services.commercialWrapping.fullDescription',
+        featuresKey: 'services.commercialWrapping.features',
+        processKey: 'services.commercialWrapping.process'
+      }
     ] as Service[],
-    translations: {
-      de: {
-        'nav.home': 'Startseite',
-        'nav.services': 'Dienstleistungen',
-        'nav.gallery': 'Galerie',
-        'nav.contact': 'Kontakt',
-        'hero.title': 'Professionelle Fahrzeugfolierung',
-        'hero.subtitle': 'Wir verwandeln Ihr Fahrzeug',
-      },
-      en: {
-        'nav.home': 'Home',
-        'nav.services': 'Services',
-        'nav.gallery': 'Gallery',
-        'nav.contact': 'Contact',
-        'hero.title': 'Professional Vehicle Wrapping',
-        'hero.subtitle': 'We transform your vehicle',
-      },
-    } as TranslationData,
+    translations: {} as TranslationData,
     settings: {
       adminPassword: 'admin123',
+      youtubeApiKey: 'AIzaSyD_CSCL18alWYzaYgiL9IJn-TAQ1UaVK9I', // Your YouTube API key
+      youtubeChannelId: 'UCSe_xvuLLefPse0WqiBuOAw', // Your YouTube channel ID
+      siteName: 'FolienSam',
+      contactEmail: 'info@foliensam.de',
+      whatsappNumber: '+49 157 50000505'
     } as SettingsData,
   };
 
   const results = [];
+
+  // Initialize translations separately from translation files
+  console.log('📦 Loading translations from locale files...');
+  try {
+    const deModule = await import('../i18n/locales/de.json');
+    const enModule = await import('../i18n/locales/en.json');
+    const arModule = await import('../i18n/locales/ar.json');
+    const trModule = await import('../i18n/locales/tr.json');
+    const ruModule = await import('../i18n/locales/ru.json');
+
+    defaultData.translations = {
+      de: deModule.default,
+      en: enModule.default,
+      ar: arModule.default,
+      tr: trModule.default,
+      ru: ruModule.default
+    };
+    console.log('✅ Translations loaded from locale files');
+  } catch (error) {
+    console.error('⚠️ Failed to load translation files:', error);
+  }
 
   for (const [type, data] of Object.entries(defaultData)) {
     try {

@@ -44,7 +44,13 @@
     "title": "ÇALIŞMALARIMIZ",
     "subtitle": "Premium Araç Kaplama Portföyümüzü Keşfedin",
     "followTiktok": "TikTok'ta Bizi Takip Edin",
-    "imageAlt": "Araç Kaplama Projesi"
+    "imageAlt": "Araç Kaplama Projesi",
+    "loading": "YouTube kısa videoları yükleniyor...",
+    "noItems": "Bu kategoride öğe bulunamadı",
+    "tabs": {
+      "videos": "Videolar",
+      "images": "Resimler"
+    }
   },
   "features": {
     "title": "Neden SAM Araç Kaplama?",

@@ -39,15 +39,15 @@ const HeroManager: React.FC = () => {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-6">
-      <div className="flex items-center justify-between mb-6">
+    <div className="bg-white rounded-xl shadow-md p-4 sm:p-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <div>
-          <h2 className="text-2xl font-bold text-primary-dark">Hero Section</h2>
-          <p className="text-gray-600">Manage the main hero image and video</p>
+          <h2 className="text-xl sm:text-2xl font-bold text-primary-dark">Hero Section</h2>
+          <p className="text-sm sm:text-base text-gray-600">Manage the main hero image and video</p>
         </div>
         <button
           onClick={handleSave}
-          className="flex items-center gap-2 px-4 py-2 bg-accent-purple text-white rounded-lg hover:bg-accent-purple/90 transition-colors"
+          className="flex items-center justify-center gap-2 px-4 py-2 bg-accent-purple text-white rounded-lg hover:bg-accent-purple/90 transition-colors whitespace-nowrap"
         >
           <Save className="h-4 w-4" />
           Save Changes

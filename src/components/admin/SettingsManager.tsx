@@ -1,13 +1,32 @@
-import React, { useState } from 'react';
-import { Save, Key } from 'lucide-react';
-import { updateAdminPassword } from '../../services/dataService';
+import React, { useState, useEffect } from 'react';
+import { Save, Key, Youtube } from 'lucide-react';
+import { updateAdminPassword, getSettings, saveSettings } from '../../services/dataService';
 
 const SettingsManager: React.FC = () => {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [youtubeApiKey, setYoutubeApiKey] = useState('');
+  const [youtubeChannelId, setYoutubeChannelId] = useState('');
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState<'success' | 'error'>('success');
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadSettings();
+  }, []);
+
+  const loadSettings = async () => {
+    try {
+      const settings = await getSettings();
+      setYoutubeApiKey(settings.youtubeApiKey || '');
+      setYoutubeChannelId(settings.youtubeChannelId || '');
+    } catch (err) {
+      console.error('Failed to load settings:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handlePasswordChange = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,11 +61,32 @@ const SettingsManager: React.FC = () => {
     }
   };
 
+  const handleYouTubeSettings = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    try {
+      const settings = await getSettings();
+      await saveSettings({
+        ...settings,
+        youtubeApiKey,
+        youtubeChannelId
+      });
+      
+      setMessageType('success');
+      setMessage('YouTube settings updated successfully! Gallery will now fetch from your channel.');
+      setTimeout(() => setMessage(''), 5000);
+    } catch (err) {
+      console.error('Failed to update YouTube settings:', err);
+      setMessageType('error');
+      setMessage('Failed to update YouTube settings. Please try again.');
+    }
+  };
+
   return (
-    <div className="bg-white rounded-xl shadow-md p-6">
+    <div className="bg-white rounded-xl shadow-md p-4 sm:p-6">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-primary-dark">Settings</h2>
-        <p className="text-gray-600">Manage your admin panel settings</p>
+        <h2 className="text-xl sm:text-2xl font-bold text-primary-dark">Settings</h2>
+        <p className="text-sm sm:text-base text-gray-600">Manage your admin panel settings</p>
       </div>
 
       {message && (
@@ -57,8 +97,62 @@ const SettingsManager: React.FC = () => {
         </div>
       )}
 
-      <div className="max-w-md">
-        <div className="flex items-center gap-3 mb-6 p-4 bg-blue-50 rounded-lg">
+      {/* YouTube API Settings */}
+      <div className="max-w-full sm:max-w-md mb-8">
+        <div className="flex items-center gap-3 mb-6 p-3 sm:p-4 bg-red-50 rounded-lg">
+          <Youtube className="h-5 w-5 text-red-600" />
+          <div>
+            <h3 className="font-semibold text-gray-800">YouTube API Settings</h3>
+            <p className="text-sm text-gray-600">Connect your YouTube channel to auto-fetch videos</p>
+          </div>
+        </div>
+
+        <form onSubmit={handleYouTubeSettings} className="space-y-4">
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              YouTube API Key
+            </label>
+            <input
+              type="text"
+              value={youtubeApiKey}
+              onChange={(e) => setYoutubeApiKey(e.target.value)}
+              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-accent-purple transition-colors font-mono text-sm"
+              placeholder="AIzaSyD..."
+            />
+            <p className="mt-1 text-xs text-gray-500">
+              Get your API key from <a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Google Cloud Console</a>
+            </p>
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              YouTube Channel ID
+            </label>
+            <input
+              type="text"
+              value={youtubeChannelId}
+              onChange={(e) => setYoutubeChannelId(e.target.value)}
+              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-accent-purple transition-colors font-mono text-sm"
+              placeholder="UCSe_xvuLLef..."
+            />
+            <p className="mt-1 text-xs text-gray-500">
+              Find your channel ID in YouTube Studio → Settings → Channel
+            </p>
+          </div>
+
+          <button
+            type="submit"
+            className="flex items-center justify-center gap-2 w-full bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 transition-colors font-semibold"
+          >
+            <Save className="h-4 w-4" />
+            Save YouTube Settings
+          </button>
+        </form>
+      </div>
+
+      {/* Password Change Section */}
+      <div className="max-w-full sm:max-w-md">
+        <div className="flex items-center gap-3 mb-6 p-3 sm:p-4 bg-blue-50 rounded-lg">
           <Key className="h-5 w-5 text-blue-600" />
           <div>
             <h3 className="font-semibold text-gray-800">Change Admin Password</h3>
@@ -124,8 +218,9 @@ const SettingsManager: React.FC = () => {
         <ul className="text-sm text-yellow-700 space-y-1">
           <li>• Make sure to remember your new password</li>
           <li>• There is no password recovery system in this version</li>
-          <li>• All data including password is stored in Cloudinary</li>
+          <li>• All data including settings is stored on your PHP server</li>
           <li>• Changes sync across all devices automatically</li>
+          <li>• YouTube API fetches latest videos automatically</li>
         </ul>
       </div>
     </div>

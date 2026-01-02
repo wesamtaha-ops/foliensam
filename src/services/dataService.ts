@@ -24,7 +24,7 @@ export interface GalleryImage {
   url?: string;
   videoId?: string;
   thumbnail?: string;
-  title: string;
+  title?: string; // Optional - auto-generated if not provided
   category: string;
   publishedAt?: string;
 }
@@ -163,11 +163,13 @@ export const deleteService = async (id: string): Promise<void> => {
 // SETTINGS & ADMIN AUTHENTICATION
 // ========================================
 
-interface Settings {
+export interface Settings {
   adminPassword: string;
-  siteName: string;
-  contactEmail: string;
-  whatsappNumber: string;
+  youtubeApiKey?: string;
+  youtubeChannelId?: string;
+  siteName?: string;
+  contactEmail?: string;
+  whatsappNumber?: string;
 }
 
 export const getSettings = async (): Promise<Settings> => {
@@ -176,9 +178,11 @@ export const getSettings = async (): Promise<Settings> => {
   console.log('✅ Got settings');
   return data || {
     adminPassword: 'admin123',
+    youtubeApiKey: '',
+    youtubeChannelId: '',
     siteName: 'FolienSam',
     contactEmail: 'info@foliensam.de',
-    whatsappNumber: ''
+    whatsappNumber: '+49 157 50000505'
   };
 };
 

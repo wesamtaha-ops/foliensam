@@ -66,7 +66,7 @@ const GalleryManager: React.FC = () => {
       url: image.url || '',
       videoId: image.videoId || '',
       thumbnail: image.thumbnail || '',
-      title: image.title,
+      title: image.title || '',
       category: image.category
     });
     setAutoFetchThumbnail(false); // Don't auto-fetch when editing
@@ -83,11 +83,33 @@ const GalleryManager: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    if (formData.type === 'image' && !formData.url) {
+      alert('Please provide an image URL');
+      return;
+    }
+    
+    if (formData.type === 'youtube' && !formData.videoId) {
+      alert('Please provide a YouTube video ID');
+      return;
+    }
+    
     try {
+      // Generate default title if not provided
+      const title = formData.title.trim() || 
+        (formData.type === 'youtube' 
+          ? `YouTube Video ${formData.videoId}` 
+          : `Gallery Image ${Date.now()}`);
+
+      const dataToSave = {
+        ...formData,
+        title,
+        publishedAt: new Date().toISOString()
+      };
+
       if (editingImage) {
-        await updateGalleryImage(editingImage.id, formData);
+        await updateGalleryImage(editingImage.id, dataToSave);
       } else {
-        await addGalleryImage(formData);
+        await addGalleryImage(dataToSave);
       }
       
       setShowModal(false);
@@ -99,22 +121,22 @@ const GalleryManager: React.FC = () => {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-6">
-      <div className="flex items-center justify-between mb-6">
+    <div className="bg-white rounded-xl shadow-md p-4 sm:p-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <div>
-          <h2 className="text-2xl font-bold text-primary-dark">Gallery Management</h2>
-          <p className="text-gray-600">Add, edit, or remove gallery items</p>
+          <h2 className="text-xl sm:text-2xl font-bold text-primary-dark">Gallery Management</h2>
+          <p className="text-sm sm:text-base text-gray-600">Add, edit, or remove gallery items</p>
         </div>
         <button
           onClick={handleAdd}
-          className="flex items-center gap-2 px-4 py-2 bg-accent-purple text-white rounded-lg hover:bg-accent-purple/90 transition-colors"
+          className="flex items-center justify-center gap-2 px-4 py-2 bg-accent-purple text-white rounded-lg hover:bg-accent-purple/90 transition-colors whitespace-nowrap"
         >
           <Plus className="h-4 w-4" />
           Add Item
         </button>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
         {images.map((image) => (
           <div key={image.id} className="relative group border-2 border-gray-200 rounded-lg overflow-hidden">
             <div className="aspect-square">
@@ -143,8 +165,8 @@ const GalleryManager: React.FC = () => {
                 <Trash2 className="h-4 w-4 text-red-600" />
               </button>
             </div>
-            <div className="p-2 bg-white">
-              <p className="text-sm font-medium text-gray-800 truncate">{image.title}</p>
+            <div className="p-2 sm:p-3 bg-white">
+              <p className="text-xs sm:text-sm font-medium text-gray-800 truncate">{image.title || 'Untitled'}</p>
               <p className="text-xs text-gray-500">{image.category}</p>
             </div>
           </div>
@@ -153,29 +175,29 @@ const GalleryManager: React.FC = () => {
 
       {/* Add/Edit Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/50 flex items-center justify-center p-3 sm:p-4">
+          <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-4 sm:p-6 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xl font-bold text-primary-dark">
+              <h3 className="text-lg sm:text-xl font-bold text-primary-dark">
                 {editingImage ? 'Edit Item' : 'Add New Item'}
               </h3>
               <button
                 onClick={() => setShowModal(false)}
-                className="text-gray-500 hover:text-gray-700"
+                className="text-gray-500 hover:text-gray-700 flex-shrink-0"
               >
-                <X className="h-6 w-6" />
+                <X className="h-5 w-5 sm:h-6 sm:w-6" />
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-2">
                   Type
                 </label>
                 <select
                   value={formData.type}
                   onChange={(e) => setFormData({ ...formData, type: e.target.value as 'image' | 'youtube' })}
-                  className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-accent-purple"
+                  className="w-full px-3 sm:px-4 py-2 text-sm sm:text-base border-2 border-gray-300 rounded-lg focus:outline-none focus:border-accent-purple"
                 >
                   <option value="image">Image</option>
                   <option value="youtube">YouTube Video</option>
@@ -257,16 +279,18 @@ const GalleryManager: React.FC = () => {
 
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Title
+                  Title <span className="text-gray-400 text-xs font-normal">(Optional)</span>
                 </label>
                 <input
                   type="text"
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                   className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-accent-purple"
-                  placeholder="Premium Folierung"
-                  required
+                  placeholder="Auto-generated if left empty"
                 />
+                <p className="mt-1 text-xs text-gray-500">
+                  Leave empty to auto-generate (e.g., "YouTube Video xyz" or "Gallery Image")
+                </p>
               </div>
 
               <div>
@@ -283,17 +307,17 @@ const GalleryManager: React.FC = () => {
                 />
               </div>
 
-              <div className="flex gap-3 pt-4">
+              <div className="flex gap-2 sm:gap-3 pt-3 sm:pt-4">
                 <button
                   type="submit"
-                  className="flex-1 bg-accent-purple text-white py-2 rounded-lg hover:bg-accent-purple/90 transition-colors"
+                  className="flex-1 bg-accent-purple text-white py-2 text-sm sm:text-base rounded-lg hover:bg-accent-purple/90 transition-colors"
                 >
                   {editingImage ? 'Update' : 'Add'}
                 </button>
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg hover:bg-gray-300 transition-colors"
+                  className="flex-1 bg-gray-200 text-gray-700 py-2 text-sm sm:text-base rounded-lg hover:bg-gray-300 transition-colors"
                 >
                   Cancel
                 </button>

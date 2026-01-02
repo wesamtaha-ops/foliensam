@@ -1,5 +1,5 @@
-const YOUTUBE_API_KEY = 'AIzaSyD_CSCL18alWYzaYgiL9IJn-TAQ1UaVK9I';
-const CHANNEL_ID = 'UCSe_xvuLLefPse0WqiBuOAw';
+// YouTube API service using PHP backend to avoid CORS and API key exposure
+const PHP_YOUTUBE_URL = 'https://files.foliensam.de/youtube.php';
 
 export interface YouTubeVideo {
   id: string;
@@ -11,89 +11,64 @@ export interface YouTubeVideo {
   isShort?: boolean;
 }
 
-export interface YouTubeApiResponse {
-  items: Array<{
-    id: {
-      videoId: string;
-    };
-    snippet: {
-      title: string;
-      description: string;
-      thumbnails: {
-        maxres?: { url: string };
-        high?: { url: string };
-        medium?: { url: string };
-      };
-      publishedAt: string;
-    };
-  }>;
-  nextPageToken?: string;
-}
+// Removed YouTubeApiResponse interface - now handled by PHP backend
 
 export const fetchChannelShorts = async (
   maxResults: number = 50,
   pageToken?: string
 ): Promise<{ videos: YouTubeVideo[]; nextPageToken?: string }> => {
-  if (!YOUTUBE_API_KEY) {
-    throw new Error('YouTube API key not found. Please set VITE_YOUTUBE_API_KEY in your environment variables.');
+  // Build URL with query parameters
+  const params = new URLSearchParams({
+    maxResults: maxResults.toString(),
+  });
+  
+  if (pageToken) {
+    params.append('pageToken', pageToken);
   }
 
-  const apiUrl = `https://www.googleapis.com/youtube/v3/search?` +
-    `key=${YOUTUBE_API_KEY}&` +
-    `channelId=${CHANNEL_ID}&` +
-    `part=snippet,id&` +
-    `order=date&` +
-    `maxResults=${maxResults}&` +
-    `type=video&` +
-    `${pageToken ? `pageToken=${pageToken}` : ''}`;
+  const apiUrl = `${PHP_YOUTUBE_URL}?${params.toString()}`;
 
-  console.log('🔗 API URL:', apiUrl);
-  console.log('🔑 Using API Key:', YOUTUBE_API_KEY.substring(0, 10) + '...');
-  console.log('📺 Channel ID:', CHANNEL_ID);
+  console.log('🔗 Fetching from PHP backend:', apiUrl);
 
   try {
-    // First, get all videos from the channel
-    const response = await fetch(apiUrl);
+    const response = await fetch(apiUrl, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
     console.log('📡 Response status:', response.status);
-    console.log('📡 Response headers:', Object.fromEntries(response.headers.entries()));
 
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error('❌ API Response error text:', errorText);
-      throw new Error(`YouTube API error: ${response.status} - ${errorText}`);
+      const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+      console.error('❌ PHP backend error:', errorData);
+      throw new Error(errorData.error || `Request failed with status ${response.status}`);
     }
 
-    const data: YouTubeApiResponse = await response.json();
-    console.log('📊 API Response data:', data);
+    const result = await response.json();
+    console.log('📊 PHP backend response:', result);
     
-    if (!data.items || data.items.length === 0) {
-      console.warn('⚠️ No items returned from API');
+    if (!result.success) {
+      console.warn('⚠️ Request was not successful');
       return { videos: [], nextPageToken: undefined };
     }
     
-    // Filter for shorts (videos with duration < 60 seconds)
-    // Note: YouTube doesn't have a direct "shorts" filter, so we'll get all videos
-    // and you can identify shorts by their aspect ratio or duration
-    const videos: YouTubeVideo[] = data.items.map(item => ({
-      id: item.id.videoId,
-      title: item.snippet.title,
-      description: item.snippet.description,
-      thumbnail: item.snippet.thumbnails.maxres?.url || 
-                 item.snippet.thumbnails.high?.url || 
-                 item.snippet.thumbnails.medium?.url || '',
-      publishedAt: item.snippet.publishedAt,
-      isShort: true // Assuming most recent videos are shorts
-    }));
+    const { videos, nextPageToken: newPageToken } = result.data;
+    
+    if (!videos || videos.length === 0) {
+      console.warn('⚠️ No videos returned from PHP backend');
+      return { videos: [], nextPageToken: undefined };
+    }
 
-    console.log('🎬 Processed videos:', videos);
+    console.log(`🎬 Processed ${videos.length} videos from PHP backend`);
 
     return {
       videos,
-      nextPageToken: data.nextPageToken
+      nextPageToken: newPageToken
     };
   } catch (error) {
-    console.error('❌ Error fetching YouTube shorts:', error);
+    console.error('❌ Error fetching YouTube videos via PHP backend:', error);
     throw error;
   }
 };

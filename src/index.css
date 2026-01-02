@@ -51,3 +51,22 @@
     --tw-space-x-reverse: 1;
   }
 }
+
+@layer utilities {
+  /* Gallery fade-in animation */
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.6s ease-out forwards;
+    opacity: 0;
+  }
+}

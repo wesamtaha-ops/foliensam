@@ -5,9 +5,13 @@ const SEO = () => {
   useEffect(() => {
     const updateMetaTags = async () => {
       try {
+        console.log('🔍 Loading SEO settings from backend...');
         const settings = await getSettings();
+        console.log('✅ SEO settings loaded:', settings.seo);
+        
         if (settings.seo) {
           const seo = settings.seo;
+          console.log('📝 Updating meta tags with SEO data...');
 
           // Update title
           if (seo.title) {
@@ -34,6 +38,7 @@ const SEO = () => {
           }
           if (seo.ogImage) {
             updateMetaTag('property', 'og:image', seo.ogImage);
+            console.log('🖼️ OG Image updated to:', seo.ogImage);
           }
           if (seo.ogUrl) {
             updateMetaTag('property', 'og:url', seo.ogUrl);
@@ -48,6 +53,7 @@ const SEO = () => {
           }
           if (seo.twitterImage) {
             updateMetaTag('property', 'twitter:image', seo.twitterImage);
+            console.log('🖼️ Twitter Image updated to:', seo.twitterImage);
           }
 
           // Update canonical URL
@@ -70,9 +76,13 @@ const SEO = () => {
           if (seo.robots) {
             updateMetaTag('name', 'robots', seo.robots);
           }
+          
+          console.log('✅ Meta tags updated successfully');
+        } else {
+          console.log('⚠️ No SEO settings found, using default meta tags from index.html');
         }
       } catch (err) {
-        console.error('Failed to load SEO settings:', err);
+        console.error('❌ Failed to load SEO settings:', err);
       }
     };
 
@@ -88,6 +98,7 @@ const SEO = () => {
       document.head.appendChild(meta);
     }
     meta.setAttribute('content', content);
+    console.log(`✅ Updated ${attribute}="${name}" to: ${content}`);
   };
 
   return null; // This component doesn't render anything

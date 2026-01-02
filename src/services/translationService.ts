@@ -6,7 +6,7 @@ import enTranslations from '../i18n/locales/en.json';
 import arTranslations from '../i18n/locales/ar.json';
 import ruTranslations from '../i18n/locales/ru.json';
 import trTranslations from '../i18n/locales/tr.json';
-import { getTranslationsData, saveTranslationsData } from './cloudinaryDataService';
+import { getTranslationsData, saveTranslationsData } from './phpDataService';
 
 export type SupportedLanguage = 'de' | 'en' | 'ar' | 'ru' | 'tr';
 
@@ -37,53 +37,37 @@ const getDefaultTranslations = (lang: SupportedLanguage): TranslationData => {
   }
 };
 
-// Get translations for a specific language (from Cloudinary, localStorage or defaults)
+// Get translations for a specific language (from PHP server or defaults)
 export const getTranslations = async (lang: SupportedLanguage): Promise<TranslationData> => {
   try {
-    // Try Cloudinary first
-    const cloudinaryData = await getTranslationsData();
-    if (cloudinaryData && cloudinaryData[lang]) {
-      return cloudinaryData[lang];
+    // Try PHP server first
+    const serverData = await getTranslationsData();
+    if (serverData && serverData[lang]) {
+      return serverData[lang];
     }
   } catch (error) {
-    console.warn(`Failed to load translations from Cloudinary for ${lang}:`, error);
+    console.warn(`Failed to load translations from server for ${lang}:`, error);
   }
   
-  // Fallback to localStorage
-  const storageKey = `${STORAGE_KEY_PREFIX}${lang}`;
-  const stored = localStorage.getItem(storageKey);
-  
-  if (stored) {
-    try {
-      return JSON.parse(stored);
-    } catch (error) {
-      console.error(`Error parsing translations for ${lang}:`, error);
-      return getDefaultTranslations(lang);
-    }
-  }
-  
+  // Fallback to defaults
   return getDefaultTranslations(lang);
 };
 
 // Save translations for a specific language
 export const saveTranslations = async (lang: SupportedLanguage, translations: TranslationData): Promise<void> => {
   try {
-    // Get all translations from Cloudinary
+    // Get all translations from PHP server
     const allTranslations = await getTranslationsData() || {};
     
     // Update the specific language
     allTranslations[lang] = translations;
     
-    // Save back to Cloudinary
+    // Save back to PHP server
     await saveTranslationsData(allTranslations);
-    console.log(`✅ Translations for ${lang} saved to Cloudinary`);
+    console.log(`✅ Translations for ${lang} saved to server`);
   } catch (error) {
-    console.error(`❌ Failed to save translations to Cloudinary for ${lang}:`, error);
-    
-    // Fallback to localStorage
-    const storageKey = `${STORAGE_KEY_PREFIX}${lang}`;
-    localStorage.setItem(storageKey, JSON.stringify(translations));
-    console.log(`⚠️ Translations for ${lang} saved to localStorage (fallback)`);
+    console.error(`❌ Failed to save translations to server for ${lang}:`, error);
+    throw error;
   }
   
   // Trigger a custom event to notify components to reload translations
@@ -93,22 +77,19 @@ export const saveTranslations = async (lang: SupportedLanguage, translations: Tr
 // Reset translations to defaults for a specific language
 export const resetTranslations = async (lang: SupportedLanguage): Promise<void> => {
   try {
-    // Get all translations from Cloudinary
+    // Get all translations from PHP server
     const allTranslations = await getTranslationsData() || {};
     
     // Remove the specific language (will fallback to defaults)
     delete allTranslations[lang];
     
-    // Save back to Cloudinary
+    // Save back to PHP server
     await saveTranslationsData(allTranslations);
-    console.log(`✅ Translations for ${lang} reset in Cloudinary`);
+    console.log(`✅ Translations for ${lang} reset on server`);
   } catch (error) {
-    console.error(`❌ Failed to reset translations in Cloudinary for ${lang}:`, error);
+    console.error(`❌ Failed to reset translations on server for ${lang}:`, error);
+    throw error;
   }
-  
-  // Also remove from localStorage
-  const storageKey = `${STORAGE_KEY_PREFIX}${lang}`;
-  localStorage.removeItem(storageKey);
   
   // Trigger a custom event to notify components to reload translations
   window.dispatchEvent(new CustomEvent('translationsUpdated', { detail: { lang } }));

@@ -1,16 +1,16 @@
 // Data Service for managing website content
-// ALL data comes from Cloudinary - NO localStorage
+// ALL data comes from PHP Backend - files.foliensam.de
 
 import {
-  getGalleryData as getGalleryFromCloudinary,
-  saveGalleryData as saveGalleryToCloudinary,
-  getHeroData as getHeroFromCloudinary,
-  saveHeroData as saveHeroToCloudinary,
-  getServicesData as getServicesFromCloudinary,
-  saveServicesData as saveServicesToCloudinary,
-  getSettingsData as getSettingsFromCloudinary,
-  saveSettingsData as saveSettingsToCloudinary,
-} from './cloudinaryDataService';
+  getGalleryData as getGalleryFromPHP,
+  saveGalleryData as saveGalleryToPHP,
+  getHeroData as getHeroFromPHP,
+  saveHeroData as saveHeroToPHP,
+  getServicesData as getServicesFromPHP,
+  saveServicesData as saveServicesToPHP,
+  getSettingsData as getSettingsFromPHP,
+  saveSettingsData as saveSettingsToPHP,
+} from './phpDataService';
 
 export interface HeroData {
   mainImageUrl: string;
@@ -48,15 +48,19 @@ export interface Service {
 // ========================================
 
 export const getHeroData = async (): Promise<HeroData> => {
-  console.log('📡 Fetching hero data from Cloudinary...');
-  const data = await getHeroFromCloudinary();
+  console.log('📡 Fetching hero data from PHP server...');
+  const data = await getHeroFromPHP();
   console.log('✅ Got hero data:', data);
-  return data;
+  return data || {
+    mainImageUrl: '',
+    videoUrl: '',
+    youtubeVideoId: ''
+  };
 };
 
 export const updateHeroData = async (data: HeroData): Promise<void> => {
-  console.log('💾 Saving hero data to Cloudinary...');
-  await saveHeroToCloudinary(data);
+  console.log('💾 Saving hero data to PHP server...');
+  await saveHeroToPHP(data);
   console.log('✅ Hero data saved');
 };
 
@@ -65,8 +69,8 @@ export const updateHeroData = async (data: HeroData): Promise<void> => {
 // ========================================
 
 export const getGalleryImages = async (): Promise<GalleryImage[]> => {
-  console.log('📡 Fetching gallery from Cloudinary...');
-  const data = await getGalleryFromCloudinary();
+  console.log('📡 Fetching gallery from PHP server...');
+  const data = await getGalleryFromPHP();
   
   // Sort by publishedAt (newest first)
   const sorted = data.sort((a, b) => {
@@ -80,8 +84,8 @@ export const getGalleryImages = async (): Promise<GalleryImage[]> => {
 };
 
 const saveGalleryImages = async (images: GalleryImage[]): Promise<void> => {
-  console.log('💾 Saving gallery to Cloudinary...');
-  await saveGalleryToCloudinary(images);
+  console.log('💾 Saving gallery to PHP server...');
+  await saveGalleryToPHP(images);
   console.log('✅ Gallery saved');
 };
 
@@ -117,15 +121,15 @@ export const deleteGalleryImage = async (id: string): Promise<void> => {
 // ========================================
 
 export const getServices = async (): Promise<Service[]> => {
-  console.log('📡 Fetching services from Cloudinary...');
-  const data = await getServicesFromCloudinary();
+  console.log('📡 Fetching services from PHP server...');
+  const data = await getServicesFromPHP();
   console.log('✅ Got services:', data.length);
   return data;
 };
 
 const saveServices = async (services: Service[]): Promise<void> => {
-  console.log('💾 Saving services to Cloudinary...');
-  await saveServicesToCloudinary(services);
+  console.log('💾 Saving services to PHP server...');
+  await saveServicesToPHP(services);
   console.log('✅ Services saved');
 };
 
@@ -167,15 +171,20 @@ interface Settings {
 }
 
 export const getSettings = async (): Promise<Settings> => {
-  console.log('📡 Fetching settings from Cloudinary...');
-  const data = await getSettingsFromCloudinary();
+  console.log('📡 Fetching settings from PHP server...');
+  const data = await getSettingsFromPHP();
   console.log('✅ Got settings');
-  return data;
+  return data || {
+    adminPassword: 'admin123',
+    siteName: 'FolienSam',
+    contactEmail: 'info@foliensam.de',
+    whatsappNumber: ''
+  };
 };
 
 export const saveSettings = async (settings: Settings): Promise<void> => {
-  console.log('💾 Saving settings to Cloudinary...');
-  await saveSettingsToCloudinary(settings);
+  console.log('💾 Saving settings to PHP server...');
+  await saveSettingsToPHP(settings);
   console.log('✅ Settings saved');
 };
 

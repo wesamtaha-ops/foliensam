@@ -137,8 +137,8 @@ const Services = () => {
     }
   ];
 
-  // Use fallback services if no custom services are available
-  const displayServices = services.length > 0 ? services : fallbackServices;
+  // Use fallback services if fewer than 6 services are available (to ensure all services are shown)
+  const displayServices = services.length >= 6 ? services : fallbackServices;
 
   return (
     <section className="py-16 md:py-24 bg-gradient-to-b from-white to-gray-50">

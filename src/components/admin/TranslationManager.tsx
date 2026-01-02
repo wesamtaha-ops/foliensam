@@ -57,8 +57,15 @@ const TranslationManager: React.FC = () => {
       setHasChanges(false);
       setSaved(true);
       
-      // Reload i18n translations
+      // Reload i18n translations - this will trigger the event with translations
+      i18n.addResourceBundle(selectedLanguage, 'translation', unflattened, true, true);
       i18n.reloadResources(selectedLanguage);
+      
+      // Force re-render by changing language temporarily
+      const currentLang = i18n.language;
+      if (currentLang === selectedLanguage) {
+        i18n.changeLanguage(selectedLanguage);
+      }
       
       setTimeout(() => setSaved(false), 3000);
     } catch (err) {

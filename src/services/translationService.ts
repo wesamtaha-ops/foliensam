@@ -65,13 +65,18 @@ export const saveTranslations = async (lang: SupportedLanguage, translations: Tr
     // Save back to PHP server
     await saveTranslationsData(allTranslations);
     console.log(`✅ Translations for ${lang} saved to server`);
+    
+    // Also save to localStorage as cache/fallback
+    const storageKey = `${STORAGE_KEY_PREFIX}${lang}`;
+    localStorage.setItem(storageKey, JSON.stringify(translations));
+    console.log(`✅ Translations for ${lang} cached to localStorage`);
   } catch (error) {
     console.error(`❌ Failed to save translations to server for ${lang}:`, error);
     throw error;
   }
   
   // Trigger a custom event to notify components to reload translations
-  window.dispatchEvent(new CustomEvent('translationsUpdated', { detail: { lang } }));
+  window.dispatchEvent(new CustomEvent('translationsUpdated', { detail: { lang, translations } }));
 };
 
 // Reset translations to defaults for a specific language

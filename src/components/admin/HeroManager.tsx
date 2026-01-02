@@ -7,7 +7,8 @@ const HeroManager: React.FC = () => {
   const [heroData, setHeroData] = useState<HeroData>({
     mainImageUrl: 'https://images.cood.ai/cards.gif',
     videoUrl: 'https://images.cood.ai/cards.gif',
-    youtubeVideoId: 'udbvm6bulGU'
+    youtubeVideoId: 'udbvm6bulGU',
+    premiumQualityGifUrl: 'https://images.cood.ai/hero.gif'
   });
   const [saved, setSaved] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -101,6 +102,18 @@ const HeroManager: React.FC = () => {
             The YouTube video ID from the URL (e.g., youtube.com/watch?v=<strong>udbvm6bulGU</strong>)
           </p>
         </div>
+
+        {/* Premium Quality GIF */}
+        <ImageUpload
+          label="Premium Qualität Animated GIF"
+          value={heroData.premiumQualityGifUrl || ''}
+          onChange={(value) => {
+            console.log('📝 Updating premiumQualityGifUrl to:', value);
+            setHeroData({ ...heroData, premiumQualityGifUrl: value });
+          }}
+          placeholder="https://images.cood.ai/hero.gif"
+          description="This animated GIF appears above the description text in the About section"
+        />
 
       </div>
     </div>

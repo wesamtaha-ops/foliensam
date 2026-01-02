@@ -16,6 +16,7 @@ export interface HeroData {
   mainImageUrl: string;
   videoUrl: string;
   youtubeVideoId: string;
+  premiumQualityGifUrl?: string;
 }
 
 export interface GalleryImage {
@@ -55,7 +56,8 @@ export const getHeroData = async (): Promise<HeroData> => {
   return data || {
     mainImageUrl: '',
     videoUrl: '',
-    youtubeVideoId: ''
+    youtubeVideoId: '',
+    premiumQualityGifUrl: ''
   };
 };
 

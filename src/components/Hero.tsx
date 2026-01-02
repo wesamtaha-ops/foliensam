@@ -9,7 +9,8 @@ const Hero = () => {
   const [heroData, setHeroData] = useState<HeroData>({
     mainImageUrl: 'https://images.cood.ai/cards.gif',
     videoUrl: 'https://images.cood.ai/cards.gif',
-    youtubeVideoId: 'udbvm6bulGU'
+    youtubeVideoId: 'udbvm6bulGU',
+    premiumQualityGifUrl: 'https://images.cood.ai/hero.gif'
   });
 
   useEffect(() => {

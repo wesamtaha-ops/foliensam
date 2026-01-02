@@ -1,9 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Shield, Award, Clock, Users } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { getHeroData, HeroData } from '../services/dataService';
 
 const About = () => {
   const { t } = useTranslation();
+  const [heroData, setHeroData] = useState<HeroData>({
+    mainImageUrl: 'https://images.cood.ai/cards.gif',
+    videoUrl: 'https://images.cood.ai/cards.gif',
+    youtubeVideoId: 'udbvm6bulGU',
+    premiumQualityGifUrl: 'https://images.cood.ai/hero.gif'
+  });
+
+  useEffect(() => {
+    const loadHeroData = async () => {
+      try {
+        const data = await getHeroData();
+        if (data) {
+          setHeroData(data);
+        }
+      } catch (err) {
+        console.error('Failed to load hero data:', err);
+      }
+    };
+    
+    loadHeroData();
+  }, []);
 
   return (
     <div className="py-24 bg-gray-100">
@@ -14,7 +36,7 @@ const About = () => {
             <div className="relative">
               <div className="aspect-[16/13] rounded-3xl overflow-hidden">
                 <img
-                  src="https://images.cood.ai/hero.gif"
+                  src={heroData.premiumQualityGifUrl || 'https://images.cood.ai/hero.gif'}
                   alt={t('about.imageAlt')}
                   className="object-cover w-full h-full transform  transition-transform duration-700"
                 />
@@ -61,7 +83,23 @@ const About = () => {
           </div>
       
         </div>
-         <h3 className="text-xl mt-14 font-light  text-gray-900">
+        
+        {/* Premium Quality GIF above description */}
+        {heroData.premiumQualityGifUrl && (
+          <div className="mt-12 mb-8 flex justify-center">
+            <div className="relative max-w-2xl w-full">
+              <div className="aspect-video rounded-2xl overflow-hidden shadow-2xl">
+                <img
+                  src={heroData.premiumQualityGifUrl}
+                  alt="Premium Qualität"
+                  className="object-cover w-full h-full"
+                />
+              </div>
+            </div>
+          </div>
+        )}
+        
+         <h3 className="text-xl mt-8 font-light text-gray-900">
                 {t('about.description')}
               </h3>
       </div>

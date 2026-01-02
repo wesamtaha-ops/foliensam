@@ -18,6 +18,7 @@ export interface HeroData {
   mainImageUrl: string;
   videoUrl: string;
   youtubeVideoId: string;
+  premiumQualityGifUrl?: string;
 }
 
 export interface Service {
@@ -194,6 +195,7 @@ export async function initializeAllData(): Promise<void> {
       mainImageUrl: 'https://images.cood.ai/cards.gif',
       videoUrl: 'https://images.cood.ai/cards.gif',
       youtubeVideoId: 'udbvm6bulGU',
+      premiumQualityGifUrl: 'https://images.cood.ai/hero.gif',
     } as HeroData,
     services: [
       {

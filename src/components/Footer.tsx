@@ -1,6 +1,7 @@
 import React from 'react';
 import { Car, Phone, Mail, MapPin, Facebook, Instagram, Youtube } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -106,8 +107,24 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-gray-200 mt-12 pt-8">
-          <div className="text-center text-gray-600">
-            © {new Date().getFullYear()} {t('footer.copyright')}
+          <div className="flex flex-col items-center gap-4">
+            <div className="flex flex-wrap justify-center gap-6">
+              <Link 
+                to="/impressum" 
+                className="text-gray-600 hover:text-accent-blue transition-colors duration-300"
+              >
+                {t('footer.legal.impressum')}
+              </Link>
+              <Link 
+                to="/datenschutz" 
+                className="text-gray-600 hover:text-accent-blue transition-colors duration-300"
+              >
+                {t('footer.legal.datenschutz')}
+              </Link>
+            </div>
+            <div className="text-center text-gray-600">
+              © {new Date().getFullYear()} {t('footer.copyright')}
+            </div>
           </div>
         </div>
       </div>

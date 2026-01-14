@@ -232,6 +232,10 @@
   "footer": {
     "brandDescription": "Ihre erste Wahl für professionelle Fahrzeugveredelung und Folierung in der Region. Wir stehen für Qualität, Präzision und Kundenzufriedenheit.",
     "whatsappMessage": "Hallo! Ich möchte einen Termin vereinbaren.",
+    "legal": {
+      "impressum": "Impressum",
+      "datenschutz": "Datenschutzerklärung"
+    },
     "quickLinks": {
       "title": "Schnellzugriff",
       "items": [
@@ -287,6 +291,117 @@
       "emailInvalid": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
       "subjectRequired": "Betreff ist erforderlich",
       "messageRequired": "Nachricht ist erforderlich"
+    }
+  },
+  "legal": {
+    "backToHome": "Zurück zur Startseite"
+  },
+  "impressum": {
+    "title": "Impressum",
+    "legalRequirement": "Angaben gemäß § 5 TMG (Telemediengesetz)",
+    "companyInfo": {
+      "title": "Angaben zum Unternehmen",
+      "type": "Einzelunternehmen / Fahrzeugfolierung"
+    },
+    "representative": {
+      "title": "Inhaber / Vertretungsberechtigter"
+    },
+    "address": {
+      "title": "Adresse"
+    },
+    "contact": {
+      "title": "Kontakt"
+    },
+    "vatId": {
+      "title": "Umsatzsteuer-ID",
+      "pending": "Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: Auf Anfrage verfügbar"
+    },
+    "disclaimer": {
+      "title": "Haftungsausschluss",
+      "content": {
+        "title": "Haftung für Inhalte",
+        "text": "Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen."
+      },
+      "links": {
+        "title": "Haftung für Links",
+        "text": "Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich."
+      },
+      "copyright": {
+        "title": "Urheberrecht",
+        "text": "Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers."
+      }
+    },
+    "disputeResolution": {
+      "title": "Streitschlichtung",
+      "text": "Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit. Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen."
+    }
+  },
+  "datenschutz": {
+    "title": "Datenschutzerklärung",
+    "intro": "Der Schutz Ihrer persönlichen Daten ist uns ein besonderes Anliegen. Wir verarbeiten Ihre Daten daher ausschließlich auf Grundlage der gesetzlichen Bestimmungen (DSGVO, TMG). In dieser Datenschutzerklärung informieren wir Sie über die wichtigsten Aspekte der Datenverarbeitung im Rahmen unserer Website.",
+    "responsible": {
+      "title": "Verantwortlicher für die Datenverarbeitung"
+    },
+    "lastUpdated": "Stand",
+    "sections": {
+      "overview": {
+        "title": "Allgemeine Hinweise",
+        "content": [
+          "Die Nutzung unserer Website ist in der Regel ohne Angabe personenbezogener Daten möglich. Soweit auf unseren Seiten personenbezogene Daten erhoben werden, erfolgt dies stets auf freiwilliger Basis.",
+          "Wir weisen darauf hin, dass die Datenübertragung im Internet Sicherheitslücken aufweisen kann. Ein lückenloser Schutz der Daten vor dem Zugriff durch Dritte ist nicht möglich."
+        ]
+      },
+      "dataCollection": {
+        "title": "Erfassung von Daten",
+        "content": [
+          "Beim Besuch unserer Website werden automatisch technische Informationen erfasst, die Ihr Browser an unseren Server übermittelt. Dies sind: Browsertyp und -version, verwendetes Betriebssystem, Referrer URL, Hostname des zugreifenden Rechners, Uhrzeit der Serveranfrage und IP-Adresse.",
+          "Diese Daten sind nicht bestimmten Personen zuordenbar. Eine Zusammenführung dieser Daten mit anderen Datenquellen wird nicht vorgenommen."
+        ]
+      },
+      "dataUsage": {
+        "title": "Verwendung von Daten",
+        "content": [
+          "Die von Ihnen bereitgestellten Daten werden ausschließlich zur Bearbeitung Ihrer Anfragen und zur Erbringung unserer Dienstleistungen verwendet.",
+          "Eine Weitergabe an Dritte erfolgt nur, wenn dies zur Vertragserfüllung notwendig ist oder Sie ausdrücklich eingewilligt haben."
+        ]
+      },
+      "cookies": {
+        "title": "Cookies",
+        "content": [
+          "Unsere Website verwendet Cookies. Cookies sind kleine Textdateien, die auf Ihrem Rechner abgelegt werden und die Ihr Browser speichert.",
+          "Die meisten der von uns verwendeten Cookies sind sogenannte Session-Cookies. Sie werden nach Ende Ihres Besuchs automatisch gelöscht. Andere Cookies bleiben auf Ihrem Endgerät gespeichert, bis Sie diese löschen.",
+          "Sie können Ihren Browser so einstellen, dass Sie über das Setzen von Cookies informiert werden und Cookies nur im Einzelfall erlauben."
+        ]
+      },
+      "rights": {
+        "title": "Ihre Rechte",
+        "content": [
+          "Ihnen stehen grundsätzlich die Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit und Widerspruch zu.",
+          "Wenn Sie glauben, dass die Verarbeitung Ihrer Daten gegen das Datenschutzrecht verstößt, können Sie sich bei der Aufsichtsbehörde beschweren.",
+          "Sie haben das Recht, Ihre datenschutzrechtliche Einwilligungserklärung jederzeit zu widerrufen."
+        ]
+      },
+      "contactForm": {
+        "title": "Kontaktformular",
+        "content": [
+          "Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zur Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert.",
+          "Diese Daten geben wir nicht ohne Ihre Einwilligung weiter. Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO."
+        ]
+      },
+      "thirdParty": {
+        "title": "Drittanbieter-Dienste",
+        "youtube": "Unsere Website nutzt YouTube für die Einbindung von Videos. Betreiber ist die YouTube, LLC, 901 Cherry Ave., San Bruno, CA 94066, USA. Wenn Sie eine Seite mit eingebetteten YouTube-Videos besuchen, wird eine Verbindung zu den YouTube-Servern hergestellt. Dabei wird dem YouTube-Server mitgeteilt, welche unserer Seiten Sie besucht haben. Weitere Informationen finden Sie in der Datenschutzerklärung von YouTube.",
+        "googleMaps": "Diese Website verwendet Google Maps zur Darstellung von Karten. Betreiber ist die Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Bei Nutzung von Google Maps werden Daten über Ihre Nutzung an Google übertragen und auf Servern in den USA gespeichert.",
+        "whatsapp": "Wir bieten WhatsApp als Kontaktmöglichkeit an. WhatsApp ist ein Dienst der WhatsApp Ireland Limited. Bei Nutzung werden Ihre Daten gemäß den WhatsApp-Datenschutzrichtlinien verarbeitet."
+      },
+      "security": {
+        "title": "Datensicherheit",
+        "content": "Wir setzen technische und organisatorische Sicherheitsmaßnahmen ein, um Ihre Daten gegen zufällige oder vorsätzliche Manipulation, Verlust, Zerstörung oder gegen den Zugriff unberechtigter Personen zu schützen. Unsere Sicherheitsmaßnahmen werden entsprechend der technologischen Entwicklung fortlaufend verbessert."
+      },
+      "changes": {
+        "title": "Änderungen dieser Datenschutzerklärung",
+        "content": "Wir behalten uns vor, diese Datenschutzerklärung anzupassen, damit sie stets den aktuellen rechtlichen Anforderungen entspricht oder um Änderungen unserer Leistungen umzusetzen."
+      }
     }
   }
 }

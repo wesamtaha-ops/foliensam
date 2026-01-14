@@ -11,6 +11,8 @@ import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import Admin from './components/admin/Admin';
 import SEO from './components/SEO';
+import Impressum from './components/Impressum';
+import Datenschutz from './components/Datenschutz';
 
 function HomePage() {
   return (
@@ -50,6 +52,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/impressum" element={<Impressum />} />
+        <Route path="/datenschutz" element={<Datenschutz />} />
         <Route path="/admin" element={<Admin />} />
       </Routes>
     </Router>

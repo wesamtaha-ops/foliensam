@@ -232,6 +232,10 @@
   "footer": {
     "brandDescription": "Bölgenin profesyonel araç kaplama ve yenileme konusundaki ilk tercihi. Kalite, hassasiyet ve müşteri memnuniyeti için çalışıyoruz.",
     "whatsappMessage": "Merhaba! Randevu almak istiyorum.",
+    "legal": {
+      "impressum": "Yasal Bildirim",
+      "datenschutz": "Gizlilik Politikası"
+    },
     "quickLinks": {
       "title": "Hızlı Bağlantılar",
       "items": [
@@ -287,6 +291,117 @@
       "emailInvalid": "Lütfen geçerli bir e-posta adresi girin",
       "subjectRequired": "Konu gerekli",
       "messageRequired": "Mesaj gerekli"
+    }
+  },
+  "legal": {
+    "backToHome": "Ana Sayfaya Dön"
+  },
+  "impressum": {
+    "title": "Yasal Bildirim",
+    "legalRequirement": "§ 5 TMG (Alman Telemedya Yasası) uyarınca bilgiler",
+    "companyInfo": {
+      "title": "Şirket Bilgileri",
+      "type": "Bireysel İşletme / Araç Kaplama"
+    },
+    "representative": {
+      "title": "Sahip / Yetkili Temsilci"
+    },
+    "address": {
+      "title": "Adres"
+    },
+    "contact": {
+      "title": "İletişim"
+    },
+    "vatId": {
+      "title": "KDV Kimlik No",
+      "pending": "KDV kimlik numarası: Talep üzerine sunulabilir"
+    },
+    "disclaimer": {
+      "title": "Sorumluluk Reddi",
+      "content": {
+        "title": "İçerik Sorumluluğu",
+        "text": "Bir hizmet sağlayıcı olarak, bu sayfalardaki kendi içeriğimizden genel yasalar çerçevesinde sorumluyuz. Ancak, iletilen veya depolanan üçüncü taraf bilgilerini izlemekle yükümlü değiliz."
+      },
+      "links": {
+        "title": "Bağlantı Sorumluluğu",
+        "text": "Web sitemiz, içeriği üzerinde kontrolümüz olmayan harici üçüncü taraf web sitelerine bağlantılar içermektedir. Bu nedenle, bu üçüncü taraf içeriği için herhangi bir sorumluluk kabul edemeyiz. Bağlantılı sayfaların içeriğinden her zaman ilgili sağlayıcı veya operatör sorumludur."
+      },
+      "copyright": {
+        "title": "Telif Hakkı",
+        "text": "Bu sayfalarda site operatörleri tarafından oluşturulan içerik ve çalışmalar Alman telif hakkı yasasına tabidir. Çoğaltma, işleme, dağıtım ve telif hakkı sınırları dışında her türlü kullanım, ilgili yazarın veya yaratıcının yazılı iznini gerektirir."
+      }
+    },
+    "disputeResolution": {
+      "title": "Uyuşmazlık Çözümü",
+      "text": "Avrupa Komisyonu çevrimiçi uyuşmazlık çözümü için bir platform sağlamaktadır. Tüketici tahkim kurulu önündeki uyuşmazlık çözüm işlemlerine katılmaya istekli veya zorunlu değiliz."
+    }
+  },
+  "datenschutz": {
+    "title": "Gizlilik Politikası",
+    "intro": "Kişisel verilerinizin korunması bizim için özellikle önemlidir. Verilerinizi yalnızca yasal düzenlemeler (GDPR, TMG) temelinde işliyoruz. Bu gizlilik politikasında, web sitemizde veri işlemenin en önemli yönleri hakkında sizi bilgilendiriyoruz.",
+    "responsible": {
+      "title": "Veri İşleme Sorumlusu"
+    },
+    "lastUpdated": "Son Güncelleme",
+    "sections": {
+      "overview": {
+        "title": "Genel Bilgiler",
+        "content": [
+          "Web sitemizi genellikle kişisel veri sağlamadan kullanabilirsiniz. Sayfalarımızda kişisel veri toplandığında, bu her zaman gönüllü olarak yapılır.",
+          "İnternet üzerinden veri iletiminin güvenlik açıkları olabileceğini belirtmek isteriz. Verilerin üçüncü tarafların erişiminden tam korunması mümkün değildir."
+        ]
+      },
+      "dataCollection": {
+        "title": "Veri Toplama",
+        "content": [
+          "Web sitemizi ziyaret ettiğinizde, tarayıcınızın sunucumuza gönderdiği teknik bilgiler otomatik olarak kaydedilir. Bu bilgiler şunları içerir: tarayıcı türü ve sürümü, kullanılan işletim sistemi, yönlendiren URL, erişen bilgisayarın ana bilgisayar adı, sunucu isteği zamanı ve IP adresi.",
+          "Bu veriler belirli kişilere atanamaz. Bu veriler diğer veri kaynaklarıyla birleştirilmez."
+        ]
+      },
+      "dataUsage": {
+        "title": "Veri Kullanımı",
+        "content": [
+          "Sağladığınız veriler yalnızca sorularınızı işlemek ve hizmetlerimizi sunmak için kullanılır.",
+          "Veriler yalnızca sözleşme yerine getirme için gerekliyse veya açıkça onay verdiyseniz üçüncü taraflara iletilir."
+        ]
+      },
+      "cookies": {
+        "title": "Çerezler",
+        "content": [
+          "Web sitemiz çerezler kullanmaktadır. Çerezler, bilgisayarınızda depolanan ve tarayıcınız tarafından kaydedilen küçük metin dosyalarıdır.",
+          "Kullandığımız çerezlerin çoğu oturum çerezleri olarak adlandırılır. Ziyaretinizden sonra otomatik olarak silinirler. Diğer çerezler, siz silene kadar cihazınızda depolanır.",
+          "Tarayıcınızı çerez ayarları hakkında sizi bilgilendirecek ve yalnızca bireysel durumlarda çerezlere izin verecek şekilde yapılandırabilirsiniz."
+        ]
+      },
+      "rights": {
+        "title": "Haklarınız",
+        "content": [
+          "Genel olarak bilgi alma, düzeltme, silme, kısıtlama, veri taşınabilirliği ve itiraz haklarına sahipsiniz.",
+          "Verilerinizin işlenmesinin veri koruma yasasını ihlal ettiğine inanıyorsanız, denetim makamına şikayette bulunabilirsiniz.",
+          "Veri koruma onayınızı istediğiniz zaman iptal etme hakkına sahipsiniz."
+        ]
+      },
+      "contactForm": {
+        "title": "İletişim Formu",
+        "content": [
+          "İletişim formu aracılığıyla bize soru gönderirseniz, soru formundaki verileriniz ve sağladığınız iletişim bilgileri, soruyu işlemek ve takip soruları durumunda tarafımızca saklanacaktır.",
+          "Bu verileri onayınız olmadan iletmeyiz. İşleme GDPR Madde 6 Paragraf 1 lit. b'ye dayanmaktadır."
+        ]
+      },
+      "thirdParty": {
+        "title": "Üçüncü Taraf Hizmetleri",
+        "youtube": "Web sitemiz video yerleştirmek için YouTube kullanmaktadır. Operatör YouTube, LLC, 901 Cherry Ave., San Bruno, CA 94066, ABD'dir. Gömülü YouTube videoları içeren bir sayfayı ziyaret ettiğinizde, YouTube sunucularıyla bir bağlantı kurulur.",
+        "googleMaps": "Bu web sitesi harita görüntülemek için Google Maps kullanmaktadır. Operatör Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, İrlanda'dır. Google Maps kullanıldığında, kullanımınızla ilgili veriler Google'a iletilir ve ABD'deki sunucularda saklanır.",
+        "whatsapp": "İletişim seçeneği olarak WhatsApp sunuyoruz. WhatsApp, WhatsApp Ireland Limited'in bir hizmetidir. Kullanıldığında, verileriniz WhatsApp gizlilik politikasına uygun olarak işlenir."
+      },
+      "security": {
+        "title": "Veri Güvenliği",
+        "content": "Verilerinizi kazara veya kasıtlı manipülasyondan, kayıptan, imhadan veya yetkisiz kişilerin erişiminden korumak için teknik ve organizasyonel güvenlik önlemleri kullanıyoruz. Güvenlik önlemlerimiz teknolojik gelişmelere uygun olarak sürekli iyileştirilmektedir."
+      },
+      "changes": {
+        "title": "Gizlilik Politikası Değişiklikleri",
+        "content": "Bu gizlilik politikasını güncel yasal gerekliliklere uygun hale getirmek veya hizmetlerimizdeki değişiklikleri uygulamak için uyarlama hakkını saklı tutarız."
+      }
     }
   }
 }

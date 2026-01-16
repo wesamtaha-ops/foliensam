@@ -1,11 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { Car, Shield, Sparkles, Palette, Sun, Building, X, Clock, Check, ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { getServices, Service as ServiceType } from '../services/dataService';
+
+// Service slugs for URL hashes
+const SERVICE_SLUGS = [
+  'vollfolierung',
+  'scheibentoenung', 
+  'lackschutz',
+  'designfolierung',
+  'chromfolierung',
+  'firmenwerbung'
+];
 
 const Services = () => {
   const { t } = useTranslation();
+  const location = useLocation();
+  const navigate = useNavigate();
   const [selectedService, setSelectedService] = useState<any>(null);
+  const [selectedServiceIndex, setSelectedServiceIndex] = useState<number | null>(null);
   const [servicesData, setServicesData] = useState<ServiceType[]>([]);
 
   useEffect(() => {
@@ -140,6 +154,55 @@ const Services = () => {
   // Use fallback services if fewer than 6 services are available (to ensure all services are shown)
   const displayServices = services.length >= 6 ? services : fallbackServices;
 
+  // Handle opening service modal with URL hash
+  const openServiceModal = (service: any, index: number) => {
+    setSelectedService(service);
+    setSelectedServiceIndex(index);
+    const slug = SERVICE_SLUGS[index] || `service-${index}`;
+    window.history.pushState(null, '', `#${slug}`);
+  };
+
+  // Handle closing service modal
+  const closeServiceModal = () => {
+    setSelectedService(null);
+    setSelectedServiceIndex(null);
+    window.history.pushState(null, '', window.location.pathname);
+  };
+
+  // Check URL hash on mount and when displayServices changes
+  useEffect(() => {
+    if (displayServices.length === 0) return;
+    
+    const hash = location.hash.replace('#', '');
+    if (hash) {
+      const serviceIndex = SERVICE_SLUGS.indexOf(hash);
+      if (serviceIndex !== -1 && displayServices[serviceIndex]) {
+        setSelectedService(displayServices[serviceIndex]);
+        setSelectedServiceIndex(serviceIndex);
+      }
+    }
+  }, [location.hash, displayServices.length]);
+
+  // Handle browser back/forward buttons
+  useEffect(() => {
+    const handlePopState = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash && SERVICE_SLUGS.includes(hash)) {
+        const serviceIndex = SERVICE_SLUGS.indexOf(hash);
+        if (displayServices[serviceIndex]) {
+          setSelectedService(displayServices[serviceIndex]);
+          setSelectedServiceIndex(serviceIndex);
+        }
+      } else if (!hash || !SERVICE_SLUGS.includes(hash)) {
+        setSelectedService(null);
+        setSelectedServiceIndex(null);
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [displayServices]);
+
   return (
     <section className="py-16 md:py-24 bg-gradient-to-b from-white to-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -158,7 +221,7 @@ const Services = () => {
             <div 
               key={index} 
               className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:translate-y-[-4px] cursor-pointer"
-              onClick={() => setSelectedService(service)}
+              onClick={() => openServiceModal(service, index)}
             >
               <div className="aspect-[16/9] overflow-hidden relative">
                 <img
@@ -193,13 +256,17 @@ const Services = () => {
         {selectedService && (
           <div className="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
             <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-              <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+              <div 
+                className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" 
+                aria-hidden="true"
+                onClick={closeServiceModal}
+              ></div>
               <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
               
               <div className="relative inline-block align-bottom bg-white rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full">
                 <div className="absolute top-4 right-4 z-10">
                   <button
-                    onClick={() => setSelectedService(null)}
+                    onClick={closeServiceModal}
                     className="bg-white/90 backdrop-blur-sm rounded-full p-2 hover:bg-gray-100 transition-colors duration-200"
                   >
                     <X className="h-6 w-6 text-gray-600" />
@@ -271,7 +338,7 @@ const Services = () => {
                   <div className="mt-8">
                     <a
                       href="#contact"
-                      onClick={() => setSelectedService(null)}
+                      onClick={closeServiceModal}
                       className="w-full bg-accent-purple text-white py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-accent-purple/90 transition-colors duration-300"
                     >
                       {t('services.inquireNow')} <ArrowRight className="h-5 w-5" />

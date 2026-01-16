@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ArrowLeft, Shield, Eye, Database, Lock, UserCheck, Cookie, Mail } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import Navbar from './Navbar';
+import { useNavigate } from 'react-router-dom';
 import Footer from './Footer';
 
 const Datenschutz: React.FC = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const sections = [
     {
@@ -38,16 +42,15 @@ const Datenschutz: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
       <main className="flex-grow bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <Link 
-            to="/" 
+          <button 
+            onClick={() => navigate('/')}
             className="inline-flex items-center gap-2 text-accent-blue hover:text-accent-blue/80 transition-colors mb-8"
           >
             <ArrowLeft className="w-5 h-5" />
             {t('legal.backToHome')}
-          </Link>
+          </button>
 
           <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
             <div className="flex items-center gap-4 mb-8">

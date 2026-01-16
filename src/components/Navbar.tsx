@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Car, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useLocation, useNavigate } from 'react-router-dom';
 import LanguageSelector from './LanguageSelector';
 
 const Navbar = () => {
   const { t } = useTranslation();
+  const location = useLocation();
+  const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const whatsappNumber = "+4915750000505";
@@ -19,13 +22,30 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Handle hash scrolling on page load
+  useEffect(() => {
+    const hash = location.hash.replace('#', '');
+    if (hash) {
+      // Small delay to ensure DOM is ready
+      setTimeout(() => {
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  }, [location.hash]);
+
   const handleLogoClick = () => {
-    window.location.reload();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.history.pushState(null, '', '/');
   };
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
+      // Update URL with hash
+      window.history.pushState(null, '', `/#${sectionId}`);
       element.scrollIntoView({ behavior: 'smooth' });
       setIsMobileMenuOpen(false);
     }

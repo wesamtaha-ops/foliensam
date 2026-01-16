@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -14,7 +14,26 @@ import SEO from './components/SEO';
 import Impressum from './components/Impressum';
 import Datenschutz from './components/Datenschutz';
 
+// Navigation section IDs
+const NAV_SECTIONS = ['home', 'services', 'about', 'gallery', 'contact', 'features'];
+
 function HomePage() {
+  const location = useLocation();
+
+  // Handle hash scrolling on page load and hash change
+  useEffect(() => {
+    const hash = location.hash.replace('#', '');
+    if (hash && NAV_SECTIONS.includes(hash)) {
+      // Small delay to ensure DOM is fully rendered
+      setTimeout(() => {
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  }, [location.hash]);
+
   return (
     <div className="min-h-screen">
       <SEO />

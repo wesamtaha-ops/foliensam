@@ -1,25 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Car, Shield, Sparkles, Palette, Sun, Building, X, Clock, Check, ArrowRight } from 'lucide-react';
+import { Car, Shield, Sparkles, Palette, Sun, Building, ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { getServices, Service as ServiceType } from '../services/dataService';
-
-// Service slugs for URL hashes
-const SERVICE_SLUGS = [
-  'vollfolierung',
-  'scheibentoenung', 
-  'lackschutz',
-  'designfolierung',
-  'chromfolierung',
-  'firmenwerbung'
-];
+import { SERVICE_SLUGS } from '../data/serviceData';
 
 const Services = () => {
   const { t } = useTranslation();
-  const location = useLocation();
   const navigate = useNavigate();
-  const [selectedService, setSelectedService] = useState<any>(null);
-  const [selectedServiceIndex, setSelectedServiceIndex] = useState<number | null>(null);
   const [servicesData, setServicesData] = useState<ServiceType[]>([]);
 
   useEffect(() => {
@@ -154,54 +142,11 @@ const Services = () => {
   // Use fallback services if fewer than 6 services are available (to ensure all services are shown)
   const displayServices = services.length >= 6 ? services : fallbackServices;
 
-  // Handle opening service modal with URL hash
-  const openServiceModal = (service: any, index: number) => {
-    setSelectedService(service);
-    setSelectedServiceIndex(index);
+  // Navigate to service detail page
+  const handleServiceClick = (index: number) => {
     const slug = SERVICE_SLUGS[index] || `service-${index}`;
-    window.history.pushState(null, '', `#${slug}`);
+    navigate(`/service/${slug}`);
   };
-
-  // Handle closing service modal
-  const closeServiceModal = () => {
-    setSelectedService(null);
-    setSelectedServiceIndex(null);
-    window.history.pushState(null, '', window.location.pathname);
-  };
-
-  // Check URL hash on mount and when displayServices changes
-  useEffect(() => {
-    if (displayServices.length === 0) return;
-    
-    const hash = location.hash.replace('#', '');
-    if (hash) {
-      const serviceIndex = SERVICE_SLUGS.indexOf(hash);
-      if (serviceIndex !== -1 && displayServices[serviceIndex]) {
-        setSelectedService(displayServices[serviceIndex]);
-        setSelectedServiceIndex(serviceIndex);
-      }
-    }
-  }, [location.hash, displayServices.length]);
-
-  // Handle browser back/forward buttons
-  useEffect(() => {
-    const handlePopState = () => {
-      const hash = window.location.hash.replace('#', '');
-      if (hash && SERVICE_SLUGS.includes(hash)) {
-        const serviceIndex = SERVICE_SLUGS.indexOf(hash);
-        if (displayServices[serviceIndex]) {
-          setSelectedService(displayServices[serviceIndex]);
-          setSelectedServiceIndex(serviceIndex);
-        }
-      } else if (!hash || !SERVICE_SLUGS.includes(hash)) {
-        setSelectedService(null);
-        setSelectedServiceIndex(null);
-      }
-    };
-
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
-  }, [displayServices]);
 
   return (
     <section className="py-16 md:py-24 bg-gradient-to-b from-white to-gray-50">
@@ -221,7 +166,7 @@ const Services = () => {
             <div 
               key={index} 
               className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:translate-y-[-4px] cursor-pointer"
-              onClick={() => openServiceModal(service, index)}
+              onClick={() => handleServiceClick(index)}
             >
               <div className="aspect-[16/9] overflow-hidden relative">
                 <img
@@ -252,103 +197,6 @@ const Services = () => {
             </div>
           ))}
         </div>
-
-        {selectedService && (
-          <div className="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-            <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-              <div 
-                className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" 
-                aria-hidden="true"
-                onClick={closeServiceModal}
-              ></div>
-              <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-              
-              <div className="relative inline-block align-bottom bg-white rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full">
-                <div className="absolute top-4 right-4 z-10">
-                  <button
-                    onClick={closeServiceModal}
-                    className="bg-white/90 backdrop-blur-sm rounded-full p-2 hover:bg-gray-100 transition-colors duration-200"
-                  >
-                    <X className="h-6 w-6 text-gray-600" />
-                  </button>
-                </div>
-
-                <div className="aspect-video relative">
-                  <img
-                    src={selectedService.image}
-                    alt={selectedService.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
-                    <span className="inline-block px-3 py-1 bg-accent-purple text-white text-sm rounded-full mb-2">
-                      {selectedService.category}
-                    </span>
-                    <h3 className="text-2xl font-bold text-white">{selectedService.title}</h3>
-                  </div>
-                </div>
-
-                <div className="bg-white p-6">
-                  <div className="grid grid-cols-2 gap-4 mb-6">
-                    <div className="flex items-center gap-2 bg-gray-50 p-3 rounded-lg">
-                      <Clock className="h-5 w-5 text-accent-purple" />
-                      <div>
-                        <p className="text-sm text-gray-600">{t('services.duration')}</p>
-                        <p className="font-semibold">{selectedService.details.duration}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2 bg-gray-50 p-3 rounded-lg">
-                      <Shield className="h-5 w-5 text-accent-purple" />
-                      <div>
-                        <p className="text-sm text-gray-600">{t('services.warranty')}</p>
-                        <p className="font-semibold">{selectedService.details.warranty}</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <p className="text-gray-600 mb-6">
-                    {selectedService.details.description}
-                  </p>
-
-                  <div className="mb-6">
-                    <h4 className="text-lg font-semibold mb-3">{t('services.features')}</h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      {selectedService.details.features.map((feature, index) => (
-                        <div key={index} className="flex items-center gap-2">
-                          <Check className="h-5 w-5 text-accent-purple" />
-                          <span className="text-gray-600">{feature}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <h4 className="text-lg font-semibold mb-3">{t('services.process')}</h4>
-                    <div className="space-y-3">
-                      {selectedService.details.process.map((step, index) => (
-                        <div key={index} className="flex items-center gap-3 bg-gray-50 p-3 rounded-lg">
-                          <div className="w-6 h-6 bg-accent-purple/10 rounded-full flex items-center justify-center text-accent-purple font-semibold text-sm">
-                            {index + 1}
-                          </div>
-                          <span className="text-gray-600">{step}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="mt-8">
-                    <a
-                      href="#contact"
-                      onClick={closeServiceModal}
-                      className="w-full bg-accent-purple text-white py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-accent-purple/90 transition-colors duration-300"
-                    >
-                      {t('services.inquireNow')} <ArrowRight className="h-5 w-5" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </section>
   );

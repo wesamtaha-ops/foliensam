@@ -14,10 +14,15 @@ const Navbar = () => {
   const message = "Hallo! Ich möchte einen Termin vereinbaren.";
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
+  // Check if we're on a service detail page
+  const isServicePage = location.pathname.startsWith('/service/');
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
+    // Check scroll position on initial load
+    handleScroll();
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -37,11 +42,23 @@ const Navbar = () => {
   }, [location.hash]);
 
   const handleLogoClick = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    window.history.pushState(null, '', '/');
+    if (isServicePage) {
+      navigate('/');
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.history.pushState(null, '', '/');
+    }
   };
 
   const scrollToSection = (sectionId: string) => {
+    // If we're on a service page, navigate to home first
+    if (isServicePage) {
+      navigate(`/#${sectionId}`);
+      setIsMobileMenuOpen(false);
+      return;
+    }
+
+    // If we're on home page, scroll to section
     const element = document.getElementById(sectionId);
     if (element) {
       // Update URL with hash
@@ -61,7 +78,11 @@ const Navbar = () => {
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-primary-dark/95 backdrop-blur-lg py-4' : 'bg-transparent py-6'
+      isServicePage 
+        ? 'bg-black/95 backdrop-blur-lg py-4' 
+        : isScrolled 
+          ? 'bg-primary-dark/95 backdrop-blur-lg py-4' 
+          : 'bg-transparent py-6'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
@@ -109,7 +130,9 @@ const Navbar = () => {
         </div>
 
         {isMobileMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 w-full bg-primary-dark/95 backdrop-blur-lg py-4">
+          <div className={`md:hidden absolute top-full left-0 w-full backdrop-blur-lg py-4 ${
+            isServicePage ? 'bg-black/95' : 'bg-primary-dark/95'
+          }`}>
             <div className="flex flex-col space-y-4 px-4">
               {menuItems.map((item) => (
                 <button

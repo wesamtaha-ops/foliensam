@@ -122,8 +122,8 @@ const Footer = () => {
                 {t('footer.legal.datenschutz')}
               </Link>
             </div>
-            <div className="text-center text-gray-600">
-              © {new Date().getFullYear()} {t('footer.copyright')}
+          <div className="text-center text-gray-600">
+            © {new Date().getFullYear()} {t('footer.copyright')}
             </div>
           </div>
         </div>

@@ -13,6 +13,7 @@ import Admin from './components/admin/Admin';
 import SEO from './components/SEO';
 import Impressum from './components/Impressum';
 import Datenschutz from './components/Datenschutz';
+import ServiceDetail from './components/ServiceDetail';
 
 // Navigation section IDs
 const NAV_SECTIONS = ['home', 'services', 'about', 'gallery', 'contact', 'features'];
@@ -71,6 +72,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/service/:slug" element={<ServiceDetail />} />
         <Route path="/impressum" element={<Impressum />} />
         <Route path="/datenschutz" element={<Datenschutz />} />
         <Route path="/admin" element={<Admin />} />

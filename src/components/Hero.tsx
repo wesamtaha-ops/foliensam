@@ -98,12 +98,8 @@ const Hero = () => {
               </div>
 
               <div className="space-y-4">
-                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-none">
-                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-accent-purple to-accent-gold animate-gradient">
-                    {t('hero.title.premium')}
-                  </span>
-                  <span className="block">{t('hero.title.vehicle')}</span>
-                  <span className="block">{t('hero.title.refinement')}</span>
+                <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+                  {t('hero.title')}
                 </h1>
 
                 <p className="text-lg md:text-xl text-primary-silver max-w-2xl">
@@ -121,7 +117,7 @@ const Hero = () => {
                   <span className="relative text-white">{t('hero.watchShowreel')}</span>
                 </button>
                 <a 
-                  href="#contact"
+                  href="/kontakt"
                   className="group relative px-6 md:px-8 py-3 md:py-4 rounded-full text-base md:text-lg font-semibold overflow-hidden"
                 >
                   <div className="absolute inset-0 border-2 border-accent-cream/30 rounded-full transition-transform duration-300 group-hover:scale-105" />

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { ArrowLeft, Building2, User, Mail, Phone, MapPin, FileText } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Footer from './Footer';
+import SEO from './SEO';
 
 const Impressum: React.FC = () => {
   const { t } = useTranslation();
@@ -14,6 +15,11 @@ const Impressum: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO
+        title="Impressum | FolienSam"
+        description="Impressum und rechtliche Angaben von FolienSam Autofolierung Berlin."
+        canonicalPath="/impressum"
+      />
       <main className="flex-grow bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <button 

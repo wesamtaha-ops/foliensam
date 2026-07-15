@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -13,19 +13,41 @@ import Admin from './components/admin/Admin';
 import SEO from './components/SEO';
 import Impressum from './components/Impressum';
 import Datenschutz from './components/Datenschutz';
-import ServiceDetail from './components/ServiceDetail';
+import SeoLandingPage from './pages/SeoLandingPage';
+import KontaktPage from './pages/KontaktPage';
+import ReferenzenPage from './pages/ReferenzenPage';
+import NotFoundPage from './pages/NotFoundPage';
+import { HOME_SEO } from './data/seoPages';
 
-// Navigation section IDs
 const NAV_SECTIONS = ['home', 'services', 'about', 'gallery', 'contact', 'features'];
+
+const LEGACY_SERVICE_REDIRECTS: Record<string, string> = {
+  vollfolierung: '/vollfolierung-berlin',
+  scheibentoenung: '/scheibentoenung-berlin',
+  lackschutz: '/lackschutzfolie-berlin',
+  designfolierung: '/autofolierung-berlin#teilfolierung',
+  chromfolierung: '/autofolierung-berlin#chromfolierung',
+  firmenwerbung: '/fahrzeugbeschriftung-berlin',
+};
+
+function LegacyServiceRedirect() {
+  const location = useLocation();
+  const slug = location.pathname.split('/').pop() || '';
+  const target = LEGACY_SERVICE_REDIRECTS[slug];
+
+  if (!target) {
+    return <Navigate to="/404" replace />;
+  }
+
+  return <Navigate to={target} replace />;
+}
 
 function HomePage() {
   const location = useLocation();
 
-  // Handle hash scrolling on page load and hash change
   useEffect(() => {
     const hash = location.hash.replace('#', '');
     if (hash && NAV_SECTIONS.includes(hash)) {
-      // Small delay to ensure DOM is fully rendered
       setTimeout(() => {
         const element = document.getElementById(hash);
         if (element) {
@@ -37,7 +59,11 @@ function HomePage() {
 
   return (
     <div className="min-h-screen">
-      <SEO />
+      <SEO
+        title={HOME_SEO.title}
+        description={HOME_SEO.description}
+        canonicalPath={HOME_SEO.canonicalPath}
+      />
       <header>
         <Navbar />
       </header>
@@ -72,10 +98,25 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/service/:slug" element={<ServiceDetail />} />
+
+        <Route path="/autofolierung-berlin" element={<SeoLandingPage />} />
+        <Route path="/vollfolierung-berlin" element={<SeoLandingPage />} />
+        <Route path="/scheibentoenung-berlin" element={<SeoLandingPage />} />
+        <Route path="/lackschutzfolie-berlin" element={<SeoLandingPage />} />
+        <Route path="/fahrzeugbeschriftung-berlin" element={<SeoLandingPage />} />
+        <Route path="/felgenfolierung-berlin" element={<SeoLandingPage />} />
+        <Route path="/ratgeber/auto-folieren-kosten" element={<SeoLandingPage />} />
+        <Route path="/kontakt" element={<KontaktPage />} />
+        <Route path="/referenzen" element={<ReferenzenPage />} />
+
+        <Route path="/service/:slug" element={<LegacyServiceRedirect />} />
+        <Route path="/leistungen" element={<Navigate to="/autofolierung-berlin" replace />} />
+
         <Route path="/impressum" element={<Impressum />} />
         <Route path="/datenschutz" element={<Datenschutz />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/404" element={<NotFoundPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
   );

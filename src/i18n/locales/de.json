@@ -8,13 +8,9 @@
     "bookAppointment": "Termin buchen"
   },
   "hero": {
-    "tagline": "Premium Autofolierung",
-    "title": {
-      "premium": "Premium",
-      "vehicle": "Fahrzeug",
-      "refinement": "Veredelung"
-    },
-    "description": "Verwandeln Sie Ihr Fahrzeug in ein einzigartiges Kunstwerk mit unserer professionellen Folierung und Veredelung. Wir setzen Ihre Visionen in die Realität um.",
+    "tagline": "Folierer in Berlin-Weißensee",
+    "title": "Autofolierung & Fahrzeugveredelung in Berlin",
+    "description": "FolienSam ist Ihre Folierungswerkstatt in Berlin-Weißensee. Seit über 12 Jahren folieren, tönen und schützen wir Fahrzeuge mit Premium-Folien von 3M, Avery Dennison und Hexis.",
     "watchShowreel": "Showreel ansehen",
     "scrollForMore": "Scrollen Sie für mehr",
     "stats": {
@@ -251,25 +247,26 @@
       ]
     },
     "contact": {
-    "writeUs": "Schreiben Sie uns",
-    "info": "Kontaktinformationen",
-    "openingHours": "Öffnungszeiten",
-    "map": "Standort",
-    "phone": "+49 157 50000505",
-    "email": "info@foliensam.de",
-    "form": {
-      "name": "Name",
-      "email": "E-Mail",
-      "subject": "Betreff",
-      "message": "Ihre Nachricht",
-      "send": "Nachricht senden"
+      "title": "Kontakt",
+      "writeUs": "Schreiben Sie uns",
+      "info": "Kontaktinformationen",
+      "openingHours": "Öffnungszeiten",
+      "map": "Standort",
+      "phone": "+49 157 50000505",
+      "email": "info@foliensam.de",
+      "form": {
+        "name": "Name",
+        "email": "E-Mail",
+        "subject": "Betreff",
+        "message": "Ihre Nachricht",
+        "send": "Nachricht senden"
+      },
+      "hours": {
+        "weekdays": "Mo - Sa: 9:00 - 18:00",
+        "saturday": "",
+        "sunday": "So: Geschlossen"
+      }
     },
-    "hours": {
-      "weekdays": "Mo - Fr: 9:00 - 18:00",
-      "saturday": "Sa: 9:00 - 18:00",
-      "sunday": "So: Geschlossen"
-    }
-  },
     "copyright": "FolienSam. Alle Rechte vorbehalten.",
     "services": {
       "title": "Leistungen",
@@ -283,6 +280,10 @@
     }
   },
   "contact": {
+    "writeUs": "Schreiben Sie uns für ein kostenloses Angebot.",
+    "form": {
+      "send": "Nachricht senden"
+    },
     "success": "Nachricht erfolgreich gesendet! Wir melden uns bald bei Ihnen.",
     "error": "Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt.",
     "sending": "Wird gesendet...",
@@ -405,6 +406,78 @@
       "changes": {
         "title": "Änderungen dieser Datenschutzerklärung",
         "content": "Wir behalten uns vor, diese Datenschutzerklärung anzupassen, damit sie stets den aktuellen rechtlichen Anforderungen entspricht oder um Änderungen unserer Leistungen umzusetzen."
+      }
+    }
+  },
+  "seoPages": {
+    "faqTitle": "Häufige Fragen",
+    "nav": {
+      "kontakt": "Kontakt",
+      "referenzen": "Referenzen",
+      "ratgeber": "Ratgeber: Kosten"
+    },
+    "cta": {
+      "title": "Kostenloses Angebot",
+      "description": "Senden Sie uns Fotos Ihres Fahrzeugs und erhalten Sie ein Festpreis-Angebot.",
+      "requestQuote": "Jetzt Angebot anfragen",
+      "email": "E-Mail senden"
+    },
+    "related": {
+      "title": "Weitere Leistungen"
+    },
+    "notFound": {
+      "title": "Seite nicht gefunden",
+      "description": "Die angeforderte Seite existiert nicht. Hier finden Sie unsere Leistungen:",
+      "home": "Zur Startseite"
+    },
+    "kontakt": {
+      "directions": "Anfahrt & Einzugsgebiet",
+      "directionsText": "Unsere Werkstatt liegt in Berlin-Weißensee (Bezirk Pankow) und ist gut erreichbar aus Pankow, Prenzlauer Berg, Lichtenberg, Hohenschönhausen und Mitte.",
+      "openMaps": "Route in Google Maps öffnen"
+    },
+    "services": {
+      "autofolierung": "Autofolierung Berlin",
+      "vollfolierung": "Vollfolierung Berlin",
+      "scheibentoenung": "Scheibentönung Berlin",
+      "lackschutz": "Lackschutzfolie Berlin",
+      "beschriftung": "Fahrzeugbeschriftung Berlin",
+      "felgen": "Felgenfolierung Berlin"
+    },
+    "home": {
+      "intro": "Ihre Folierungswerkstatt in Berlin-Weißensee. Seit über 12 Jahren, 900+ Projekte, 5 Jahre Garantie.",
+      "servicesTitle": "Unsere Leistungen",
+      "moreLink": "Mehr erfahren"
+    },
+    "homeServices": {
+      "autofolierung": {
+        "title": "Autofolierung",
+        "description": "Vom Farbwechsel bis zur Designfolierung mit Akzenten. Über 100 Farben und Finishes.",
+        "category": "Car Wrapping"
+      },
+      "vollfolierung": {
+        "title": "Vollfolierung",
+        "description": "Die komplette Neugestaltung Ihres Fahrzeugs, ab 1.300 €. Matt, glänzend, satin oder mit Effekt.",
+        "category": "Premium Service"
+      },
+      "scheibentoenung": {
+        "title": "Scheibentönung",
+        "description": "Zertifizierte Tönungsfolien mit ABE für UV-Schutz, Hitzeschutz und Privatsphäre.",
+        "category": "Schutz & Design"
+      },
+      "lackschutz": {
+        "title": "Lackschutzfolie (PPF)",
+        "description": "Selbstheilende Steinschlagschutzfolie für Front, Teilbereiche oder das ganze Fahrzeug.",
+        "category": "Schutz"
+      },
+      "beschriftung": {
+        "title": "Fahrzeugbeschriftung",
+        "description": "Werbefolierung für Firmenwagen, Transporter und Flotten. Design, Druck und Montage.",
+        "category": "B2B"
+      },
+      "felgen": {
+        "title": "Felgenfolierung",
+        "description": "Neuer Look für Ihre Felgen, ohne Lackieren und rückstandsfrei entfernbar.",
+        "category": "Design"
       }
     }
   }

@@ -1,18 +1,7 @@
-# www.robotstxt.org
-# Allow all crawlers
 User-agent: *
 Allow: /
 
-# Sitemap location
-Sitemap: https://foliensam.de/sitemap.xml
+Disallow: /admin
+Disallow: /admin/
 
-# Prevent crawling of development files and directories
-Disallow: /node_modules/
-Disallow: /.git/
-Disallow: /.vscode/
-Disallow: /.bolt/
-
-# Allow crawling of all public content
-Allow: /public/
-Allow: /src/
-Allow: /dist/ 
+Sitemap: https://www.foliensam.de/sitemap.xml

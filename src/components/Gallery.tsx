@@ -3,7 +3,10 @@ import { X, ChevronLeft, ChevronRight, Play, Loader2, Image as ImageIcon, Video 
 import { useTranslation } from 'react-i18next';
 import { fetchAllChannelShorts, YouTubeVideo } from '../services/youtubeApi';
 import { getGalleryImages, getSettings } from '../services/dataService';
-import TikTokProfileEmbed, { DEFAULT_TIKTOK_EMBED_ID } from './TikTokProfileEmbed';
+import TikTokProfileEmbed, {
+  DEFAULT_TIKTOK_EMBED_ID,
+  DEFAULT_TIKTOK_EMBED_ID_MOBILE,
+} from './TikTokProfileEmbed';
 
 interface GalleryItem {
   type: 'youtube' | 'image';
@@ -28,6 +31,7 @@ const Gallery = () => {
   const [lastFetchTime, setLastFetchTime] = useState<number>(0);
   const [activeTab, setActiveTab] = useState<TabType>('tiktok');
   const [tiktokEmbedId, setTiktokEmbedId] = useState(DEFAULT_TIKTOK_EMBED_ID);
+  const [tiktokEmbedIdMobile, setTiktokEmbedIdMobile] = useState(DEFAULT_TIKTOK_EMBED_ID_MOBILE);
   const [tiktokProfileUrl, setTiktokProfileUrl] = useState('https://vm.tiktok.com/ZNew77xKv/');
 
   // Helper function to check if a video is new (published within last 7 days)
@@ -118,6 +122,9 @@ const Gallery = () => {
         const settings = await getSettings();
         if (settings.tiktokEmbedId) {
           setTiktokEmbedId(settings.tiktokEmbedId);
+        }
+        if (settings.tiktokEmbedIdMobile) {
+          setTiktokEmbedIdMobile(settings.tiktokEmbedIdMobile);
         }
         if (settings.tiktokProfileUrl) {
           setTiktokProfileUrl(settings.tiktokProfileUrl);
@@ -416,7 +423,10 @@ const Gallery = () => {
         </div>
 
         <div className={activeTab === 'tiktok' ? 'tiktok-tab-active' : 'tiktok-tab-hidden'}>
-          <TikTokProfileEmbed embedId={tiktokEmbedId} />
+          <TikTokProfileEmbed
+            embedId={tiktokEmbedId}
+            mobileEmbedId={tiktokEmbedIdMobile}
+          />
         </div>
 
         {activeTab !== 'tiktok' && (

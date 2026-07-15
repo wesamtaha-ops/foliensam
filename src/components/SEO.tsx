@@ -1,93 +1,87 @@
 import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { getSettings } from '../services/dataService';
+import { getCanonicalUrl } from '../data/seoPages';
 
-const SEO = () => {
+export interface SEOProps {
+  title?: string;
+  description?: string;
+  canonicalPath?: string;
+  ogImage?: string;
+  robots?: string;
+  useGlobalFallback?: boolean;
+}
+
+const SEO = ({
+  title,
+  description,
+  canonicalPath,
+  ogImage,
+  robots,
+  useGlobalFallback = true,
+}: SEOProps) => {
+  const location = useLocation();
+
   useEffect(() => {
     const updateMetaTags = async () => {
-      try {
-        console.log('🔍 Loading SEO settings from backend...');
-        const settings = await getSettings();
-        console.log('✅ SEO settings loaded:', settings.seo);
-        
-        if (settings.seo) {
-          const seo = settings.seo;
-          console.log('📝 Updating meta tags with SEO data...');
+      let resolvedTitle = title;
+      let resolvedDescription = description;
+      let resolvedOgImage = ogImage;
+      let resolvedRobots = robots;
 
-          // Update title
-          if (seo.title) {
-            document.title = seo.title;
-            updateMetaTag('name', 'title', seo.title);
+      if (useGlobalFallback && (!resolvedTitle || !resolvedDescription)) {
+        try {
+          const settings = await getSettings();
+          if (settings.seo) {
+            resolvedTitle = resolvedTitle || settings.seo.title;
+            resolvedDescription = resolvedDescription || settings.seo.description;
+            resolvedOgImage = resolvedOgImage || settings.seo.ogImage;
+            resolvedRobots = resolvedRobots || settings.seo.robots;
           }
-
-          // Update description
-          if (seo.description) {
-            updateMetaTag('name', 'description', seo.description);
-          }
-
-          // Update keywords
-          if (seo.keywords) {
-            updateMetaTag('name', 'keywords', seo.keywords);
-          }
-
-          // Update Open Graph tags
-          if (seo.ogTitle) {
-            updateMetaTag('property', 'og:title', seo.ogTitle);
-          }
-          if (seo.ogDescription) {
-            updateMetaTag('property', 'og:description', seo.ogDescription);
-          }
-          if (seo.ogImage) {
-            updateMetaTag('property', 'og:image', seo.ogImage);
-            console.log('🖼️ OG Image updated to:', seo.ogImage);
-          }
-          if (seo.ogUrl) {
-            updateMetaTag('property', 'og:url', seo.ogUrl);
-          }
-
-          // Update Twitter tags
-          if (seo.twitterTitle) {
-            updateMetaTag('property', 'twitter:title', seo.twitterTitle);
-          }
-          if (seo.twitterDescription) {
-            updateMetaTag('property', 'twitter:description', seo.twitterDescription);
-          }
-          if (seo.twitterImage) {
-            updateMetaTag('property', 'twitter:image', seo.twitterImage);
-            console.log('🖼️ Twitter Image updated to:', seo.twitterImage);
-          }
-
-          // Update canonical URL
-          if (seo.canonicalUrl) {
-            let canonicalLink = document.querySelector('link[rel="canonical"]');
-            if (!canonicalLink) {
-              canonicalLink = document.createElement('link');
-              canonicalLink.setAttribute('rel', 'canonical');
-              document.head.appendChild(canonicalLink);
-            }
-            canonicalLink.setAttribute('href', seo.canonicalUrl);
-          }
-
-          // Update author
-          if (seo.author) {
-            updateMetaTag('name', 'author', seo.author);
-          }
-
-          // Update robots
-          if (seo.robots) {
-            updateMetaTag('name', 'robots', seo.robots);
-          }
-          
-          console.log('✅ Meta tags updated successfully');
-        } else {
-          console.log('⚠️ No SEO settings found, using default meta tags from index.html');
+        } catch (err) {
+          console.error('Failed to load SEO settings:', err);
         }
-      } catch (err) {
-        console.error('❌ Failed to load SEO settings:', err);
       }
+
+      const path = canonicalPath ?? location.pathname;
+      const canonicalUrl = getCanonicalUrl(path);
+
+      if (resolvedTitle) {
+        document.title = resolvedTitle;
+        updateMetaTag('name', 'title', resolvedTitle);
+        updateMetaTag('property', 'og:title', resolvedTitle);
+        updateMetaTag('property', 'twitter:title', resolvedTitle);
+      }
+
+      if (resolvedDescription) {
+        updateMetaTag('name', 'description', resolvedDescription);
+        updateMetaTag('property', 'og:description', resolvedDescription);
+        updateMetaTag('property', 'twitter:description', resolvedDescription);
+      }
+
+      if (resolvedOgImage) {
+        updateMetaTag('property', 'og:image', resolvedOgImage);
+        updateMetaTag('property', 'twitter:image', resolvedOgImage);
+      }
+
+      updateMetaTag('property', 'og:url', canonicalUrl);
+      updateMetaTag('property', 'twitter:url', canonicalUrl);
+
+      if (resolvedRobots) {
+        updateMetaTag('name', 'robots', resolvedRobots);
+      }
+
+      let canonicalLink = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+      if (!canonicalLink) {
+        canonicalLink = document.createElement('link');
+        canonicalLink.setAttribute('rel', 'canonical');
+        document.head.appendChild(canonicalLink);
+      }
+      canonicalLink.setAttribute('href', canonicalUrl);
     };
 
     updateMetaTags();
-  }, []);
+  }, [title, description, canonicalPath, ogImage, robots, location.pathname, useGlobalFallback]);
 
   const updateMetaTag = (attribute: string, name: string, content: string) => {
     const selector = attribute === 'name' ? `meta[name="${name}"]` : `meta[property="${name}"]`;
@@ -98,11 +92,9 @@ const SEO = () => {
       document.head.appendChild(meta);
     }
     meta.setAttribute('content', content);
-    console.log(`✅ Updated ${attribute}="${name}" to: ${content}`);
   };
 
-  return null; // This component doesn't render anything
+  return null;
 };
 
 export default SEO;
-

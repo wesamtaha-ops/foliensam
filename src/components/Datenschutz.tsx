@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { ArrowLeft, Shield, Eye, Database, Lock, UserCheck, Cookie, Mail } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Footer from './Footer';
+import SEO from './SEO';
 
 const Datenschutz: React.FC = () => {
   const { t } = useTranslation();
@@ -42,6 +43,11 @@ const Datenschutz: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO
+        title="Datenschutzerklärung | FolienSam"
+        description="Datenschutzerklärung von FolienSam Autofolierung Berlin."
+        canonicalPath="/datenschutz"
+      />
       <main className="flex-grow bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <button 

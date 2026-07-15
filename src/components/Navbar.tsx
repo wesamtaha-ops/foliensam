@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import LanguageSelector from './LanguageSelector';
+import { SERVICE_LINKS } from '../data/seoPages';
 
 const Navbar = () => {
   const { t } = useTranslation();
@@ -10,28 +11,26 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const whatsappNumber = "+4915750000505";
-  const message = "Hallo! Ich möchte einen Termin vereinbaren.";
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const whatsappNumber = '+4915750000505';
+  const message = 'Hallo! Ich möchte einen Termin vereinbaren.';
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
-  // Check if we're on a service detail page
-  const isServicePage = location.pathname.startsWith('/service/');
+  const isHomePage = location.pathname === '/';
+  const isSubPage = !isHomePage;
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-    // Check scroll position on initial load
     handleScroll();
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Handle hash scrolling on page load
   useEffect(() => {
     const hash = location.hash.replace('#', '');
-    if (hash) {
-      // Small delay to ensure DOM is ready
+    if (hash && isHomePage) {
       setTimeout(() => {
         const element = document.getElementById(hash);
         if (element) {
@@ -39,10 +38,10 @@ const Navbar = () => {
         }
       }, 100);
     }
-  }, [location.hash]);
+  }, [location.hash, isHomePage]);
 
   const handleLogoClick = () => {
-    if (isServicePage) {
+    if (isSubPage) {
       navigate('/');
     } else {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -51,17 +50,14 @@ const Navbar = () => {
   };
 
   const scrollToSection = (sectionId: string) => {
-    // If we're on a service page, navigate to home first
-    if (isServicePage) {
+    if (isSubPage) {
       navigate(`/#${sectionId}`);
       setIsMobileMenuOpen(false);
       return;
     }
 
-    // If we're on home page, scroll to section
     const element = document.getElementById(sectionId);
     if (element) {
-      // Update URL with hash
       window.history.pushState(null, '', `/#${sectionId}`);
       element.scrollIntoView({ behavior: 'smooth' });
       setIsMobileMenuOpen(false);
@@ -70,35 +66,34 @@ const Navbar = () => {
 
   const menuItems = [
     { label: t('nav.home'), id: 'home' },
-    { label: t('nav.services'), id: 'services' },
     { label: t('nav.about'), id: 'about' },
     { label: t('nav.gallery'), id: 'gallery' },
-    { label: t('nav.contact'), id: 'contact' }
+    { label: t('nav.contact'), id: 'contact' },
   ];
 
+  const navBackground = isSubPage
+    ? 'bg-black/95 backdrop-blur-lg py-4'
+    : isScrolled
+      ? 'bg-primary-dark/95 backdrop-blur-lg py-4'
+      : 'bg-transparent py-6';
+
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${
-      isServicePage 
-        ? 'bg-black/95 backdrop-blur-lg py-4' 
-        : isScrolled 
-          ? 'bg-primary-dark/95 backdrop-blur-lg py-4' 
-          : 'bg-transparent py-6'
-    }`}>
+    <nav className={`fixed w-full z-50 transition-all duration-300 ${navBackground}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
-          <div 
-            className="flex items-center space-x-3 cursor-pointer group" 
+          <div
+            className="flex items-center space-x-3 cursor-pointer group"
             onClick={handleLogoClick}
           >
-            <img 
-              src="https://images.cood.ai/samgo/new-logo-white.png" 
-              alt="FolienSam Logo" 
-              className="h-10  "
+            <img
+              src="https://images.cood.ai/samgo/new-logo-white.png"
+              alt="FolienSam Logo"
+              className="h-10"
             />
           </div>
 
-          <div className="hidden md:flex items-center space-x-8">
-            {menuItems.map((item) => (
+          <div className="hidden md:flex items-center space-x-6">
+            {menuItems.slice(0, 1).map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
@@ -107,6 +102,59 @@ const Navbar = () => {
                 {item.label}
               </button>
             ))}
+
+            <div
+              className="relative"
+              onMouseEnter={() => setIsServicesOpen(true)}
+              onMouseLeave={() => setIsServicesOpen(false)}
+            >
+              <button
+                className="text-white/90 hover:text-accent-gold transition-colors duration-300 font-medium flex items-center gap-1"
+                onClick={() => isSubPage ? navigate('/autofolierung-berlin') : scrollToSection('services')}
+              >
+                {t('nav.services')}
+                <ChevronDown className="h-4 w-4" />
+              </button>
+              {isServicesOpen && (
+                <div className="absolute top-full left-0 pt-2 w-64">
+                  <div className="bg-primary-dark/95 backdrop-blur-lg rounded-xl shadow-xl border border-white/10 py-2">
+                    {SERVICE_LINKS.map((link) => (
+                      <Link
+                        key={link.path}
+                        to={link.path}
+                        className="block px-4 py-2 text-white/90 hover:text-accent-gold hover:bg-white/5 transition-colors"
+                      >
+                        {t(link.labelKey)}
+                      </Link>
+                    ))}
+                    <Link
+                      to="/ratgeber/auto-folieren-kosten"
+                      className="block px-4 py-2 text-white/70 hover:text-accent-gold hover:bg-white/5 transition-colors border-t border-white/10 mt-1"
+                    >
+                      {t('seoPages.nav.ratgeber')}
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {menuItems.slice(1).map((item) => (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className="text-white/90 hover:text-accent-gold transition-colors duration-300 font-medium"
+              >
+                {item.label}
+              </button>
+            ))}
+
+            <Link
+              to="/kontakt"
+              className="text-white/90 hover:text-accent-gold transition-colors duration-300 font-medium"
+            >
+              {t('seoPages.nav.kontakt')}
+            </Link>
+
             <LanguageSelector />
             <a
               href={whatsappUrl}
@@ -120,7 +168,7 @@ const Navbar = () => {
 
           <div className="md:hidden flex items-center space-x-4">
             <LanguageSelector />
-            <button 
+            <button
               className="text-white"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
@@ -131,7 +179,7 @@ const Navbar = () => {
 
         {isMobileMenuOpen && (
           <div className={`md:hidden absolute top-full left-0 w-full backdrop-blur-lg py-4 ${
-            isServicePage ? 'bg-black/95' : 'bg-primary-dark/95'
+            isSubPage ? 'bg-black/95' : 'bg-primary-dark/95'
           }`}>
             <div className="flex flex-col space-y-4 px-4">
               {menuItems.map((item) => (
@@ -143,6 +191,26 @@ const Navbar = () => {
                   {item.label}
                 </button>
               ))}
+              <div className="border-t border-white/10 pt-4">
+                <p className="text-white/60 text-sm mb-2">{t('nav.services')}</p>
+                {SERVICE_LINKS.map((link) => (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block text-white/90 hover:text-accent-gold py-2"
+                  >
+                    {t(link.labelKey)}
+                  </Link>
+                ))}
+              </div>
+              <Link
+                to="/kontakt"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-white/90 hover:text-accent-gold transition-colors duration-300 font-medium"
+              >
+                {t('seoPages.nav.kontakt')}
+              </Link>
               <a
                 href={whatsappUrl}
                 target="_blank"

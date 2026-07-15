@@ -192,6 +192,7 @@ export interface Settings {
   youtubeApiKey?: string;
   youtubeChannelId?: string;
   tiktokEmbedId?: string;
+  tiktokEmbedIdMobile?: string;
   tiktokProfileUrl?: string;
   siteName?: string;
   contactEmail?: string;

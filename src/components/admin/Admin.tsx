@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import AdminLogin from './AdminLogin';
 import AdminDashboard from './AdminDashboard';
+import SEO from '../SEO';
 
 const Admin: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -15,6 +16,13 @@ const Admin: React.FC = () => {
 
   return (
     <>
+      <SEO
+        title="Admin | FolienSam"
+        description="Administration"
+        canonicalPath="/admin"
+        robots="noindex, nofollow"
+        useGlobalFallback={false}
+      />
       {isAuthenticated ? (
         <AdminDashboard onLogout={handleLogout} />
       ) : (

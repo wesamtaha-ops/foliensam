@@ -1,4 +1,41 @@
 {
+  "redirects": [
+    {
+      "source": "/service/vollfolierung",
+      "destination": "/vollfolierung-berlin",
+      "permanent": true
+    },
+    {
+      "source": "/service/scheibentoenung",
+      "destination": "/scheibentoenung-berlin",
+      "permanent": true
+    },
+    {
+      "source": "/service/lackschutz",
+      "destination": "/lackschutzfolie-berlin",
+      "permanent": true
+    },
+    {
+      "source": "/service/designfolierung",
+      "destination": "/autofolierung-berlin#teilfolierung",
+      "permanent": true
+    },
+    {
+      "source": "/service/chromfolierung",
+      "destination": "/autofolierung-berlin#chromfolierung",
+      "permanent": true
+    },
+    {
+      "source": "/service/firmenwerbung",
+      "destination": "/fahrzeugbeschriftung-berlin",
+      "permanent": true
+    },
+    {
+      "source": "/leistungen",
+      "destination": "/autofolierung-berlin",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",

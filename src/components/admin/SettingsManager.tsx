@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Save, Key, Youtube } from 'lucide-react';
 import { updateAdminPassword, getSettings, saveSettings } from '../../services/dataService';
-import { DEFAULT_TIKTOK_EMBED_ID } from '../TikTokProfileEmbed';
+import { DEFAULT_TIKTOK_EMBED_ID, DEFAULT_TIKTOK_EMBED_ID_MOBILE } from '../TikTokProfileEmbed';
 
 const SettingsManager: React.FC = () => {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -10,6 +10,7 @@ const SettingsManager: React.FC = () => {
   const [youtubeApiKey, setYoutubeApiKey] = useState('');
   const [youtubeChannelId, setYoutubeChannelId] = useState('');
   const [tiktokEmbedId, setTiktokEmbedId] = useState(DEFAULT_TIKTOK_EMBED_ID);
+  const [tiktokEmbedIdMobile, setTiktokEmbedIdMobile] = useState(DEFAULT_TIKTOK_EMBED_ID_MOBILE);
   const [tiktokProfileUrl, setTiktokProfileUrl] = useState('https://vm.tiktok.com/ZNew77xKv/');
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState<'success' | 'error'>('success');
@@ -25,6 +26,7 @@ const SettingsManager: React.FC = () => {
       setYoutubeApiKey(settings.youtubeApiKey || '');
       setYoutubeChannelId(settings.youtubeChannelId || '');
       setTiktokEmbedId(settings.tiktokEmbedId || DEFAULT_TIKTOK_EMBED_ID);
+      setTiktokEmbedIdMobile(settings.tiktokEmbedIdMobile || DEFAULT_TIKTOK_EMBED_ID_MOBILE);
       setTiktokProfileUrl(settings.tiktokProfileUrl || 'https://vm.tiktok.com/ZNew77xKv/');
     } catch (err) {
       console.error('Failed to load settings:', err);
@@ -80,6 +82,7 @@ const SettingsManager: React.FC = () => {
       await saveSettings({
         ...settings,
         tiktokEmbedId: tiktokEmbedId.trim(),
+        tiktokEmbedIdMobile: tiktokEmbedIdMobile.trim(),
         tiktokProfileUrl,
       });
 
@@ -197,7 +200,7 @@ const SettingsManager: React.FC = () => {
         <form onSubmit={handleTikTokSettings} className="space-y-4">
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
-              SociableKIT Embed ID
+              SociableKIT Embed ID (Desktop)
             </label>
             <input
               type="text"
@@ -207,7 +210,23 @@ const SettingsManager: React.FC = () => {
               placeholder="25697428"
             />
             <p className="mt-1 text-xs text-gray-500">
-              From your SociableKIT widget code: data-embed-id=&quot;...&quot;
+              Desktop widget — data-embed-id from SociableKIT
+            </p>
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              SociableKIT Embed ID (Mobile)
+            </label>
+            <input
+              type="text"
+              value={tiktokEmbedIdMobile}
+              onChange={(e) => setTiktokEmbedIdMobile(e.target.value)}
+              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-accent-purple transition-colors font-mono text-sm"
+              placeholder="25697429"
+            />
+            <p className="mt-1 text-xs text-gray-500">
+              Mobile widget — shown on screens 768px and below
             </p>
           </div>
 

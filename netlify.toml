@@ -1,0 +1,46 @@
+[[redirects]]
+  from = "/service/vollfolierung"
+  to = "/vollfolierung-berlin"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/service/scheibentoenung"
+  to = "/scheibentoenung-berlin"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/service/lackschutz"
+  to = "/lackschutzfolie-berlin"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/service/designfolierung"
+  to = "/autofolierung-berlin#teilfolierung"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/service/chromfolierung"
+  to = "/autofolierung-berlin#chromfolierung"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/service/firmenwerbung"
+  to = "/fahrzeugbeschriftung-berlin"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/leistungen"
+  to = "/autofolierung-berlin"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

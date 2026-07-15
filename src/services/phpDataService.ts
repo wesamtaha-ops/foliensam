@@ -46,6 +46,7 @@ export interface SettingsData {
   youtubeApiKey?: string;
   youtubeChannelId?: string;
   tiktokEmbedId?: string;
+  tiktokEmbedIdMobile?: string;
   tiktokProfileUrl?: string;
   siteName?: string;
   contactEmail?: string;
@@ -303,18 +304,18 @@ export async function initializeAllData(): Promise<void> {
       contactEmail: 'info@foliensam.de',
       whatsappNumber: '+49 157 50000505',
       seo: {
-        title: 'FolienSam Autofolierung Berlin | Premium Fahrzeugveredelung & Car Wrapping',
-        description: 'Ihre Experten für professionelle Fahrzeugfolierung in Berlin ➤ Scheibentönung ➤ Lackschutzfolierung ➤ PPF ➤ 5 Jahre Garantie ✓ Premium 3M Materialien ✓ Zertifizierte Experten ✆ Jetzt Termin vereinbaren!',
-        keywords: 'Autofolierung Berlin, Fahrzeugfolierung, Car Wrapping, Scheibentönung, Lackschutzfolierung PPF, Chromfolierung, Mattfolierung, Carbonfolierung, Steinschlagschutzfolie, Folie Auto, KFZ Folierung, Carwrapping Berlin, Auto umfolieren, Teilfolierung, Vollfolierung, Fahrzeugdesign, 3M Folierung, Avery Dennison, Premium Folierung, Folierung Preise',
-        ogTitle: 'FolienSam Autofolierung Berlin | Premium Fahrzeugveredelung & Car Wrapping',
-        ogDescription: 'Ihre Experten für professionelle Fahrzeugfolierung in Berlin ➤ Scheibentönung ➤ Lackschutzfolierung ➤ PPF ➤ 5 Jahre Garantie ✓ Premium 3M Materialien ✓ Zertifizierte Experten ✆ Jetzt Termin vereinbaren!',
+        title: 'Autofolierung Berlin – Folierung, Tönung & PPF | FolienSam',
+        description: 'Ihr Folierer in Berlin-Weißensee ✔ 12+ Jahre Erfahrung ✔ 3M, Avery & Hexis ✔ 5 Jahre Garantie ➤ Jetzt Termin oder Angebot anfragen!',
+        keywords: 'Autofolierung Berlin, Fahrzeugfolierung, Car Wrapping, Scheibentönung, Lackschutzfolierung PPF, Vollfolierung, Folierer Berlin',
+        ogTitle: 'Autofolierung Berlin – Folierung, Tönung & PPF | FolienSam',
+        ogDescription: 'Ihr Folierer in Berlin-Weißensee ✔ 12+ Jahre Erfahrung ✔ 3M, Avery & Hexis ✔ 5 Jahre Garantie ➤ Jetzt Termin oder Angebot anfragen!',
         ogImage: 'https://images.cood.ai/samgo/car1.png',
-        ogUrl: 'https://foliensam.de/',
-        twitterTitle: 'FolienSam Autofolierung Berlin | Premium Fahrzeugveredelung & Car Wrapping',
-        twitterDescription: 'Ihre Experten für professionelle Fahrzeugfolierung in Berlin ➤ Scheibentönung ➤ Lackschutzfolierung ➤ PPF ➤ 5 Jahre Garantie ✓ Premium 3M Materialien ✓ Zertifizierte Experten ✆ Jetzt Termin vereinbaren!',
+        ogUrl: 'https://www.foliensam.de/',
+        twitterTitle: 'Autofolierung Berlin – Folierung, Tönung & PPF | FolienSam',
+        twitterDescription: 'Ihr Folierer in Berlin-Weißensee ✔ 12+ Jahre Erfahrung ✔ 3M, Avery & Hexis ✔ 5 Jahre Garantie ➤ Jetzt Termin oder Angebot anfragen!',
         twitterImage: 'https://images.cood.ai/samgo/car1.png',
-        canonicalUrl: 'https://foliensam.de/',
-        author: 'FolienSam Autofolierung',
+        canonicalUrl: 'https://www.foliensam.de/',
+        author: 'FolienSam',
         robots: 'index, follow'
       }
     } as SettingsData,

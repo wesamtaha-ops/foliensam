@@ -8,13 +8,9 @@
     "bookAppointment": "Book Appointment"
   },
   "hero": {
-    "tagline": "Premium Car Wrapping",
-    "title": {
-      "premium": "Premium",
-      "vehicle": "Vehicle",
-      "refinement": "Refinement"
-    },
-    "description": "Transform your vehicle into a unique masterpiece with our professional wrapping and refinement services. We bring your vision to life.",
+    "tagline": "Vehicle Wrapping in Berlin-Weißensee",
+    "title": "Car Wrapping & Vehicle Refinement in Berlin",
+    "description": "FolienSam is your wrapping workshop in Berlin-Weißensee. For over 12 years we have been wrapping, tinting and protecting vehicles with premium films from 3M, Avery Dennison and Hexis.",
     "watchShowreel": "Watch Showreel",
     "scrollForMore": "Scroll for More",
     "stats": {
@@ -251,6 +247,7 @@
       ]
     },
    "contact": {
+    "title": "Contact",
     "writeUs": "Write to Us",
     "info": "Contact Information",
     "openingHours": "Opening Hours",
@@ -265,8 +262,8 @@
       "send": "Send Message"
     },
     "hours": {
-      "weekdays": "Mon - Fri: 9:00 - 18:00",
-      "saturday": "Sat: 9:00 - 18:00",
+      "weekdays": "Mon - Sat: 9:00 - 18:00",
+      "saturday": "",
       "sunday": "Sun: Closed"
     }
   },
@@ -283,6 +280,10 @@
     }
   },
   "contact": {
+    "writeUs": "Write to us for a free quote.",
+    "form": {
+      "send": "Send Message"
+    },
     "success": "Message sent successfully! We'll get back to you soon.",
     "error": "Failed to send message. Please try again or contact us directly.",
     "sending": "Sending...",
@@ -405,6 +406,78 @@
       "changes": {
         "title": "Changes to this Privacy Policy",
         "content": "We reserve the right to adapt this privacy policy so that it always complies with current legal requirements or to implement changes to our services."
+      }
+    }
+  },
+  "seoPages": {
+    "faqTitle": "Frequently Asked Questions",
+    "nav": {
+      "kontakt": "Contact",
+      "referenzen": "References",
+      "ratgeber": "Guide: Costs"
+    },
+    "cta": {
+      "title": "Free Quote",
+      "description": "Send us photos of your vehicle and receive a fixed-price quote.",
+      "requestQuote": "Request a Quote Now",
+      "email": "Send Email"
+    },
+    "related": {
+      "title": "More Services"
+    },
+    "notFound": {
+      "title": "Page Not Found",
+      "description": "The requested page does not exist. Here are our services:",
+      "home": "Back to Home"
+    },
+    "kontakt": {
+      "directions": "Directions & Service Area",
+      "directionsText": "Our workshop is located in Berlin-Weißensee (Pankow district) and is easily accessible from Pankow, Prenzlauer Berg, Lichtenberg, Hohenschönhausen and Mitte.",
+      "openMaps": "Open route in Google Maps"
+    },
+    "services": {
+      "autofolierung": "Car Wrapping Berlin",
+      "vollfolierung": "Full Wrapping Berlin",
+      "scheibentoenung": "Window Tinting Berlin",
+      "lackschutz": "Paint Protection Film Berlin",
+      "beschriftung": "Vehicle Lettering Berlin",
+      "felgen": "Rim Wrapping Berlin"
+    },
+    "home": {
+      "intro": "Your wrapping workshop in Berlin-Weißensee. Over 12 years of experience, 900+ projects, 5-year warranty.",
+      "servicesTitle": "Our Services",
+      "moreLink": "Learn More"
+    },
+    "homeServices": {
+      "autofolierung": {
+        "title": "Car Wrapping",
+        "description": "From colour changes to design wrapping with accents. Over 100 colours and finishes.",
+        "category": "Car Wrapping"
+      },
+      "vollfolierung": {
+        "title": "Full Wrapping",
+        "description": "Complete redesign of your vehicle from €1,300. Matte, gloss, satin or effect finishes.",
+        "category": "Premium Service"
+      },
+      "scheibentoenung": {
+        "title": "Window Tinting",
+        "description": "Certified tint films with ABE for UV protection, heat reduction and privacy.",
+        "category": "Protection & Design"
+      },
+      "lackschutz": {
+        "title": "Paint Protection Film (PPF)",
+        "description": "Self-healing stone chip protection film for front, partial areas or the entire vehicle.",
+        "category": "Protection"
+      },
+      "beschriftung": {
+        "title": "Vehicle Lettering",
+        "description": "Advertising wraps for company cars, vans and fleets. Design, print and installation.",
+        "category": "B2B"
+      },
+      "felgen": {
+        "title": "Rim Wrapping",
+        "description": "A new look for your rims without painting, removable without residue.",
+        "category": "Design"
       }
     }
   }

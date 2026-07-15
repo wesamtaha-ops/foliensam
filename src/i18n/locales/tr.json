@@ -8,13 +8,9 @@
     "bookAppointment": "Randevu Al"
   },
   "hero": {
-    "tagline": "Premium Araç Kaplama",
-    "title": {
-      "premium": "Premium",
-      "vehicle": "Araç",
-      "refinement": "Kaplama"
-    },
-    "description": "Profesyonel kaplama ve yenileme hizmetlerimizle aracınızı benzersiz bir başyapıta dönüştürün. Vizyonunuzu gerçeğe dönüştürüyoruz.",
+    "tagline": "Araç Kaplama Uzmanı Berlin-Weißensee",
+    "title": "Araç Kaplama ve Araç Yenileme Berlin'de",
+    "description": "FolienSam, Berlin-Weißensee'deki kaplama atölyenizdir. 12 yılı aşkın süredir 3M, Avery Dennison ve Hexis premium filmleriyle araçları kaplıyor, renklendiriyor ve koruyoruz.",
     "watchShowreel": "Tanıtım Filmini İzle",
     "scrollForMore": "Daha Fazlası İçin Kaydır",
     "stats": {
@@ -251,6 +247,7 @@
       ]
     },
     "contact": {
+      "title": "İletişim",
       "writeUs": "Bize Yazın",
       "info": "İletişim Bilgileri",
       "openingHours": "Çalışma Saatleri",
@@ -265,8 +262,8 @@
         "send": "Mesaj Gönder"
       },
       "hours": {
-        "weekdays": "Pzt - Cum: 9:00 - 18:00",
-        "saturday": "Cmt: 9:00 - 18:00",
+        "weekdays": "Pzt - Cmt: 9:00 - 18:00",
+        "saturday": "",
         "sunday": "Pzr: Kapalı"
       }
     },
@@ -283,6 +280,10 @@
     }
   },
   "contact": {
+    "writeUs": "Ücretsiz teklif için bize yazın.",
+    "form": {
+      "send": "Mesaj Gönder"
+    },
     "success": "Mesaj başarıyla gönderildi! Yakında size geri döneceğiz.",
     "error": "Mesaj gönderilemedi. Lütfen tekrar deneyin veya bizi doğrudan arayın.",
     "sending": "Gönderiliyor...",
@@ -405,6 +406,78 @@
       "changes": {
         "title": "Gizlilik Politikası Değişiklikleri",
         "content": "Bu gizlilik politikasını güncel yasal gerekliliklere uygun hale getirmek veya hizmetlerimizdeki değişiklikleri uygulamak için uyarlama hakkını saklı tutarız."
+      }
+    }
+  },
+  "seoPages": {
+    "faqTitle": "Sıkça Sorulan Sorular",
+    "nav": {
+      "kontakt": "İletişim",
+      "referenzen": "Referanslar",
+      "ratgeber": "Rehber: Maliyetler"
+    },
+    "cta": {
+      "title": "Ücretsiz Teklif",
+      "description": "Aracınızın fotoğraflarını gönderin ve sabit fiyatlı teklif alın.",
+      "requestQuote": "Şimdi Teklif İste",
+      "email": "E-posta Gönder"
+    },
+    "related": {
+      "title": "Diğer Hizmetler"
+    },
+    "notFound": {
+      "title": "Sayfa Bulunamadı",
+      "description": "İstenen sayfa mevcut değil. İşte hizmetlerimiz:",
+      "home": "Ana Sayfaya Dön"
+    },
+    "kontakt": {
+      "directions": "Yol Tarifi ve Hizmet Bölgesi",
+      "directionsText": "Atölyemiz Berlin-Weißensee'de (Pankow ilçesi) bulunmaktadır ve Pankow, Prenzlauer Berg, Lichtenberg, Hohenschönhausen ve Mitte'den kolayca ulaşılabilir.",
+      "openMaps": "Google Maps'te rotayı aç"
+    },
+    "services": {
+      "autofolierung": "Araç Kaplama Berlin",
+      "vollfolierung": "Tam Kaplama Berlin",
+      "scheibentoenung": "Cam Filmi Berlin",
+      "lackschutz": "Boya Koruma Filmi Berlin",
+      "beschriftung": "Araç Yazısı Berlin",
+      "felgen": "Jant Kaplama Berlin"
+    },
+    "home": {
+      "intro": "Berlin-Weißensee'deki kaplama atölyeniz. 12+ yıl deneyim, 900+ proje, 5 yıl garanti.",
+      "servicesTitle": "Hizmetlerimiz",
+      "moreLink": "Daha Fazla Bilgi"
+    },
+    "homeServices": {
+      "autofolierung": {
+        "title": "Araç Kaplama",
+        "description": "Renk değişiminden aksanlı tasarım kaplamaya kadar. 100'den fazla renk ve finish.",
+        "category": "Araç Kaplama"
+      },
+      "vollfolierung": {
+        "title": "Tam Kaplama",
+        "description": "Aracınızın komple yeniden tasarımı 1.300 €'dan başlayan fiyatlarla. Mat, parlak, saten veya efektli.",
+        "category": "Premium Hizmet"
+      },
+      "scheibentoenung": {
+        "title": "Cam Filmi",
+        "description": "UV koruması, ısı azaltma ve mahremiyet için ABE sertifikalı cam filmleri.",
+        "category": "Koruma ve Tasarım"
+      },
+      "lackschutz": {
+        "title": "Boya Koruma Filmi (PPF)",
+        "description": "Ön, kısmi alanlar veya tüm araç için kendini iyileştiren taş çarpması koruma filmi.",
+        "category": "Koruma"
+      },
+      "beschriftung": {
+        "title": "Araç Yazısı",
+        "description": "Şirket araçları, transporterler ve filolar için reklam kaplama. Tasarım, baskı ve montaj.",
+        "category": "B2B"
+      },
+      "felgen": {
+        "title": "Jant Kaplama",
+        "description": "Boyasız yeni görünüm, kalıntı bırakmadan sökülebilir.",
+        "category": "Tasarım"
       }
     }
   }

@@ -6,7 +6,27 @@ import en from './locales/en.json';
 import ar from './locales/ar.json';
 import tr from './locales/tr.json';
 import ru from './locales/ru.json';
+import enSeoContent from './seoContent/en.json';
+import arSeoContent from './seoContent/ar.json';
+import trSeoContent from './seoContent/tr.json';
+import ruSeoContent from './seoContent/ru.json';
 import { getTranslationsData } from '../services/phpDataService';
+
+const withSeoContent = (locale: Record<string, unknown>, content: Record<string, unknown>) => ({
+  ...locale,
+  seoPages: {
+    ...(locale.seoPages as Record<string, unknown>),
+    content,
+  },
+});
+
+const defaultTranslations: Record<string, Record<string, unknown>> = {
+  de,
+  en: withSeoContent(en, enSeoContent),
+  ar: withSeoContent(ar, arSeoContent),
+  tr: withSeoContent(tr, trSeoContent),
+  ru: withSeoContent(ru, ruSeoContent),
+};
 
 // Helper function to get custom translations from PHP server or localStorage
 const getCustomTranslations = async (lang: string, defaultTranslations: any) => {
@@ -47,10 +67,10 @@ i18n
   .init({
     resources: {
       de: { translation: de },
-      en: { translation: en },
-      ar: { translation: ar },
-      tr: { translation: tr },
-      ru: { translation: ru }
+      en: { translation: defaultTranslations.en },
+      ar: { translation: defaultTranslations.ar },
+      tr: { translation: defaultTranslations.tr },
+      ru: { translation: defaultTranslations.ru },
     },
     lng: 'de', // Set German as default
     fallbackLng: 'de',
@@ -62,7 +82,6 @@ i18n
     // Load custom translations from PHP server and update i18n after initialization
     const loadCustomTranslations = async () => {
       const languages = ['de', 'en', 'ar', 'tr', 'ru'];
-      const defaultTranslations: Record<string, any> = { de, en, ar, tr, ru };
       
       for (const lang of languages) {
         try {
@@ -87,7 +106,6 @@ window.addEventListener('translationsUpdated', async (event: any) => {
     i18n.addResourceBundle(lang, 'translation', translations, true, true);
   } else {
     // Otherwise reload from PHP server
-    const defaultTranslations: Record<string, any> = { de, en, ar, tr, ru };
     const customTranslations = await getCustomTranslations(lang, defaultTranslations[lang]);
     i18n.addResourceBundle(lang, 'translation', customTranslations, true, true);
   }

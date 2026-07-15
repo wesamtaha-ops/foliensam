@@ -1,0 +1,960 @@
+{
+  "autofolierung": {
+    "meta": {
+      "title": "Car Wrapping Berlin – Professional Vehicle Wrapping | FolienSam",
+      "description": "Car wrapping in Berlin ✔ Full & partial wrapping ✔ Premium films from 3M, Avery & Hexis ✔ 5-year warranty ➤ Request a free quote!",
+      "h1": "Car Wrapping in Berlin – Your Car, Your Design"
+    },
+    "intro": "Car wrapping changes the color and look of your vehicle without touching the original paint. At FolienSam in Berlin-Weißensee, we wrap your car with premium films from 3M, Avery Dennison, and Hexis. With over 12 years of experience, more than 900 completed projects, and a 5-year warranty on materials and workmanship. From a complete full wrap to a wrapped roof: you tell us how you want your car to look, and we make it happen.",
+    "breadcrumbs": [
+      {
+        "label": "Home"
+      },
+      {
+        "label": "Car Wrapping Berlin"
+      }
+    ],
+    "serviceName": "Car Wrapping in Berlin",
+    "sections": [
+      {
+        "title": "Our Wrapping Services",
+        "level": 2,
+        "blocks": []
+      },
+      {
+        "id": "teilfolierung",
+        "title": "Full Wrap",
+        "level": 3,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "A full wrap covers the entire vehicle in a new color or finish, starting from €1,300. This is the right choice if you want a complete color change or large-scale paint protection. For full details on colors, process, and pricing, visit our Full Wrap in Berlin page."
+          },
+          {
+            "type": "cta",
+            "linkLabel": "Learn more about full wrapping in Berlin"
+          }
+        ]
+      },
+      {
+        "title": "Partial Wrapping and Design Wrapping",
+        "level": 3,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Partial wrapping adds targeted accents instead of changing the whole car. Typical projects in our workshop:"
+          },
+          {
+            "type": "list",
+            "items": [
+              "Roof wrap: the roof in gloss black or carbon look, the classic among partial wraps",
+              "Hood wrapping: as a design accent or protection against stone chips",
+              "Mirror caps and trim strips: small areas, big impact",
+              "Chrome delete: chrome trim strips and emblems wrapped in black for a modern, uniform look",
+              "Accent stripes and custom designs: based on your templates or designed together with us"
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "What does it cost? A roof wrap or wrapped hood is significantly cheaper than a full wrap; the price depends on vehicle size and film type. Simply send us a photo of your vehicle and you'll receive a concrete quote."
+          }
+        ]
+      },
+      {
+        "id": "chromfolierung",
+        "title": "Chrome Wrapping and Specialty Films",
+        "level": 3,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Want to stand out? In addition to classic colors, we also work with specialty films: chrome, brushed metal, carbon texture, or color-shift films. Important to know: specialty and chrome films have a shorter lifespan than solid colors due to manufacturer specifications. We'll advise you honestly on which film suits your vehicle and how you use it."
+          }
+        ]
+      },
+      {
+        "title": "Wrapping Instead of Painting: The Benefits",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "numbered-list",
+            "items": [
+              "The original paint stays intact. The film even protects it from minor scratches and environmental exposure. That pays off when you resell.",
+              "Removable without residue. Our films can be removed later, revealing the unchanged paint underneath. That makes wrapping interesting for leased vehicles too.",
+              "More affordable than comparable paintwork. Especially for special colors and effects.",
+              "More choice. Over 100 colors and finishes, from matte to satin to chrome, that often aren't available as paint."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Premium Films from 3M, Avery Dennison, and Hexis",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "We exclusively use films from the three leading manufacturers: 3M, Avery Dennison, and Hexis. These films are UV-resistant, color-stable, and equipped with easy-removal technology, so they can be removed later without residue. We don't work with cheap films. The price difference is small, but the quality difference after two Berlin summers is enormous."
+          }
+        ]
+      },
+      {
+        "title": "How Your Wrapping Works",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "numbered-list",
+            "items": [
+              "Consultation and quote. Send us photos of your vehicle via WhatsApp or our form; we'll discuss color, film, and scope. You'll receive a concrete quote.",
+              "Cleaning and preparation. The vehicle is thoroughly cleaned and the paint is inspected for damage.",
+              "Disassembly. Handles, trim strips, and emblems are professionally removed so the film can be applied cleanly around all edges.",
+              "Wrapping. Each component is wrapped individually; edges are folded and sealed.",
+              "Quality check and handover. You get your car back with care instructions."
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "How long does car wrapping take? For a full wrap, plan on 2 to 3 days; partial wraps are significantly faster depending on scope."
+          }
+        ]
+      },
+      {
+        "title": "How Much Does Car Wrapping Cost in Berlin?",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "The price depends on vehicle size, film type, and effort required. As a guide: a full wrap starts at €1,300 with us; partial wraps are significantly less. Specialty films and complex body shapes cost more than solid colors on flat surfaces. For a detailed overview with price examples, see our guide."
+          },
+          {
+            "type": "cta",
+            "linkLabel": "How much does car wrapping cost?"
+          }
+        ]
+      },
+      {
+        "title": "References from Berlin",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Over 900 vehicles have already left our workshop wrapped. A selection with photos and videos can be found in our references."
+          },
+          {
+            "type": "cta",
+            "linkLabel": "View references"
+          }
+        ]
+      },
+      {
+        "title": "Why FolienSam?",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "You don't hand your car over to just anyone. At FolienSam, a team with over 12 years of experience does the wrapping; you get a 5-year warranty on materials and workmanship and speak directly with the owner. Our workshop is located in Berlin-Weißensee, easily accessible from Pankow, Prenzlauer Berg, Lichtenberg, and Hohenschönhausen."
+          }
+        ]
+      }
+    ],
+    "faq": [
+      {
+        "question": "How much does it cost to wrap a car?",
+        "answer": "A full wrap costs from €1,300 at FolienSam, depending on vehicle size and film type. Partial wraps like the roof or hood are significantly cheaper. You'll receive a fixed-price quote after sending vehicle photos."
+      },
+      {
+        "question": "How much does it cost to wrap the hood?",
+        "answer": "The price for a wrapped hood depends on vehicle size and film type and is significantly less than a full wrap. Send us a photo and you'll receive a concrete quote."
+      },
+      {
+        "question": "How much does a roof wrap cost?",
+        "answer": "Same principle: smaller scope, smaller price. A roof wrap in gloss black or carbon look is among the most affordable wrapping options."
+      },
+      {
+        "question": "How long does car wrapping last?",
+        "answer": "High-quality films from 3M, Avery Dennison, and Hexis last many years with proper care. Durability depends on film type, usage, and maintenance. Solid colors last longer than specialty and chrome films."
+      },
+      {
+        "question": "Can I wrap a leased car?",
+        "answer": "Yes, generally you can, because the film can be removed without residue and the original paint stays intact. Clarify the wrapping with your leasing company in advance and have the film professionally removed before returning the vehicle."
+      },
+      {
+        "question": "Can I take a wrapped car through a car wash?",
+        "answer": "Yes. After a break-in period of about three weeks, you can wash the vehicle normally. With pressure washers: keep your distance, especially around the film edges."
+      },
+      {
+        "question": "Does a wrap need to be registered?",
+        "answer": "No TÜV registration is required. However, for a complete color change, the new vehicle color must be reported to the registration authority. We'll inform you at handover."
+      },
+      {
+        "question": "Wrapping or painting – which is better?",
+        "answer": "For most purposes, wrapping: it's reversible, protects the original paint, and offers more color choices. Painting makes sense when paint damage needs to be repaired."
+      }
+    ]
+  },
+  "vollfolierung": {
+    "meta": {
+      "title": "Full Car Wrap Berlin – Complete Vehicle Wrapping from €1,300",
+      "description": "Full car wrapping in Berlin ✔ Over 100 colors & finishes ✔ Clean disassembly ✔ 5-year warranty ➤ View prices & request your color!",
+      "h1": "Full Car Wrap in Berlin: Wrap Your Car Completely"
+    },
+    "intro": "A full wrap gives your car a completely new color without changing the original paint. At FolienSam in Berlin-Weißensee, a full wrap starts from €1,300 and typically takes 2 to 3 days. Choose from over 100 colors and finishes from 3M, Avery Dennison, and Hexis; we handle disassembly, wrapping, and quality control. With a 5-year warranty on materials and workmanship.",
+    "breadcrumbs": [
+      {
+        "label": "Home"
+      },
+      {
+        "label": "Car Wrapping"
+      },
+      {
+        "label": "Full Wrap Berlin"
+      }
+    ],
+    "serviceName": "Full Car Wrap in Berlin",
+    "sections": [
+      {
+        "title": "How Much Does It Cost to Wrap a Car Completely?",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "A complete car wrap at FolienSam starts from €1,300. The exact price depends on three factors:"
+          },
+          {
+            "type": "table",
+            "table": {
+              "headers": [
+                "Factor",
+                "Impact on Price"
+              ],
+              "rows": [
+                [
+                  "Vehicle size",
+                  "Compact cars cheaper than SUVs or vans"
+                ],
+                [
+                  "Film type",
+                  "Solid colors cheaper than metallic, satin, or specialty films"
+                ],
+                [
+                  "Body complexity",
+                  "Many edges, add-on parts, and disassembly effort increase the price"
+                ]
+              ]
+            }
+          },
+          {
+            "type": "paragraph",
+            "text": "You'll receive a binding fixed-price quote after sending vehicle photos via our form or WhatsApp. A detailed price overview with examples can be found in our guide."
+          },
+          {
+            "type": "cta",
+            "linkLabel": "How much does car wrapping cost?"
+          }
+        ]
+      },
+      {
+        "title": "Matte, Gloss, or Satin: Your Color Choice",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Matte wrapping has been the most popular choice for full wraps for years, closely followed by satin and gloss films. Here's how the finishes differ:"
+          },
+          {
+            "type": "list",
+            "items": [
+              "Matte: elegant and understated, conceals minor imperfections. Important: matte films must not be polished or waxed.",
+              "Satin: the middle ground, silky sheen without strong reflection. Very popular on premium vehicles.",
+              "Gloss: looks like fresh paint, easy to maintain, can be polished.",
+              "Metallic and specialty: color-shift, pearl, brushed metal, or carbon texture for those who want to stand out."
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "Not sure? Come by with your vehicle; we'll apply film samples directly to the car."
+          }
+        ]
+      },
+      {
+        "title": "How Your Full Wrap Works",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "numbered-list",
+            "items": [
+              "Consultation and film selection in the workshop or via WhatsApp with photos",
+              "Cleaning and paint inspection. The film is only as good as the surface underneath",
+              "Disassembly of handles, trim strips, and emblems for clean edges",
+              "Wrapping of all components individually; edges are folded over",
+              "Quality check, reassembly, and handover with care instructions"
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "Plan for 2 to 3 days. You'll receive a binding appointment; the vehicle stays in our workshop for the entire duration."
+          }
+        ]
+      },
+      {
+        "title": "Warranty and Durability",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "We offer a 5-year warranty on materials and workmanship for full wraps. Actual lifespan depends on film type: solid colors last the longest; specialty and chrome films have a shorter lifespan due to manufacturer specifications. At handover, we'll explain how to care for the film properly so it looks as good as day one for as long as possible."
+          }
+        ]
+      },
+      {
+        "title": "References: Full Wraps from Our Workshop",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "More examples can be found in our references."
+          },
+          {
+            "type": "cta",
+            "linkLabel": "View references"
+          }
+        ]
+      }
+    ],
+    "faq": [
+      {
+        "question": "How much does a full car wrap cost?",
+        "answer": "From €1,300 at FolienSam in Berlin, depending on vehicle size, film type, and effort required. Specialty films and large vehicles cost more than solid colors on a compact car."
+      },
+      {
+        "question": "How long does a full wrap take?",
+        "answer": "Typically 2 to 3 days. During this time, the vehicle is cleaned, partially disassembled, wrapped, and fully reassembled."
+      },
+      {
+        "question": "Does the original paint stay intact under the film?",
+        "answer": "Yes, that's one of the biggest advantages. The film even protects the paint from minor scratches and UV radiation. After removal, the unchanged paint is revealed."
+      },
+      {
+        "question": "Can the film be removed later?",
+        "answer": "Yes. The films we use from 3M, Avery Dennison, and Hexis feature easy-removal technology and can be professionally removed without residue."
+      },
+      {
+        "question": "Do I need to register the new color?",
+        "answer": "Not with TÜV. However, after a complete color change, you should report the new color to the registration authority. We'll remind you at handover."
+      },
+      {
+        "question": "How do I care for a wrapped car?",
+        "answer": "Don't wash for three weeks after wrapping, then wash normally by hand or at a car wash. Never polish or wax matte films. With pressure washers, keep your distance from the edges."
+      }
+    ]
+  },
+  "scheibentoenung": {
+    "meta": {
+      "title": "Window Tinting Berlin – with ABE & Warranty | FolienSam",
+      "description": "Window tinting in Berlin ✔ Certified tint films with ABE ✔ UV & heat protection ✔ Fair fixed prices ➤ Request your appointment now!",
+      "h1": "Window Tinting in Berlin – Professional & with ABE"
+    },
+    "intro": "Professional window tinting protects against UV radiation and heat, improves privacy, and makes your car look more premium. At FolienSam in Berlin-Weißensee, we tint your windows with certified films including ABE (General Type Approval). That means: no registration required, and you receive the ABE certificate directly from us. Request an appointment, get your windows tinted, done.",
+    "breadcrumbs": [
+      {
+        "label": "Home"
+      },
+      {
+        "label": "Window Tinting Berlin"
+      }
+    ],
+    "serviceName": "Window Tinting in Berlin",
+    "sections": [
+      {
+        "title": "Why Get Your Windows Tinted?",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "list",
+            "items": [
+              "UV protection: tint films block most UV radiation. This protects occupants and prevents the interior from fading.",
+              "Less heat inside: especially in summer, the car heats up noticeably less.",
+              "Privacy: what's in the back of the car stays your business. Also a plus against opportunistic theft.",
+              "Appearance: tinted windows make almost any vehicle look more premium."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "How Much Does Window Tinting Cost?",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "The cost of window tinting depends on the number and size of windows as well as the film chosen. As a rule of thumb: the more windows and the larger the vehicle, the higher the price. You'll receive a fixed price before your appointment. Simply send your vehicle model via WhatsApp or our form."
+          }
+        ]
+      },
+      {
+        "title": "Tint Levels: from Subtle to Dark",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Which tint suits you? Tint films come in various levels, specified as light transmission. Common options are subtle tints around 35%, medium around 20%, and dark around 5% light transmission. We'll show you samples directly on the vehicle so you can see the effect before installation."
+          }
+        ]
+      },
+      {
+        "title": "What's Allowed for Window Tinting?",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Rear side windows from the B-pillar back and the rear window may be tinted, provided the vehicle has two exterior mirrors. The windshield and front side windows may not be tinted. All our films have an ABE (General Type Approval). You'll receive this from us and should keep it in the vehicle, for example for police checks or the main inspection."
+          }
+        ]
+      },
+      {
+        "title": "Process and Duration",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Window tinting typically takes a few hours at our shop, depending on the vehicle and number of windows. The film is applied on the inside, precisely cut to fit, and bonded bubble-free. Afterwards, you receive the vehicle with the ABE certificate and care instructions."
+          }
+        ]
+      },
+      {
+        "title": "Care After Tinting",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "For the first three weeks after installation: don't roll down the windows and don't clean the inside. Small water bubbles under the film are normal during this time; they evaporate on their own. You can use the rear window defroster normally."
+          }
+        ]
+      }
+    ],
+    "faq": [
+      {
+        "question": "How much does professional window tinting cost?",
+        "answer": "Costs depend on the number of windows and vehicle size. At FolienSam, you'll receive a fixed price in advance for your vehicle model."
+      },
+      {
+        "question": "Can I tint the front windows?",
+        "answer": "No. The windshield and front side windows must remain clear, as required by StVZO (German Road Traffic Licensing Regulations). Rear windows from the B-pillar back and the rear window are permitted."
+      },
+      {
+        "question": "Do I need to register the tint?",
+        "answer": "No. Our tint films have an ABE (General Type Approval) and are therefore registration-free. You should keep the ABE certificate in the car."
+      },
+      {
+        "question": "What happens if I lose the ABE?",
+        "answer": "No problem. Based on the film identification, we'll issue you a new ABE certificate. Just get in touch with us."
+      },
+      {
+        "question": "How long does window tinting last?",
+        "answer": "High-quality tint films last many years without fading or peeling."
+      },
+      {
+        "question": "Are bubbles under the film normal?",
+        "answer": "Yes, right after installation. Residual moisture evaporates on its own within the first few weeks. If bubbles remain visible longer, come by and we'll take a look."
+      }
+    ]
+  },
+  "lackschutz": {
+    "meta": {
+      "title": "Paint Protection Film Berlin – PPF & Stone Chip Protection | FolienSam",
+      "description": "Self-healing paint protection film (PPF) in Berlin ✔ Front to full-body protection ✔ Invisible stone chip protection ➤ Request a consultation now!",
+      "h1": "Paint Protection Film (PPF) in Berlin"
+    },
+    "intro": "Paint protection film (PPF, Paint Protection Film) is a transparent protective layer that shields your paint from stone chips, scratches, and environmental exposure, virtually invisible. At FolienSam in Berlin-Weißensee, we apply self-healing paint protection films for front sections, individual components, or the entire vehicle. Especially worthwhile for new cars, premium vehicles, and high-mileage drivers.",
+    "breadcrumbs": [
+      {
+        "label": "Home"
+      },
+      {
+        "label": "Paint Protection Film Berlin"
+      }
+    ],
+    "serviceName": "Paint Protection Film / PPF in Berlin",
+    "sections": [
+      {
+        "title": "What Is Paint Protection Film?",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "PPF is a thick, transparent polyurethane film applied to the paint. It absorbs the energy of stone chips before the paint is damaged. Modern paint protection films are self-healing: fine scratches in the film disappear on their own with heat, such as from sunlight or warm water. The paint underneath stays in like-new condition. This distinguishes PPF from color wrapping: it's not about appearance, but protection."
+          }
+        ]
+      },
+      {
+        "title": "Our Protection Packages",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "list",
+            "items": [
+              "Front package: bumper, hood (partial or full), fenders, and mirrors. The areas that take stone chips first. The classic for high-mileage drivers and highway commuters.",
+              "Partial protection: individual components as needed, for example door sills, loading edge, handle recesses, or the front of a leased vehicle.",
+              "Full-body protection: the entire vehicle in PPF. Maximum value retention, popular for sports cars and new luxury vehicles."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "How Much Does Stone Chip Protection Film Cost?",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "The cost of stone chip protection film depends on scope: a front package costs significantly less than full-body protection; individual components are the most affordable entry point. PPF is more material- and labor-intensive than color wrapping, but it protects the paint for years. For a concrete quote, send us your vehicle model and desired scope; you'll receive a fixed price."
+          }
+        ]
+      },
+      {
+        "title": "Who Benefits from PPF?",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "numbered-list",
+            "items": [
+              "New cars: the best time for PPF is right after delivery, while the paint is flawless.",
+              "Premium and sports cars: a paint repair here quickly costs many times the price of the film.",
+              "High-mileage drivers and highway commuters: stone chips on the front are hard to avoid with high mileage; with PPF, the paint underneath stays intact.",
+              "Leased vehicles: the paint stays in return condition. The film is removed before return, eliminating repainting costs."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "PPF or Ceramic Coating?",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Short answer: the two products solve different problems. A ceramic coating makes maintenance easier and causes water to bead off, but doesn't protect against stone chips. Paint protection film is a physical barrier against mechanical damage. For maximum protection, combine both: PPF first, then the coating on top. We'll advise you honestly on what makes sense for your vehicle and how you use it."
+          }
+        ]
+      },
+      {
+        "title": "Durability and Care",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "High-quality paint protection films last many years. Care is straightforward: normal hand wash or car wash; with pressure washers, keep your distance from the film edges. Fine scratches heal on their own with heat."
+          }
+        ]
+      }
+    ],
+    "faq": [
+      {
+        "question": "Can you see the paint protection film on the car?",
+        "answer": "Barely. PPF is transparent and applied precisely to the components. From a meter away, a professionally applied film is practically invisible."
+      },
+      {
+        "question": "What does a self-healing film do?",
+        "answer": "Fine scratches and swirls on the film surface disappear on their own with heat. The film therefore looks newer for longer and needs to be replaced less often."
+      },
+      {
+        "question": "Does the film reliably protect against stone chips?",
+        "answer": "Yes, that's its main purpose. The polyurethane layer absorbs the impact energy of small stones that would leave chips on untreated paint."
+      },
+      {
+        "question": "Can PPF be removed?",
+        "answer": "Yes, professionally and without residue. The protected original paint underneath is revealed. That's exactly why PPF is popular for leased vehicles too."
+      },
+      {
+        "question": "Can a wrapped car be additionally protected?",
+        "answer": "Yes. A ceramic coating on top of the PPF makes maintenance even easier. Ask us whether the combination makes sense for your vehicle."
+      },
+      {
+        "question": "Is PPF worth it for a used car?",
+        "answer": "It depends on the paint condition. On flawless paint: yes. Existing stone chips or scratches should be addressed first, otherwise they'll be preserved under the film."
+      }
+    ]
+  },
+  "beschriftung": {
+    "meta": {
+      "title": "Vehicle Lettering Berlin – Commercial Vehicle Wrapping for Businesses",
+      "description": "Letter company cars, vans & fleets ✔ Design, print & installation under one roof ✔ Lease-friendly ➤ Request a B2B quote now!",
+      "h1": "Vehicle Lettering & Commercial Wrapping in Berlin"
+    },
+    "intro": "Vehicle lettering turns your company car into a mobile billboard that drives through Berlin every day. At FolienSam, you get car lettering, partial wrapping with advertising design, and complete commercial wrapping under one roof: consultation, file review, production, and installation in our workshop in Berlin-Weißensee. With premium films that can be removed without residue for lease return or redesign.",
+    "breadcrumbs": [
+      {
+        "label": "Home"
+      },
+      {
+        "label": "Vehicle Lettering Berlin"
+      }
+    ],
+    "serviceName": "Vehicle Lettering in Berlin",
+    "sections": [
+      {
+        "title": "From Logo Application to Full Wrap",
+        "level": 2,
+        "blocks": []
+      },
+      {
+        "title": "Lettering",
+        "level": 3,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Logo, company name, phone number, and web address as cut vinyl on doors, rear, and rear window. The affordable entry point that turns every company vehicle into a business card."
+          }
+        ]
+      },
+      {
+        "title": "Partial Wrapping with Advertising Design",
+        "level": 3,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Designed areas combined with lettering, for example a continuous design on the vehicle sides or rear. Significantly more attention without wrapping the entire vehicle."
+          }
+        ]
+      },
+      {
+        "title": "Complete Commercial Wrap",
+        "level": 3,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "The entire vehicle in your corporate design. Maximum impact in the cityscape, especially for vans with large surface areas. On request, we design multiple vehicles uniformly so your fleet presents as one brand."
+          }
+        ]
+      },
+      {
+        "title": "How It Works for Business Customers",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "numbered-list",
+            "items": [
+              "Inquiry with vehicle details. Model, number of vehicles, rough idea. Feel free to email info@foliensam.de.",
+              "File check and design. You provide the logo and desired text; we review the print files.",
+              "Approval of the draft. You see how the vehicle will look before production.",
+              "Production and installation. Appointment at our workshop; depending on scope, a few hours to one day per vehicle.",
+              "Handover with care instructions. So the lettering lasts for years."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Leased Vehicles: Letter and Return Cleanly",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Yes, leased vehicles can be lettered too. The films we use can be professionally removed without residue; the original paint remains unchanged. Briefly clarify the lettering with your leasing company and plan for removal before return."
+          }
+        ]
+      },
+      {
+        "title": "How Much Does Vehicle Lettering Cost?",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "The price depends on scope: simple lettering with logo and contact details is the most affordable entry point; a complete commercial wrap is in the range of a full wrap. After file review, you'll receive a fixed-price quote per vehicle. For multiple vehicles, uniform implementation in one appointment block is worthwhile."
+          }
+        ]
+      },
+      {
+        "title": "References",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "More work can be found in our references."
+          },
+          {
+            "type": "cta",
+            "linkLabel": "View references"
+          }
+        ]
+      }
+    ],
+    "faq": [
+      {
+        "question": "How much does car lettering cost?",
+        "answer": "Basic lettering with logo and contact details is the most affordable entry point; designed partial and full wraps cost correspondingly more. After reviewing your files, we'll give you a fixed price per vehicle."
+      },
+      {
+        "question": "How long does lettering a van take?",
+        "answer": "Simple lettering is often installed in a few hours; a complete commercial wrap takes up to a day or longer depending on vehicle size. We'll give you the exact timeframe with the quote."
+      },
+      {
+        "question": "Do we provide the design or does FolienSam?",
+        "answer": "Both are possible. You provide print-ready files or we adapt your corporate design for the vehicle surfaces."
+      },
+      {
+        "question": "Does the lettering damage the paint?",
+        "answer": "No, quite the opposite. The film protects the covered areas. Upon removal, the original paint remains intact."
+      },
+      {
+        "question": "Can multiple vehicles be lettered uniformly?",
+        "answer": "Yes. We handle the uniform implementation of your design across different vehicle models so your fleet presents as one brand."
+      }
+    ]
+  },
+  "felgen": {
+    "meta": {
+      "title": "Wheel Wrapping: Costs & Colors | FolienSam Berlin",
+      "description": "Wrap wheels instead of painting ✔ Costs & price examples ✔ Removable without residue ✔ Workshop in Berlin-Weißensee ➤ Request an appointment!",
+      "h1": "Wheel Wrapping: Costs, Colors, and Process"
+    },
+    "intro": "Wheel wrapping is the flexible alternative to painting or powder coating: a new look in your desired color, removable without residue, and without permanently changing the wheel. At FolienSam in Berlin-Weißensee, we wrap alloy wheels with high-quality, heat-resistant films. Here you'll find costs, color options, and an overview of the process.",
+    "breadcrumbs": [
+      {
+        "label": "Home"
+      },
+      {
+        "label": "Wheel Wrapping Berlin"
+      }
+    ],
+    "serviceName": "Wheel Wrapping in Berlin",
+    "sections": [
+      {
+        "title": "How Much Does Wheel Wrapping Cost?",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "The cost of wheel wrapping depends on wheel size, wheel design, and film type. An intricate spoke design is more labor-intensive to wrap than a smooth wheel surface. As a guide: a set of wrapped wheels costs less than high-quality powder coating and is completed significantly faster. For a fixed price, send us a photo of your wheels with size information via WhatsApp or our form."
+          },
+          {
+            "type": "cta",
+            "linkLabel": "Request a wheel quote"
+          }
+        ]
+      },
+      {
+        "title": "Wrapping, Painting, or Powder Coating?",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "In short: wrapping is reversible and fast; painting and powder coating are permanent."
+          },
+          {
+            "type": "list",
+            "items": [
+              "Wheel film: in your desired color, removable again, ideal for trying a new look or for leased vehicles",
+              "Painting: permanent, makes sense for damaged wheels that need refurbishment anyway",
+              "Powder coating: the most robust solution, but irreversible and with longer turnaround time"
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Colors and Finishes",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Most popular are gloss black, matte black, and anthracite. But almost anything available for the body is possible too: from gold to bronze to specialty films. For a subtle look, wrap the wheels to match the vehicle wrap color."
+          }
+        ]
+      },
+      {
+        "title": "How Wheel Wrapping Works",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "numbered-list",
+            "items": [
+              "Inquiry with photo and wheel size; you'll receive a fixed price",
+              "Removal and cleaning of the wheels",
+              "Wrapping of each wheel individually, including cleanly folded edges",
+              "Reinstallation and handover with care instructions"
+            ]
+          }
+        ]
+      }
+    ],
+    "faq": [
+      {
+        "question": "How much does a set of wrapped wheels cost?",
+        "answer": "The price depends on the size and design of the wheels. After a photo of your wheels, we'll give you a fixed price for all four wheels."
+      },
+      {
+        "question": "Does film on wheels last?",
+        "answer": "Yes, with professional application using heat-resistant film, the wrap holds up reliably in everyday use, including brake heat and car washes. Stone chips can damage the film in exposed areas, but individual wheels can be re-wrapped."
+      },
+      {
+        "question": "Can I wash wrapped wheels normally?",
+        "answer": "Yes, hand washing and car washes are no problem. With pressure washers, keep some distance from the film edges and don't use aggressive wheel cleaners."
+      },
+      {
+        "question": "Can the wheel film be removed?",
+        "answer": "Yes, without residue. The wheel underneath is revealed in its original condition. That makes wrapping ideal if you only want to change the look temporarily."
+      }
+    ]
+  },
+  "ratgeberKosten": {
+    "meta": {
+      "title": "Car Wrapping Costs 2026 – Prices & Factors | FolienSam",
+      "description": "How much does car wrapping cost? ✔ Prices for full & partial wraps ✔ All cost factors ✔ Money-saving tips ➤ From Berlin's wrapping professionals.",
+      "h1": "How Much Does Car Wrapping Cost?"
+    },
+    "intro": "A complete car wrap in Germany costs roughly €1,300 to €4,000 depending on vehicle size and film type, and more for specialty films and sports cars. Partial wraps like the roof or hood start at a fraction of that. At FolienSam in Berlin, full wrapping starts from €1,300. In this guide, we break down what affects the price and where you can save without sacrificing quality.",
+    "breadcrumbs": [
+      {
+        "label": "Home"
+      },
+      {
+        "label": "Guide"
+      },
+      {
+        "label": "Car Wrapping Costs"
+      }
+    ],
+    "sections": [
+      {
+        "title": "The 5 Factors That Determine the Price",
+        "level": 2,
+        "blocks": []
+      },
+      {
+        "title": "1. Vehicle Size and Body Shape",
+        "level": 3,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "More surface area means more film and more labor. A compact car is wrapped faster than an SUV. More important than pure size is the shape: deep recesses, strong curves, and many add-on parts make application more labor-intensive."
+          }
+        ]
+      },
+      {
+        "title": "2. Film Type and Manufacturer",
+        "level": 3,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Solid colors in gloss or matte are the most affordable. Metallic, satin, and textured films cost more; chrome and color-shift films are the most expensive. We exclusively use films from 3M, Avery Dennison, and Hexis. Cheap film saves a few hundred euros upfront and costs many times that when removing or when it fades."
+          }
+        ]
+      },
+      {
+        "title": "3. Disassembly Effort",
+        "level": 3,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "For a clean result, handles, trim strips, and emblems are removed and the film is wrapped around the edges. Skipping this saves labor time but every edge shows. Reputable quotes include disassembly; cheap ones often don't. When in doubt, ask."
+          }
+        ]
+      },
+      {
+        "title": "4. Paint Condition",
+        "level": 3,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Film transfers every imperfection. Stone chips, scratches, or rust must be fixed before wrapping, otherwise they'll show through and compromise adhesion. Any prep work is added to the wrapping price."
+          }
+        ]
+      },
+      {
+        "title": "5. Partial or Full Wrap",
+        "level": 3,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "If you don't want to change the whole car, a partial wrap is significantly cheaper. How much does it cost to wrap the hood or roof? Both are among the most affordable entry points into wrapping and can be done in a day."
+          },
+          {
+            "type": "cta",
+            "linkLabel": "Car Wrapping in Berlin"
+          }
+        ]
+      },
+      {
+        "title": "Wrapping or Painting: Which Is Cheaper?",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "In most cases, wrapping. A high-quality complete paint job of comparable quality often costs significantly more, especially for special colors. Plus: the film is reversible, the original paint stays intact and protected. That preserves resale value. Painting is only the right choice when the paint is already damaged and needs repair."
+          }
+        ]
+      },
+      {
+        "title": "Where You Can Save and Where You Shouldn't",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Sensible savings: partial wrap instead of full wrap, solid color instead of specialty film, inquiry with good photos. Don't cut corners on film quality, disassembly, or workshop choice."
+          }
+        ]
+      }
+    ],
+    "faq": [
+      {
+        "question": "How much does it cost to wrap a car completely?",
+        "answer": "A complete full wrap costs from around €1,300 for a compact car with a solid color. Mid-size cars, SUVs, and specialty films cost more. The binding price depends on vehicle, film, and effort required."
+      },
+      {
+        "question": "How does car wrapping cost compare to painting?",
+        "answer": "Car wrapping is usually cheaper than a complete paint job of comparable quality and is additionally reversible. For special colors and effects, the price advantage of film is greatest."
+      },
+      {
+        "question": "Is there a cost calculator for car wrapping?",
+        "answer": "There isn't a reliable online calculator, because body shape, paint condition, and film choice strongly affect the price. At FolienSam, you'll receive a binding quote after sending vehicle photos, usually within a short time."
+      },
+      {
+        "question": "How much does a partial wrap cost?",
+        "answer": "Significantly less than a full wrap. Roof, hood, or mirrors are among the most affordable options. Find out the price for your vehicle via a photo inquiry."
+      },
+      {
+        "question": "Why are some quotes so much cheaper?",
+        "answer": "Usually corners are cut on film quality or disassembly. Without disassembly, visible edges remain; cheap film fades and often can only be removed with adhesive residue. Always compare quotes including film brand and scope of work."
+      }
+    ]
+  },
+  "kontakt": {
+    "meta": {
+      "title": "Contact & Directions – FolienSam Berlin-Weißensee",
+      "description": "Max-Steinke-Straße 36, 13086 Berlin ✔ Mon–Sat 9 AM–6 PM ✔ Inquiry via form, phone, or WhatsApp ➤ Send your inquiry now!",
+      "h1": "Contact & Directions"
+    },
+    "intro": "You'll find us at Max-Steinke-Straße 36 in 13086 Berlin-Weißensee. We're here for you Monday through Saturday from 9 AM to 6 PM. Fastest via WhatsApp or phone at +49 157 50000505.",
+    "breadcrumbs": [
+      {
+        "label": "Home"
+      },
+      {
+        "label": "Contact"
+      }
+    ],
+    "sections": [
+      {
+        "title": "Service Area",
+        "level": 2,
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Our workshop is located in Berlin-Weißensee (Pankow district) and is easily accessible from Pankow, Prenzlauer Berg, Lichtenberg, Hohenschönhausen, and Mitte."
+          }
+        ]
+      }
+    ]
+  },
+  "referenzen": {
+    "meta": {
+      "title": "References: 900+ Wraps from Berlin | FolienSam",
+      "description": "Over 900 projects ✔ Full wraps, tinting, PPF & lettering ✔ Real photos & videos from our Berlin workshop ➤ View now!",
+      "h1": "Our Work: Wraps from Berlin"
+    },
+    "intro": "Over 900 vehicles have already left our workshop wrapped. Here you'll find full wraps, window tinting, paint protection, and lettering from our Berlin workshop, with photos and videos of real customer vehicles.",
+    "breadcrumbs": [
+      {
+        "label": "Home"
+      },
+      {
+        "label": "References"
+      }
+    ],
+    "sections": []
+  }
+}

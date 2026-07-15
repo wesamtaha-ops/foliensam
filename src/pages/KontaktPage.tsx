@@ -9,10 +9,11 @@ import WhatsAppButton from '../components/WhatsAppButton';
 import SEO from '../components/SEO';
 import SeoPageHero from '../components/seo/SeoPageHero';
 import { SEO_PAGES, SEO_HERO_IMAGES } from '../data/seoPages';
+import { useLocalizedSeoPage } from '../hooks/useLocalizedSeoPage';
 
 const KontaktPage: React.FC = () => {
   const { t } = useTranslation();
-  const page = SEO_PAGES.kontakt;
+  const page = useLocalizedSeoPage(SEO_PAGES.kontakt);
 
   useEffect(() => {
     window.scrollTo(0, 0);

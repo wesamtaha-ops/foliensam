@@ -6,9 +6,10 @@ import WhatsAppButton from '../components/WhatsAppButton';
 import SEO from '../components/SEO';
 import SeoPageHero from '../components/seo/SeoPageHero';
 import { SEO_PAGES, SEO_HERO_IMAGES } from '../data/seoPages';
+import { useLocalizedSeoPage } from '../hooks/useLocalizedSeoPage';
 
 const ReferenzenPage: React.FC = () => {
-  const page = SEO_PAGES.referenzen;
+  const page = useLocalizedSeoPage(SEO_PAGES.referenzen);
 
   useEffect(() => {
     window.scrollTo(0, 0);

@@ -63,7 +63,6 @@ const TikTokProfileEmbed: React.FC<TikTokProfileEmbedProps> = ({ username }) => 
         cite={profileUrl}
         data-unique-id={username}
         data-embed-type="creator"
-        style={{ maxWidth: '720px', minWidth: '288px' }}
       >
         <section>
           <a target="_blank" rel="noopener noreferrer" href={`${profileUrl}?refer=creator_embed`}>

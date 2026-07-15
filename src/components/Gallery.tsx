@@ -26,7 +26,7 @@ const Gallery = () => {
   const [galleryImages, setGalleryImages] = useState<GalleryItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [lastFetchTime, setLastFetchTime] = useState<number>(0);
-  const [activeTab, setActiveTab] = useState<TabType>('videos');
+  const [activeTab, setActiveTab] = useState<TabType>('tiktok');
   const [tiktokUsername, setTiktokUsername] = useState('');
   const [tiktokProfileUrl, setTiktokProfileUrl] = useState('https://vm.tiktok.com/ZNew77xKv/');
 
@@ -378,17 +378,6 @@ const Gallery = () => {
         <div className="flex justify-center mb-8">
           <div className="inline-flex bg-primary-light rounded-full p-1 gap-2">
             <button
-              onClick={() => setActiveTab('videos')}
-              className={`flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
-                activeTab === 'videos'
-                  ? 'bg-accent-purple text-white shadow-lg shadow-accent-purple/50 scale-105'
-                  : 'text-primary-silver hover:text-white hover:bg-primary-dark/50'
-              }`}
-            >
-              <Video className="w-5 h-5" />
-              {t('gallery.tabs.videos')}
-            </button>
-            <button
               onClick={() => setActiveTab('tiktok')}
               className={`flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
                 activeTab === 'tiktok'
@@ -400,6 +389,17 @@ const Gallery = () => {
                 <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
               </svg>
               {t('gallery.tabs.tiktok')}
+            </button>
+            <button
+              onClick={() => setActiveTab('videos')}
+              className={`flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
+                activeTab === 'videos'
+                  ? 'bg-accent-purple text-white shadow-lg shadow-accent-purple/50 scale-105'
+                  : 'text-primary-silver hover:text-white hover:bg-primary-dark/50'
+              }`}
+            >
+              <Video className="w-5 h-5" />
+              {t('gallery.tabs.videos')}
             </button>
             <button
               onClick={() => setActiveTab('images')}

@@ -2,50 +2,39 @@ import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import './TikTokProfileEmbed.css';
 
+const SOCIABLEKIT_SCRIPT = 'https://widgets.sociablekit.com/tiktok-feed/widget.js';
+export const DEFAULT_TIKTOK_EMBED_ID = '25697428';
+
 interface TikTokProfileEmbedProps {
-  username: string;
+  embedId?: string;
 }
 
-const loadTikTokEmbedScript = (): Promise<void> => {
-  return new Promise((resolve) => {
-    const existingScript = document.querySelector('script[src="https://www.tiktok.com/embed.js"]');
-
-    if (existingScript) {
-      resolve();
-      return;
-    }
-
-    const script = document.createElement('script');
-    script.src = 'https://www.tiktok.com/embed.js';
-    script.async = true;
-    script.onload = () => resolve();
-    document.body.appendChild(script);
-  });
-};
-
-const TikTokProfileEmbed: React.FC<TikTokProfileEmbedProps> = ({ username }) => {
+const TikTokProfileEmbed: React.FC<TikTokProfileEmbedProps> = ({ embedId = DEFAULT_TIKTOK_EMBED_ID }) => {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!username) return;
+    const container = containerRef.current;
+    if (!container || !embedId) return;
 
-    const renderEmbed = async () => {
-      await loadTikTokEmbedScript();
+    container.innerHTML = '';
 
-      const tiktokWindow = window as Window & {
-        tiktok?: { lib?: { render: () => void } };
-      };
+    const feedDiv = document.createElement('div');
+    feedDiv.className = 'sk-tiktok-feed';
+    feedDiv.setAttribute('data-embed-id', embedId);
+    container.appendChild(feedDiv);
 
-      if (tiktokWindow.tiktok?.lib?.render) {
-        tiktokWindow.tiktok.lib.render();
-      }
+    const script = document.createElement('script');
+    script.src = SOCIABLEKIT_SCRIPT;
+    script.defer = true;
+    container.appendChild(script);
+
+    return () => {
+      container.innerHTML = '';
     };
+  }, [embedId]);
 
-    renderEmbed();
-  }, [username]);
-
-  if (!username) {
+  if (!embedId) {
     return (
       <div className="tiktok-embed-empty">
         <p className="tiktok-embed-empty-title">{t('gallery.tiktokNotConfigured')}</p>
@@ -54,24 +43,7 @@ const TikTokProfileEmbed: React.FC<TikTokProfileEmbedProps> = ({ username }) => 
     );
   }
 
-  const profileUrl = `https://www.tiktok.com/@${username}`;
-
-  return (
-    <div ref={containerRef} className="tiktok-embed-container">
-      <blockquote
-        className="tiktok-embed"
-        cite={profileUrl}
-        data-unique-id={username}
-        data-embed-type="creator"
-      >
-        <section>
-          <a target="_blank" rel="noopener noreferrer" href={`${profileUrl}?refer=creator_embed`}>
-            @{username}
-          </a>
-        </section>
-      </blockquote>
-    </div>
-  );
+  return <div ref={containerRef} className="tiktok-embed-container" />;
 };
 
 export default TikTokProfileEmbed;

@@ -3,7 +3,7 @@ import { X, ChevronLeft, ChevronRight, Play, Loader2, Image as ImageIcon, Video 
 import { useTranslation } from 'react-i18next';
 import { fetchAllChannelShorts, YouTubeVideo } from '../services/youtubeApi';
 import { getGalleryImages, getSettings } from '../services/dataService';
-import TikTokProfileEmbed from './TikTokProfileEmbed';
+import TikTokProfileEmbed, { DEFAULT_TIKTOK_EMBED_ID } from './TikTokProfileEmbed';
 
 interface GalleryItem {
   type: 'youtube' | 'image';
@@ -27,7 +27,7 @@ const Gallery = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [lastFetchTime, setLastFetchTime] = useState<number>(0);
   const [activeTab, setActiveTab] = useState<TabType>('tiktok');
-  const [tiktokUsername, setTiktokUsername] = useState('');
+  const [tiktokEmbedId, setTiktokEmbedId] = useState(DEFAULT_TIKTOK_EMBED_ID);
   const [tiktokProfileUrl, setTiktokProfileUrl] = useState('https://vm.tiktok.com/ZNew77xKv/');
 
   // Helper function to check if a video is new (published within last 7 days)
@@ -116,8 +116,8 @@ const Gallery = () => {
     const loadTikTokSettings = async () => {
       try {
         const settings = await getSettings();
-        if (settings.tiktokUsername) {
-          setTiktokUsername(settings.tiktokUsername);
+        if (settings.tiktokEmbedId) {
+          setTiktokEmbedId(settings.tiktokEmbedId);
         }
         if (settings.tiktokProfileUrl) {
           setTiktokProfileUrl(settings.tiktokProfileUrl);
@@ -415,9 +415,11 @@ const Gallery = () => {
           </div>
         </div>
 
-        {activeTab === 'tiktok' ? (
-          <TikTokProfileEmbed username={tiktokUsername} />
-        ) : (
+        <div className={activeTab === 'tiktok' ? 'tiktok-tab-active' : 'tiktok-tab-hidden'}>
+          <TikTokProfileEmbed embedId={tiktokEmbedId} />
+        </div>
+
+        {activeTab !== 'tiktok' && (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
           {isLoading ? (
             <div className="col-span-full text-center py-12">

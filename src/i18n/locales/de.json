@@ -48,7 +48,7 @@
     "loading": "Lade Inhalte...",
     "loadingYoutube": "Lade YouTube-Videos...",
     "tiktokNotConfigured": "TikTok-Profil noch nicht eingerichtet",
-    "tiktokNotConfiguredHint": "Gehen Sie zu Admin → Einstellungen und geben Sie Ihren TikTok-Benutzernamen ein.",
+    "tiktokNotConfiguredHint": "Gehen Sie zu Admin → Einstellungen und geben Sie Ihre SociableKIT Embed-ID ein.",
     "noItems": "Keine Elemente in dieser Kategorie gefunden",
     "tabs": {
       "videos": "YouTube",

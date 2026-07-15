@@ -48,7 +48,7 @@
     "loading": "İçerik yükleniyor...",
     "loadingYoutube": "YouTube videoları yükleniyor...",
     "tiktokNotConfigured": "TikTok profili henüz yapılandırılmadı",
-    "tiktokNotConfiguredHint": "Admin → Ayarlar bölümüne gidin ve TikTok kullanıcı adınızı girin.",
+    "tiktokNotConfiguredHint": "Admin → Ayarlar bölümüne gidin ve SociableKIT embed ID'nizi girin.",
     "noItems": "Bu kategoride öğe bulunamadı",
     "tabs": {
       "videos": "YouTube",

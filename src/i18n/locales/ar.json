@@ -48,7 +48,7 @@
     "loading": "جاري تحميل المحتوى...",
     "loadingYoutube": "جاري تحميل فيديوهات YouTube...",
     "tiktokNotConfigured": "لم يتم إعداد ملف TikTok بعد",
-    "tiktokNotConfiguredHint": "انتقل إلى لوحة الإدارة → الإعدادات وأدخل اسم مستخدم TikTok.",
+    "tiktokNotConfiguredHint": "انتقل إلى لوحة الإدارة → الإعدادات وأدخل معرف SociableKIT embed.",
     "noItems": "لا توجد عناصر في هذه الفئة",
     "tabs": {
       "videos": "YouTube",

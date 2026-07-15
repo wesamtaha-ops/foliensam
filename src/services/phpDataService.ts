@@ -45,7 +45,7 @@ export interface SettingsData {
   adminPassword: string;
   youtubeApiKey?: string;
   youtubeChannelId?: string;
-  tiktokUsername?: string;
+  tiktokEmbedId?: string;
   tiktokProfileUrl?: string;
   siteName?: string;
   contactEmail?: string;

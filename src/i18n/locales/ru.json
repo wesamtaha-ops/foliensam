@@ -48,7 +48,7 @@
     "loading": "Загрузка контента...",
     "loadingYoutube": "Загрузка видео YouTube...",
     "tiktokNotConfigured": "Профиль TikTok ещё не настроен",
-    "tiktokNotConfiguredHint": "Перейдите в Админ → Настройки и введите имя пользователя TikTok.",
+    "tiktokNotConfiguredHint": "Перейдите в Админ → Настройки и введите SociableKIT Embed ID.",
     "noItems": "В этой категории ничего не найдено",
     "tabs": {
       "videos": "YouTube",

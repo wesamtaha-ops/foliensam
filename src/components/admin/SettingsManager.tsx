@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Save, Key, Youtube } from 'lucide-react';
 import { updateAdminPassword, getSettings, saveSettings } from '../../services/dataService';
-import { extractTikTokUsername } from '../../utils/tiktokUtils';
+import { DEFAULT_TIKTOK_EMBED_ID } from '../TikTokProfileEmbed';
 
 const SettingsManager: React.FC = () => {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -9,7 +9,7 @@ const SettingsManager: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [youtubeApiKey, setYoutubeApiKey] = useState('');
   const [youtubeChannelId, setYoutubeChannelId] = useState('');
-  const [tiktokUsername, setTiktokUsername] = useState('');
+  const [tiktokEmbedId, setTiktokEmbedId] = useState(DEFAULT_TIKTOK_EMBED_ID);
   const [tiktokProfileUrl, setTiktokProfileUrl] = useState('https://vm.tiktok.com/ZNew77xKv/');
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState<'success' | 'error'>('success');
@@ -24,7 +24,7 @@ const SettingsManager: React.FC = () => {
       const settings = await getSettings();
       setYoutubeApiKey(settings.youtubeApiKey || '');
       setYoutubeChannelId(settings.youtubeChannelId || '');
-      setTiktokUsername(settings.tiktokUsername || '');
+      setTiktokEmbedId(settings.tiktokEmbedId || DEFAULT_TIKTOK_EMBED_ID);
       setTiktokProfileUrl(settings.tiktokProfileUrl || 'https://vm.tiktok.com/ZNew77xKv/');
     } catch (err) {
       console.error('Failed to load settings:', err);
@@ -69,11 +69,9 @@ const SettingsManager: React.FC = () => {
   const handleTikTokSettings = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const username = extractTikTokUsername(tiktokUsername);
-
-    if (!username) {
+    if (!tiktokEmbedId.trim()) {
       setMessageType('error');
-      setMessage('Please enter a valid TikTok username (e.g. foliensam or @foliensam).');
+      setMessage('Please enter a valid SociableKIT embed ID.');
       return;
     }
 
@@ -81,13 +79,12 @@ const SettingsManager: React.FC = () => {
       const settings = await getSettings();
       await saveSettings({
         ...settings,
-        tiktokUsername: username,
+        tiktokEmbedId: tiktokEmbedId.trim(),
         tiktokProfileUrl,
       });
 
-      setTiktokUsername(username);
       setMessageType('success');
-      setMessage('TikTok settings saved! Your profile embed will appear in the gallery.');
+      setMessage('TikTok settings saved! Your feed widget will appear in the gallery.');
       setTimeout(() => setMessage(''), 5000);
     } catch (err) {
       console.error('Failed to update TikTok settings:', err);
@@ -193,24 +190,24 @@ const SettingsManager: React.FC = () => {
           </svg>
           <div>
             <h3 className="font-semibold text-gray-800">TikTok Settings</h3>
-            <p className="text-sm text-gray-600">Embed your TikTok profile in the gallery (no API needed)</p>
+            <p className="text-sm text-gray-600">SociableKIT TikTok feed widget for the gallery</p>
           </div>
         </div>
 
         <form onSubmit={handleTikTokSettings} className="space-y-4">
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
-              TikTok Username
+              SociableKIT Embed ID
             </label>
             <input
               type="text"
-              value={tiktokUsername}
-              onChange={(e) => setTiktokUsername(e.target.value)}
-              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-accent-purple transition-colors text-sm"
-              placeholder="foliensam or @foliensam"
+              value={tiktokEmbedId}
+              onChange={(e) => setTiktokEmbedId(e.target.value)}
+              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-accent-purple transition-colors font-mono text-sm"
+              placeholder="25697428"
             />
             <p className="mt-1 text-xs text-gray-500">
-              Your TikTok @username — used to embed your latest videos in the gallery
+              From your SociableKIT widget code: data-embed-id=&quot;...&quot;
             </p>
           </div>
 
@@ -311,7 +308,7 @@ const SettingsManager: React.FC = () => {
           <li>• All data including settings is stored on your PHP server</li>
           <li>• Changes sync across all devices automatically</li>
           <li>• YouTube API fetches latest videos automatically</li>
-          <li>• TikTok uses native embed — just enter your @username, no API keys needed</li>
+          <li>• TikTok uses SociableKIT widget — customize colors in your SociableKIT dashboard</li>
         </ul>
       </div>
     </div>

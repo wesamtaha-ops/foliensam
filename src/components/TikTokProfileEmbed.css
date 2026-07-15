@@ -6,22 +6,18 @@
   min-height: 400px;
 }
 
-.tiktok-embed-container .tiktok-embed {
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  margin: 0;
-}
-
-.tiktok-embed-container iframe,
-.tiktok-embed-container > div,
-.tiktok-embed-container section {
+.tiktok-embed-container .sk-tiktok-feed {
   width: 100%;
   max-width: 100%;
 }
 
 .tiktok-embed-container iframe {
-  min-height: 500px;
+  width: 100%;
+  max-width: 100%;
+}
+
+.tiktok-tab-hidden {
+  display: none;
 }
 
 .tiktok-embed-empty {

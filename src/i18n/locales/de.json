@@ -45,10 +45,14 @@
     "subtitle": "Entdecken Sie unser Portfolio an Premium-Fahrzeugveredelungen",
     "followTiktok": "Folgen Sie uns auf TikTok",
     "imageAlt": "Fahrzeugfolierungs-Projekt",
-    "loading": "Lade YouTube-Shorts...",
+    "loading": "Lade Inhalte...",
+    "loadingYoutube": "Lade YouTube-Videos...",
+    "tiktokNotConfigured": "TikTok-Profil noch nicht eingerichtet",
+    "tiktokNotConfiguredHint": "Gehen Sie zu Admin → Einstellungen und geben Sie Ihren TikTok-Benutzernamen ein.",
     "noItems": "Keine Elemente in dieser Kategorie gefunden",
     "tabs": {
-      "videos": "Videos",
+      "videos": "YouTube",
+      "tiktok": "TikTok",
       "images": "Bilder"
     }
   },

@@ -1,0 +1,32 @@
+.tiktok-embed-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 400px;
+}
+
+.tiktok-embed-container blockquote {
+  margin: 0 auto;
+}
+
+.tiktok-embed-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.tiktok-embed-empty-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #c0c0c0;
+}
+
+.tiktok-embed-empty-text {
+  font-size: 0.875rem;
+  color: rgba(192, 192, 192, 0.7);
+  max-width: 420px;
+}

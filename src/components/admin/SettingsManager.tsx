@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Save, Key, Youtube } from 'lucide-react';
 import { updateAdminPassword, getSettings, saveSettings } from '../../services/dataService';
+import { extractTikTokUsername } from '../../utils/tiktokUtils';
 
 const SettingsManager: React.FC = () => {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -8,6 +9,8 @@ const SettingsManager: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [youtubeApiKey, setYoutubeApiKey] = useState('');
   const [youtubeChannelId, setYoutubeChannelId] = useState('');
+  const [tiktokUsername, setTiktokUsername] = useState('');
+  const [tiktokProfileUrl, setTiktokProfileUrl] = useState('https://vm.tiktok.com/ZNew77xKv/');
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState<'success' | 'error'>('success');
   const [loading, setLoading] = useState(true);
@@ -21,6 +24,8 @@ const SettingsManager: React.FC = () => {
       const settings = await getSettings();
       setYoutubeApiKey(settings.youtubeApiKey || '');
       setYoutubeChannelId(settings.youtubeChannelId || '');
+      setTiktokUsername(settings.tiktokUsername || '');
+      setTiktokProfileUrl(settings.tiktokProfileUrl || 'https://vm.tiktok.com/ZNew77xKv/');
     } catch (err) {
       console.error('Failed to load settings:', err);
     } finally {
@@ -58,6 +63,36 @@ const SettingsManager: React.FC = () => {
       console.error('Failed to update password:', err);
       setMessageType('error');
       setMessage('Failed to update password. Please try again.');
+    }
+  };
+
+  const handleTikTokSettings = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const username = extractTikTokUsername(tiktokUsername);
+
+    if (!username) {
+      setMessageType('error');
+      setMessage('Please enter a valid TikTok username (e.g. foliensam or @foliensam).');
+      return;
+    }
+
+    try {
+      const settings = await getSettings();
+      await saveSettings({
+        ...settings,
+        tiktokUsername: username,
+        tiktokProfileUrl,
+      });
+
+      setTiktokUsername(username);
+      setMessageType('success');
+      setMessage('TikTok settings saved! Your profile embed will appear in the gallery.');
+      setTimeout(() => setMessage(''), 5000);
+    } catch (err) {
+      console.error('Failed to update TikTok settings:', err);
+      setMessageType('error');
+      setMessage('Failed to update TikTok settings. Please try again.');
     }
   };
 
@@ -150,6 +185,61 @@ const SettingsManager: React.FC = () => {
         </form>
       </div>
 
+      {/* TikTok Embed Settings */}
+      <div className="max-w-full sm:max-w-md mb-8">
+        <div className="flex items-center gap-3 mb-6 p-3 sm:p-4 bg-cyan-50 rounded-lg">
+          <svg className="h-5 w-5 text-cyan-600" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+          </svg>
+          <div>
+            <h3 className="font-semibold text-gray-800">TikTok Settings</h3>
+            <p className="text-sm text-gray-600">Embed your TikTok profile in the gallery (no API needed)</p>
+          </div>
+        </div>
+
+        <form onSubmit={handleTikTokSettings} className="space-y-4">
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              TikTok Username
+            </label>
+            <input
+              type="text"
+              value={tiktokUsername}
+              onChange={(e) => setTiktokUsername(e.target.value)}
+              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-accent-purple transition-colors text-sm"
+              placeholder="foliensam or @foliensam"
+            />
+            <p className="mt-1 text-xs text-gray-500">
+              Your TikTok @username — used to embed your latest videos in the gallery
+            </p>
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              TikTok Profile Link
+            </label>
+            <input
+              type="text"
+              value={tiktokProfileUrl}
+              onChange={(e) => setTiktokProfileUrl(e.target.value)}
+              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-accent-purple transition-colors text-sm"
+              placeholder="https://www.tiktok.com/@foliensam"
+            />
+            <p className="mt-1 text-xs text-gray-500">
+              Used for the &quot;Follow us on TikTok&quot; button
+            </p>
+          </div>
+
+          <button
+            type="submit"
+            className="flex items-center justify-center gap-2 w-full bg-[#00f2ea] text-black py-3 rounded-lg hover:bg-[#00d1ca] transition-colors font-semibold"
+          >
+            <Save className="h-4 w-4" />
+            Save TikTok Settings
+          </button>
+        </form>
+      </div>
+
       {/* Password Change Section */}
       <div className="max-w-full sm:max-w-md">
         <div className="flex items-center gap-3 mb-6 p-3 sm:p-4 bg-blue-50 rounded-lg">
@@ -221,6 +311,7 @@ const SettingsManager: React.FC = () => {
           <li>• All data including settings is stored on your PHP server</li>
           <li>• Changes sync across all devices automatically</li>
           <li>• YouTube API fetches latest videos automatically</li>
+          <li>• TikTok uses native embed — just enter your @username, no API keys needed</li>
         </ul>
       </div>
     </div>

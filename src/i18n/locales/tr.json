@@ -45,10 +45,14 @@
     "subtitle": "Premium Araç Kaplama Portföyümüzü Keşfedin",
     "followTiktok": "TikTok'ta Bizi Takip Edin",
     "imageAlt": "Araç Kaplama Projesi",
-    "loading": "YouTube kısa videoları yükleniyor...",
+    "loading": "İçerik yükleniyor...",
+    "loadingYoutube": "YouTube videoları yükleniyor...",
+    "tiktokNotConfigured": "TikTok profili henüz yapılandırılmadı",
+    "tiktokNotConfiguredHint": "Admin → Ayarlar bölümüne gidin ve TikTok kullanıcı adınızı girin.",
     "noItems": "Bu kategoride öğe bulunamadı",
     "tabs": {
-      "videos": "Videolar",
+      "videos": "YouTube",
+      "tiktok": "TikTok",
       "images": "Resimler"
     }
   },

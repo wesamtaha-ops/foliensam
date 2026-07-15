@@ -2,7 +2,8 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { X, ChevronLeft, ChevronRight, Play, Loader2, Image as ImageIcon, Video } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { fetchAllChannelShorts, YouTubeVideo } from '../services/youtubeApi';
-import { getGalleryImages } from '../services/dataService';
+import { getGalleryImages, getSettings } from '../services/dataService';
+import TikTokProfileEmbed from './TikTokProfileEmbed';
 
 interface GalleryItem {
   type: 'youtube' | 'image';
@@ -15,7 +16,7 @@ interface GalleryItem {
   sortOrder?: number; // For manual ordering
 }
 
-type TabType = 'all' | 'images' | 'videos';
+type TabType = 'videos' | 'tiktok' | 'images';
 
 const Gallery = () => {
   const { t } = useTranslation();
@@ -26,6 +27,8 @@ const Gallery = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [lastFetchTime, setLastFetchTime] = useState<number>(0);
   const [activeTab, setActiveTab] = useState<TabType>('videos');
+  const [tiktokUsername, setTiktokUsername] = useState('');
+  const [tiktokProfileUrl, setTiktokProfileUrl] = useState('https://vm.tiktok.com/ZNew77xKv/');
 
   // Helper function to check if a video is new (published within last 7 days)
   const isNewVideo = (publishedAt: string) => {
@@ -107,7 +110,25 @@ const Gallery = () => {
     };
 
     loadGalleryImages();
-  }, []); // Run once on mount
+  }, []);
+
+  useEffect(() => {
+    const loadTikTokSettings = async () => {
+      try {
+        const settings = await getSettings();
+        if (settings.tiktokUsername) {
+          setTiktokUsername(settings.tiktokUsername);
+        }
+        if (settings.tiktokProfileUrl) {
+          setTiktokProfileUrl(settings.tiktokProfileUrl);
+        }
+      } catch (err) {
+        console.error('Failed to load TikTok settings:', err);
+      }
+    };
+
+    loadTikTokSettings();
+  }, []);
 
   // Cleanup effect to stop videos when navigating or closing
   useEffect(() => {
@@ -329,7 +350,7 @@ const Gallery = () => {
     } else if (activeTab === 'videos') {
       return previews.filter(item => item.type === 'youtube');
     }
-    return previews; // 'all' tab
+    return previews;
   }, [previews, activeTab]);
 
   return (
@@ -343,7 +364,7 @@ const Gallery = () => {
           </p>
           
           <a 
-            href="https://vm.tiktok.com/ZNew77xKv/"
+            href={tiktokProfileUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-[#00f2ea] hover:bg-[#00d1ca] text-black font-semibold rounded-full transition-all duration-300 hover:-translate-y-1"
@@ -368,6 +389,19 @@ const Gallery = () => {
               {t('gallery.tabs.videos')}
             </button>
             <button
+              onClick={() => setActiveTab('tiktok')}
+              className={`flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
+                activeTab === 'tiktok'
+                  ? 'bg-[#00f2ea] text-black shadow-lg shadow-[#00f2ea]/50 scale-105'
+                  : 'text-primary-silver hover:text-white hover:bg-primary-dark/50'
+              }`}
+            >
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+              </svg>
+              {t('gallery.tabs.tiktok')}
+            </button>
+            <button
               onClick={() => setActiveTab('images')}
               className={`flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
                 activeTab === 'images'
@@ -381,12 +415,15 @@ const Gallery = () => {
           </div>
         </div>
 
+        {activeTab === 'tiktok' ? (
+          <TikTokProfileEmbed username={tiktokUsername} />
+        ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
           {isLoading ? (
             <div className="col-span-full text-center py-12">
               <Loader2 className="h-12 w-12 text-accent-purple animate-spin mx-auto" />
               <p className="mt-4 text-primary-silver">{t('gallery.loading')}</p>
-              <p className="mt-2 text-primary-silver/60 text-sm">Loading videos from YouTube...</p>
+              <p className="mt-2 text-primary-silver/60 text-sm">{t('gallery.loadingYoutube')}</p>
             </div>
           ) : filteredPreviews.length === 0 ? (
             <div className="col-span-full text-center py-12">
@@ -454,6 +491,7 @@ const Gallery = () => {
             })
           )}
         </div>
+        )}
 
 
 

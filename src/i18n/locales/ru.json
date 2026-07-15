@@ -45,10 +45,14 @@
     "subtitle": "Ознакомьтесь с нашим портфолио премиум автостайлинга",
     "followTiktok": "Подписывайтесь на TikTok",
     "imageAlt": "Проект оклейки автомобиля",
-    "loading": "Загрузка YouTube shorts...",
+    "loading": "Загрузка контента...",
+    "loadingYoutube": "Загрузка видео YouTube...",
+    "tiktokNotConfigured": "Профиль TikTok ещё не настроен",
+    "tiktokNotConfiguredHint": "Перейдите в Админ → Настройки и введите имя пользователя TikTok.",
     "noItems": "В этой категории ничего не найдено",
     "tabs": {
-      "videos": "Видео",
+      "videos": "YouTube",
+      "tiktok": "TikTok",
       "images": "Изображения"
     }
   },

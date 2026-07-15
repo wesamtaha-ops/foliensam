@@ -45,10 +45,14 @@
     "subtitle": "إبداعاتنا في تغليف السيارات بأعلى جودة",
     "followTiktok": "تابعنا على TikTok للإلهام",
     "imageAlt": "أعمال تغليف السيارة",
-    "loading": "جاري تحميل فيديوهات YouTube...",
+    "loading": "جاري تحميل المحتوى...",
+    "loadingYoutube": "جاري تحميل فيديوهات YouTube...",
+    "tiktokNotConfigured": "لم يتم إعداد ملف TikTok بعد",
+    "tiktokNotConfiguredHint": "انتقل إلى لوحة الإدارة → الإعدادات وأدخل اسم مستخدم TikTok.",
     "noItems": "لا توجد عناصر في هذه الفئة",
     "tabs": {
-      "videos": "الفيديوهات",
+      "videos": "YouTube",
+      "tiktok": "TikTok",
       "images": "الصور"
     }
   },

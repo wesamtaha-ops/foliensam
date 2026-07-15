@@ -37,9 +37,33 @@
     }
   ],
   "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/autofolierung-berlin", "destination": "/index.html" },
+    { "source": "/vollfolierung-berlin", "destination": "/index.html" },
+    { "source": "/scheibentoenung-berlin", "destination": "/index.html" },
+    { "source": "/lackschutzfolie-berlin", "destination": "/index.html" },
+    { "source": "/fahrzeugbeschriftung-berlin", "destination": "/index.html" },
+    { "source": "/felgenfolierung-berlin", "destination": "/index.html" },
+    { "source": "/ratgeber/auto-folieren-kosten", "destination": "/index.html" },
+    { "source": "/kontakt", "destination": "/index.html" },
+    { "source": "/referenzen", "destination": "/index.html" },
+    { "source": "/impressum", "destination": "/index.html" },
+    { "source": "/datenschutz", "destination": "/index.html" },
+    { "source": "/admin", "destination": "/index.html" },
+    { "source": "/404", "destination": "/404.html" }
+  ],
+  "headers": [
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "source": "/admin",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+      ]
+    },
+    {
+      "source": "/admin/(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+      ]
     }
   ]
 }

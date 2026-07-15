@@ -5,7 +5,9 @@
     "about": "Über uns",
     "gallery": "Galerie",
     "contact": "Kontakt",
-    "bookAppointment": "Termin buchen"
+    "bookAppointment": "Termin buchen",
+    "menuOpen": "Menü öffnen",
+    "menuClose": "Menü schließen"
   },
   "hero": {
     "tagline": "Folierer in Berlin-Weißensee",
@@ -290,6 +292,7 @@
     "sendAnother": "Weitere senden",
     "whatsappAlternative": "Lieber WhatsApp?",
     "whatsapp": "Über WhatsApp kontaktieren",
+    "whatsappAria": "Per WhatsApp kontaktieren",
     "errors": {
       "nameRequired": "Name ist erforderlich",
       "emailRequired": "E-Mail ist erforderlich",

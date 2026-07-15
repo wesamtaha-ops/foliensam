@@ -50,9 +50,9 @@ const About = () => {
                 <Shield className="h-5 w-5 text-accent-purple" />
                 <span className="text-accent-purple font-medium">{t('about.qualityBadge')}</span>
               </div>
-              <h3 className="text-3xl font-bold text-gray-900">
+              <h2 className="text-3xl font-bold text-gray-900">
                 {t('about.title')}
-              </h3>
+              </h2>
               <div className="w-24 h-1 bg-gradient-to-r from-accent-purple to-accent-gold rounded-full" />
             </div>
             
@@ -85,9 +85,9 @@ const About = () => {
         </div>
         
       
-         <h3 className="text-xl mt-8 font-light text-gray-900">
+         <p className="text-xl mt-8 font-light text-gray-900">
                 {t('about.description')}
-              </h3>
+              </p>
       </div>
     </div>
   );

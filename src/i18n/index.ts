@@ -11,6 +11,9 @@ import arSeoContent from './seoContent/ar.json';
 import trSeoContent from './seoContent/tr.json';
 import ruSeoContent from './seoContent/ru.json';
 import { getTranslationsData } from '../services/phpDataService';
+import { mergeTranslations } from '../utils/mergeTranslations';
+
+type TranslationRecord = Record<string, unknown>;
 
 const withSeoContent = (locale: Record<string, unknown>, content: Record<string, unknown>) => ({
   ...locale,
@@ -29,13 +32,13 @@ const defaultTranslations: Record<string, Record<string, unknown>> = {
 };
 
 // Helper function to get custom translations from PHP server or localStorage
-const getCustomTranslations = async (lang: string, defaultTranslations: any) => {
+const getCustomTranslations = async (lang: string, defaults: TranslationRecord) => {
   try {
     // Try PHP server first
     const serverData = await getTranslationsData();
     if (serverData && serverData[lang]) {
       console.log(`✅ Loaded ${lang} translations from PHP server`);
-      return serverData[lang];
+      return mergeTranslations(defaults, serverData[lang]);
     }
   } catch (error) {
     console.warn(`⚠️ Failed to load ${lang} from PHP server, trying localStorage:`, error);
@@ -49,15 +52,15 @@ const getCustomTranslations = async (lang: string, defaultTranslations: any) => 
     try {
       const parsed = JSON.parse(stored);
       console.log(`✅ Loaded ${lang} translations from localStorage`);
-      return parsed;
+      return mergeTranslations(defaults, parsed);
     } catch (error) {
       console.error(`❌ Error parsing custom translations for ${lang}:`, error);
-      return defaultTranslations;
+      return defaults;
     }
   }
   
   console.log(`ℹ️ Using default translations for ${lang}`);
-  return defaultTranslations;
+  return defaults;
 };
 
 // Initialize i18n with default translations first
@@ -103,7 +106,13 @@ window.addEventListener('translationsUpdated', async (event: any) => {
   if (translations) {
     // Use translations from event if provided
     console.log(`🔄 Updating i18n with new translations for ${lang}`);
-    i18n.addResourceBundle(lang, 'translation', translations, true, true);
+    i18n.addResourceBundle(
+      lang,
+      'translation',
+      mergeTranslations(defaultTranslations[lang], translations),
+      true,
+      true
+    );
   } else {
     // Otherwise reload from PHP server
     const customTranslations = await getCustomTranslations(lang, defaultTranslations[lang]);

@@ -5,7 +5,9 @@
     "about": "About Us",
     "gallery": "Gallery",
     "contact": "Contact",
-    "bookAppointment": "Book Appointment"
+    "bookAppointment": "Book Appointment",
+    "menuOpen": "Open menu",
+    "menuClose": "Close menu"
   },
   "hero": {
     "tagline": "Vehicle Wrapping in Berlin-Weißensee",
@@ -290,6 +292,7 @@
     "sendAnother": "Send Another",
     "whatsappAlternative": "Prefer WhatsApp?",
     "whatsapp": "Contact via WhatsApp",
+    "whatsappAria": "Contact us on WhatsApp",
     "errors": {
       "nameRequired": "Name is required",
       "emailRequired": "Email is required",

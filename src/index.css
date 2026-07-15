@@ -719,6 +719,25 @@
   margin-top: 0.125rem;
 }
 
+.services-card-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.5rem 0;
+  background-color: #f3e8e8;
+  color: #4a0000;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.services-card-cta:hover {
+  background-color: #8b0000;
+  color: #ffffff;
+}
+
 /* Related services */
 .seo-related-section {
   background-color: #ffffff;

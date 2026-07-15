@@ -60,7 +60,7 @@ const Services = () => {
                   </h3>
                 </div>
                 <p className="text-gray-600 mb-4 flex-grow">{t(service.descriptionKey)}</p>
-                <span className="w-full py-2 bg-accent-purple/10 text-accent-purple font-semibold rounded-lg hover:bg-accent-purple hover:text-white transition-colors duration-300 flex items-center justify-center gap-2">
+                <span className="services-card-cta">
                   {t('seoPages.home.moreLink')} <ArrowRight className="h-4 w-4" />
                 </span>
               </div>

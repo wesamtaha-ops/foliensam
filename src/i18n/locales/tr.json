@@ -5,7 +5,9 @@
     "about": "Hakkımızda",
     "gallery": "Galeri",
     "contact": "İletişim",
-    "bookAppointment": "Randevu Al"
+    "bookAppointment": "Randevu Al",
+    "menuOpen": "Menüyü aç",
+    "menuClose": "Menüyü kapat"
   },
   "hero": {
     "tagline": "Araç Kaplama Uzmanı Berlin-Weißensee",
@@ -290,6 +292,7 @@
     "sendAnother": "Başka Gönder",
     "whatsappAlternative": "WhatsApp tercih eder misiniz?",
     "whatsapp": "WhatsApp ile İletişim",
+    "whatsappAria": "WhatsApp üzerinden bize ulaşın",
     "errors": {
       "nameRequired": "İsim gerekli",
       "emailRequired": "E-posta gerekli",

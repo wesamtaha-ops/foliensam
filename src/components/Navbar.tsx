@@ -68,7 +68,6 @@ const Navbar = () => {
     { label: t('nav.home'), id: 'home' },
     { label: t('nav.about'), id: 'about' },
     { label: t('nav.gallery'), id: 'gallery' },
-    { label: t('nav.contact'), id: 'contact' },
   ];
 
   const navBackground = isSubPage
@@ -171,6 +170,8 @@ const Navbar = () => {
             <button
               className="text-white"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label={isMobileMenuOpen ? t('nav.menuClose') : t('nav.menuOpen')}
+              aria-expanded={isMobileMenuOpen}
             >
               {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>

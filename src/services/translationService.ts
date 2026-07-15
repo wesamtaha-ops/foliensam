@@ -6,7 +6,12 @@ import enTranslations from '../i18n/locales/en.json';
 import arTranslations from '../i18n/locales/ar.json';
 import ruTranslations from '../i18n/locales/ru.json';
 import trTranslations from '../i18n/locales/tr.json';
+import enSeoContent from '../i18n/seoContent/en.json';
+import arSeoContent from '../i18n/seoContent/ar.json';
+import trSeoContent from '../i18n/seoContent/tr.json';
+import ruSeoContent from '../i18n/seoContent/ru.json';
 import { getTranslationsData, saveTranslationsData } from './phpDataService';
+import { mergeTranslations } from '../utils/mergeTranslations';
 
 export type SupportedLanguage = 'de' | 'en' | 'ar' | 'ru' | 'tr';
 
@@ -15,6 +20,22 @@ export interface TranslationData {
 }
 
 const STORAGE_KEY_PREFIX = 'folien_sam_translations_';
+
+const withSeoContent = (locale: TranslationData, content: TranslationData): TranslationData => ({
+  ...locale,
+  seoPages: {
+    ...(locale.seoPages as TranslationData),
+    content,
+  },
+});
+
+const bundledDefaults: Record<SupportedLanguage, TranslationData> = {
+  de: deTranslations,
+  en: withSeoContent(enTranslations, enSeoContent),
+  ar: withSeoContent(arTranslations, arSeoContent),
+  tr: withSeoContent(trTranslations, trSeoContent),
+  ru: withSeoContent(ruTranslations, ruSeoContent),
+};
 
 // Language display names
 export const LANGUAGE_NAMES: Record<SupportedLanguage, string> = {
@@ -27,30 +48,32 @@ export const LANGUAGE_NAMES: Record<SupportedLanguage, string> = {
 
 // Get default translations for a language
 const getDefaultTranslations = (lang: SupportedLanguage): TranslationData => {
-  switch (lang) {
-    case 'de': return deTranslations;
-    case 'en': return enTranslations;
-    case 'ar': return arTranslations;
-    case 'ru': return ruTranslations;
-    case 'tr': return trTranslations;
-    default: return deTranslations;
-  }
+  return bundledDefaults[lang] ?? deTranslations;
 };
 
 // Get translations for a specific language (from PHP server or defaults)
 export const getTranslations = async (lang: SupportedLanguage): Promise<TranslationData> => {
+  const defaults = getDefaultTranslations(lang);
+
   try {
-    // Try PHP server first
     const serverData = await getTranslationsData();
     if (serverData && serverData[lang]) {
-      return serverData[lang];
+      return mergeTranslations(defaults, serverData[lang]);
     }
   } catch (error) {
     console.warn(`Failed to load translations from server for ${lang}:`, error);
   }
+
+  const stored = localStorage.getItem(`${STORAGE_KEY_PREFIX}${lang}`);
+  if (stored) {
+    try {
+      return mergeTranslations(defaults, JSON.parse(stored));
+    } catch {
+      return defaults;
+    }
+  }
   
-  // Fallback to defaults
-  return getDefaultTranslations(lang);
+  return defaults;
 };
 
 // Save translations for a specific language

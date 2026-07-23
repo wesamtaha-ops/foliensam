@@ -1,6 +1,7 @@
 import { SERVICE_LINKS } from '../data/seoPages';
 
 export interface HomepageService {
+  id: string;
   path: string;
   labelKey: string;
   descriptionKey: string;
@@ -9,8 +10,9 @@ export interface HomepageService {
   categoryKey: string;
 }
 
-export const HOMEPAGE_SERVICES: HomepageService[] = [
+export const DEFAULT_HOMEPAGE_SERVICES: HomepageService[] = [
   {
+    id: '1',
     path: SERVICE_LINKS[0].path,
     labelKey: 'seoPages.homeServices.autofolierung.title',
     descriptionKey: 'seoPages.homeServices.autofolierung.description',
@@ -19,6 +21,7 @@ export const HOMEPAGE_SERVICES: HomepageService[] = [
     categoryKey: 'seoPages.homeServices.autofolierung.category',
   },
   {
+    id: '2',
     path: SERVICE_LINKS[1].path,
     labelKey: 'seoPages.homeServices.vollfolierung.title',
     descriptionKey: 'seoPages.homeServices.vollfolierung.description',
@@ -27,6 +30,7 @@ export const HOMEPAGE_SERVICES: HomepageService[] = [
     categoryKey: 'seoPages.homeServices.vollfolierung.category',
   },
   {
+    id: '3',
     path: SERVICE_LINKS[2].path,
     labelKey: 'seoPages.homeServices.scheibentoenung.title',
     descriptionKey: 'seoPages.homeServices.scheibentoenung.description',
@@ -35,6 +39,7 @@ export const HOMEPAGE_SERVICES: HomepageService[] = [
     categoryKey: 'seoPages.homeServices.scheibentoenung.category',
   },
   {
+    id: '4',
     path: SERVICE_LINKS[3].path,
     labelKey: 'seoPages.homeServices.lackschutz.title',
     descriptionKey: 'seoPages.homeServices.lackschutz.description',
@@ -43,6 +48,7 @@ export const HOMEPAGE_SERVICES: HomepageService[] = [
     categoryKey: 'seoPages.homeServices.lackschutz.category',
   },
   {
+    id: '5',
     path: SERVICE_LINKS[4].path,
     labelKey: 'seoPages.homeServices.beschriftung.title',
     descriptionKey: 'seoPages.homeServices.beschriftung.description',
@@ -51,6 +57,7 @@ export const HOMEPAGE_SERVICES: HomepageService[] = [
     categoryKey: 'seoPages.homeServices.beschriftung.category',
   },
   {
+    id: '6',
     path: SERVICE_LINKS[5].path,
     labelKey: 'seoPages.homeServices.felgen.title',
     descriptionKey: 'seoPages.homeServices.felgen.description',
@@ -59,3 +66,6 @@ export const HOMEPAGE_SERVICES: HomepageService[] = [
     categoryKey: 'seoPages.homeServices.felgen.category',
   },
 ];
+
+/** @deprecated Use DEFAULT_HOMEPAGE_SERVICES */
+export const HOMEPAGE_SERVICES = DEFAULT_HOMEPAGE_SERVICES;

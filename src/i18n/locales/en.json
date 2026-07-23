@@ -483,5 +483,32 @@
         "category": "Design"
       }
     }
+  },
+  "admin": {
+    "services": {
+      "title": "Services Management",
+      "subtitle": "Manage homepage services — changes appear on the website immediately",
+      "restoreDefaults": "Restore Website Defaults",
+      "restoreConfirm": "Reset all services to the default website data? This will overwrite existing entries.",
+      "deleteConfirm": "Are you sure you want to delete this service?",
+      "saveError": "Failed to save. Please try again.",
+      "addService": "Add Service",
+      "loading": "Loading services…",
+      "edit": "Edit",
+      "delete": "Delete",
+      "editService": "Edit Service",
+      "addNewService": "Add New Service",
+      "pagePath": "Page Link",
+      "selectPage": "Select a page",
+      "icon": "Icon",
+      "serviceImage": "Service Image",
+      "imageDescription": "Upload service image or enter URL",
+      "titleKey": "Title Key (Translation)",
+      "descriptionKey": "Description Key (Translation)",
+      "categoryKey": "Category Key (Translation)",
+      "update": "Update",
+      "add": "Add",
+      "cancel": "Cancel"
+    }
   }
 }

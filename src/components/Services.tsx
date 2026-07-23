@@ -1,11 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Car, Shield, Sparkles, Sun, Building, ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { HOMEPAGE_SERVICES } from '../data/homepageServices';
+import { DEFAULT_HOMEPAGE_SERVICES } from '../data/homepageServices';
+import { getServices, Service } from '../services/dataService';
 
 const Services = () => {
   const { t } = useTranslation();
+  const [services, setServices] = useState<Service[]>(DEFAULT_HOMEPAGE_SERVICES);
+
+  useEffect(() => {
+    const loadServices = async () => {
+      try {
+        const data = await getServices();
+        if (data.length > 0) {
+          setServices(data);
+        }
+      } catch (err) {
+        console.error('Failed to load services:', err);
+      }
+    };
+
+    loadServices();
+  }, []);
 
   const getIcon = (iconName: string) => {
     const icons: Record<string, JSX.Element> = {
@@ -14,6 +31,7 @@ const Services = () => {
       Sparkles: <Sparkles className="h-6 w-6" />,
       Sun: <Sun className="h-6 w-6" />,
       Building: <Building className="h-6 w-6" />,
+      Palette: <Sparkles className="h-6 w-6" />,
     };
     return icons[iconName] || <Car className="h-6 w-6" />;
   };
@@ -32,9 +50,9 @@ const Services = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {HOMEPAGE_SERVICES.map((service) => (
+          {services.map((service) => (
             <Link
-              key={service.path}
+              key={service.id}
               to={service.path}
               className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:translate-y-[-4px] flex flex-col"
             >

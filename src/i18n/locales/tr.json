@@ -483,5 +483,32 @@
         "category": "Tasarım"
       }
     }
+  },
+  "admin": {
+    "services": {
+      "title": "Hizmet Yönetimi",
+      "subtitle": "Ana sayfa hizmetlerini yönetin — değişiklikler web sitesinde hemen görünür",
+      "restoreDefaults": "Web Sitesi Varsayılanlarını Geri Yükle",
+      "restoreConfirm": "Tüm hizmetler varsayılan web sitesi verilerine sıfırlansın mı? Mevcut kayıtların üzerine yazılacak.",
+      "deleteConfirm": "Bu hizmeti silmek istediğinizden emin misiniz?",
+      "saveError": "Kaydetme başarısız. Lütfen tekrar deneyin.",
+      "addService": "Hizmet Ekle",
+      "loading": "Hizmetler yükleniyor…",
+      "edit": "Düzenle",
+      "delete": "Sil",
+      "editService": "Hizmeti Düzenle",
+      "addNewService": "Yeni Hizmet",
+      "pagePath": "Sayfa Bağlantısı",
+      "selectPage": "Sayfa seçin",
+      "icon": "Simge",
+      "serviceImage": "Hizmet Görseli",
+      "imageDescription": "Görsel yükleyin veya URL girin",
+      "titleKey": "Başlık Anahtarı (Çeviri)",
+      "descriptionKey": "Açıklama Anahtarı (Çeviri)",
+      "categoryKey": "Kategori Anahtarı (Çeviri)",
+      "update": "Güncelle",
+      "add": "Ekle",
+      "cancel": "İptal"
+    }
   }
 }

@@ -23,16 +23,12 @@ export interface HeroData {
 
 export interface Service {
   id: string;
-  titleKey: string;
+  path: string;
+  labelKey: string;
   descriptionKey: string;
   image: string;
   icon: string;
   categoryKey: string;
-  durationKey: string;
-  warrantyKey: string;
-  fullDescriptionKey: string;
-  featuresKey: string;
-  processKey: string;
 }
 
 export interface TranslationData {
@@ -215,86 +211,7 @@ export async function initializeAllData(): Promise<void> {
       youtubeVideoId: 'udbvm6bulGU',
       premiumQualityGifUrl: 'https://images.cood.ai/hero.gif',
     } as HeroData,
-    services: [
-      {
-        id: '1',
-        titleKey: 'services.carWrapping.title',
-        descriptionKey: 'services.carWrapping.description',
-        image: 'https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?auto=format&fit=crop&q=80',
-        icon: 'Car',
-        categoryKey: 'services.carWrapping.category',
-        durationKey: 'services.carWrapping.duration',
-        warrantyKey: 'services.carWrapping.warranty',
-        fullDescriptionKey: 'services.carWrapping.fullDescription',
-        featuresKey: 'services.carWrapping.features',
-        processKey: 'services.carWrapping.process'
-      },
-      {
-        id: '2',
-        titleKey: 'services.windowTinting.title',
-        descriptionKey: 'services.windowTinting.description',
-        image: 'https://images.cood.ai/samgo/car1.png',
-        icon: 'Sun',
-        categoryKey: 'services.windowTinting.category',
-        durationKey: 'services.windowTinting.duration',
-        warrantyKey: 'services.windowTinting.warranty',
-        fullDescriptionKey: 'services.windowTinting.fullDescription',
-        featuresKey: 'services.windowTinting.features',
-        processKey: 'services.windowTinting.process'
-      },
-      {
-        id: '3',
-        titleKey: 'services.paintProtection.title',
-        descriptionKey: 'services.paintProtection.description',
-        image: 'https://images.unsplash.com/photo-1619405399517-d7fce0f13302?auto=format&fit=crop&q=80',
-        icon: 'Shield',
-        categoryKey: 'services.paintProtection.category',
-        durationKey: 'services.paintProtection.duration',
-        warrantyKey: 'services.paintProtection.warranty',
-        fullDescriptionKey: 'services.paintProtection.fullDescription',
-        featuresKey: 'services.paintProtection.features',
-        processKey: 'services.paintProtection.process'
-      },
-      {
-        id: '4',
-        titleKey: 'services.designWrapping.title',
-        descriptionKey: 'services.designWrapping.description',
-        image: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&q=80',
-        icon: 'Palette',
-        categoryKey: 'services.designWrapping.category',
-        durationKey: 'services.designWrapping.duration',
-        warrantyKey: 'services.designWrapping.warranty',
-        fullDescriptionKey: 'services.designWrapping.fullDescription',
-        featuresKey: 'services.designWrapping.features',
-        processKey: 'services.designWrapping.process'
-      },
-      {
-        id: '5',
-        titleKey: 'services.chromeWrapping.title',
-        descriptionKey: 'services.chromeWrapping.description',
-        image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80',
-        icon: 'Sparkles',
-        categoryKey: 'services.chromeWrapping.category',
-        durationKey: 'services.chromeWrapping.duration',
-        warrantyKey: 'services.chromeWrapping.warranty',
-        fullDescriptionKey: 'services.chromeWrapping.fullDescription',
-        featuresKey: 'services.chromeWrapping.features',
-        processKey: 'services.chromeWrapping.process'
-      },
-      {
-        id: '6',
-        titleKey: 'services.commercialWrapping.title',
-        descriptionKey: 'services.commercialWrapping.description',
-        image: 'https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?auto=format&fit=crop&q=80',
-        icon: 'Building',
-        categoryKey: 'services.commercialWrapping.category',
-        durationKey: 'services.commercialWrapping.duration',
-        warrantyKey: 'services.commercialWrapping.warranty',
-        fullDescriptionKey: 'services.commercialWrapping.fullDescription',
-        featuresKey: 'services.commercialWrapping.features',
-        processKey: 'services.commercialWrapping.process'
-      }
-    ] as Service[],
+    services: (await import('../data/homepageServices')).DEFAULT_HOMEPAGE_SERVICES as Service[],
     translations: {} as TranslationData,
     settings: {
       adminPassword: 'admin123',

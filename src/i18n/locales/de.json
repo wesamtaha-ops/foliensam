@@ -483,5 +483,32 @@
         "category": "Design"
       }
     }
+  },
+  "admin": {
+    "services": {
+      "title": "Leistungen verwalten",
+      "subtitle": "Homepage-Leistungen bearbeiten – Änderungen erscheinen direkt auf der Website",
+      "restoreDefaults": "Website-Standard wiederherstellen",
+      "restoreConfirm": "Alle Leistungen auf die Standard-Website-Daten zurücksetzen? Bestehende Einträge werden überschrieben.",
+      "deleteConfirm": "Diese Leistung wirklich löschen?",
+      "saveError": "Speichern fehlgeschlagen. Bitte erneut versuchen.",
+      "addService": "Leistung hinzufügen",
+      "loading": "Leistungen werden geladen…",
+      "edit": "Bearbeiten",
+      "delete": "Löschen",
+      "editService": "Leistung bearbeiten",
+      "addNewService": "Neue Leistung",
+      "pagePath": "Seiten-Link",
+      "selectPage": "Seite auswählen",
+      "icon": "Symbol",
+      "serviceImage": "Leistungsbild",
+      "imageDescription": "Bild hochladen oder URL eingeben",
+      "titleKey": "Titel (Übersetzungsschlüssel)",
+      "descriptionKey": "Beschreibung (Übersetzungsschlüssel)",
+      "categoryKey": "Kategorie (Übersetzungsschlüssel)",
+      "update": "Aktualisieren",
+      "add": "Hinzufügen",
+      "cancel": "Abbrechen"
+    }
   }
 }

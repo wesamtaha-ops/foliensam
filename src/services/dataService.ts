@@ -11,6 +11,7 @@ import {
   getSettingsData as getSettingsFromPHP,
   saveSettingsData as saveSettingsToPHP,
 } from './phpDataService';
+import { DEFAULT_HOMEPAGE_SERVICES } from '../data/homepageServices';
 
 export interface HeroData {
   mainImageUrl: string;
@@ -33,16 +34,24 @@ export interface GalleryImage {
 
 export interface Service {
   id: string;
-  titleKey: string;
+  path: string;
+  labelKey: string;
   descriptionKey: string;
   image: string;
   icon: string;
   categoryKey: string;
-  durationKey: string;
-  warrantyKey: string;
-  fullDescriptionKey: string;
-  featuresKey: string;
-  processKey: string;
+}
+
+function normalizeService(raw: Record<string, unknown>, index: number): Service {
+  return {
+    id: String(raw.id ?? index + 1),
+    path: String(raw.path ?? ''),
+    labelKey: String(raw.labelKey ?? raw.titleKey ?? ''),
+    descriptionKey: String(raw.descriptionKey ?? ''),
+    image: String(raw.image ?? ''),
+    icon: String(raw.icon ?? 'Car'),
+    categoryKey: String(raw.categoryKey ?? ''),
+  };
 }
 
 // ========================================
@@ -147,8 +156,22 @@ export const updateGallerySortOrder = async (orderedIds: string[]): Promise<void
 export const getServices = async (): Promise<Service[]> => {
   console.log('📡 Fetching services from PHP server...');
   const data = await getServicesFromPHP();
-  console.log('✅ Got services:', data.length);
-  return data;
+
+  if (!data || data.length === 0) {
+    console.log('⚠️ No services on server, using website defaults');
+    return DEFAULT_HOMEPAGE_SERVICES;
+  }
+
+  const normalized = data.map((item, index) =>
+    normalizeService(item as unknown as Record<string, unknown>, index)
+  );
+  console.log('✅ Got services:', normalized.length);
+  return normalized;
+};
+
+export const resetServicesToDefaults = async (): Promise<Service[]> => {
+  await saveServices(DEFAULT_HOMEPAGE_SERVICES);
+  return DEFAULT_HOMEPAGE_SERVICES;
 };
 
 const saveServices = async (services: Service[]): Promise<void> => {

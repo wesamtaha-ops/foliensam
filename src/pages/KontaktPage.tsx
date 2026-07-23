@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import { MapPin } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -8,31 +7,44 @@ import Contact from '../components/Contact';
 import WhatsAppButton from '../components/WhatsAppButton';
 import SEO from '../components/SEO';
 import SeoPageHero from '../components/seo/SeoPageHero';
-import { SEO_PAGES, SEO_HERO_IMAGES } from '../data/seoPages';
+import { SEO_PAGES } from '../data/seoPages';
 import { useLocalizedSeoPage } from '../hooks/useLocalizedSeoPage';
+import { getSeoPageById } from '../services/seoPageService';
+import { SeoPageConfig } from '../types/seoPage';
 
 const KontaktPage: React.FC = () => {
   const { t } = useTranslation();
-  const page = useLocalizedSeoPage(SEO_PAGES.kontakt);
+  const [page, setPage] = useState<SeoPageConfig>(SEO_PAGES.kontakt);
+  const localizedPage = useLocalizedSeoPage(page);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  useEffect(() => {
+    getSeoPageById('kontakt')
+      .then((data) => {
+        if (data) {
+          setPage(data);
+        }
+      })
+      .catch((err) => console.error('Failed to load kontakt page:', err));
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col seo-page">
       <SEO
-        title={page.meta.title}
-        description={page.meta.description}
-        canonicalPath={page.meta.canonicalPath}
+        title={localizedPage.meta.title}
+        description={localizedPage.meta.description}
+        canonicalPath={localizedPage.meta.canonicalPath}
       />
       <Navbar />
       <main className="flex-grow">
         <SeoPageHero
-          h1={page.meta.h1}
-          intro={page.intro}
-          breadcrumbs={page.breadcrumbs}
-          heroImage={SEO_HERO_IMAGES.kontakt}
+          h1={localizedPage.meta.h1}
+          intro={localizedPage.intro}
+          breadcrumbs={localizedPage.breadcrumbs}
+          heroImage={localizedPage.heroImage}
         />
         <section id="contact" aria-label="Kontakt">
           <Contact />

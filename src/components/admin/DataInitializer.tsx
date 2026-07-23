@@ -82,6 +82,7 @@ export default function DataInitializer() {
               <li>Gallery data file (gallery.json)</li>
               <li>Hero section data (hero.json)</li>
               <li>Services information (services.json)</li>
+              <li>Service detail pages (seoPages.json)</li>
               <li>Custom translations (translations.json)</li>
               <li>Admin settings (settings.json)</li>
             </ul>

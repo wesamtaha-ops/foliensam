@@ -42,16 +42,51 @@ export interface Service {
   categoryKey: string;
 }
 
+const LEGACY_SERVICE_PATHS: Record<string, string> = {
+  carWrapping: '/vollfolierung-berlin',
+  windowTinting: '/scheibentoenung-berlin',
+  paintProtection: '/lackschutzfolie-berlin',
+  designWrapping: '/autofolierung-berlin#teilfolierung',
+  chromeWrapping: '/autofolierung-berlin#chromfolierung',
+  commercialWrapping: '/fahrzeugbeschriftung-berlin',
+  autofolierung: '/autofolierung-berlin',
+  vollfolierung: '/vollfolierung-berlin',
+  scheibentoenung: '/scheibentoenung-berlin',
+  lackschutz: '/lackschutzfolie-berlin',
+  beschriftung: '/fahrzeugbeschriftung-berlin',
+  felgen: '/felgenfolierung-berlin',
+};
+
+function resolveServicePath(raw: Record<string, unknown>, index: number): string {
+  const explicitPath = String(raw.path ?? '').trim();
+  if (explicitPath) {
+    return explicitPath;
+  }
+
+  const translationKey = String(raw.labelKey ?? raw.titleKey ?? raw.descriptionKey ?? '');
+  for (const [slug, path] of Object.entries(LEGACY_SERVICE_PATHS)) {
+    if (translationKey.includes(slug)) {
+      return path;
+    }
+  }
+
+  return DEFAULT_HOMEPAGE_SERVICES[index]?.path ?? '/autofolierung-berlin';
+}
+
 function normalizeService(raw: Record<string, unknown>, index: number): Service {
   return {
     id: String(raw.id ?? index + 1),
-    path: String(raw.path ?? ''),
+    path: resolveServicePath(raw, index),
     labelKey: String(raw.labelKey ?? raw.titleKey ?? ''),
     descriptionKey: String(raw.descriptionKey ?? ''),
     image: String(raw.image ?? ''),
     icon: String(raw.icon ?? 'Car'),
     categoryKey: String(raw.categoryKey ?? ''),
   };
+}
+
+function servicesNeedPathMigration(rawServices: unknown[]): boolean {
+  return rawServices.some((item) => !String((item as Record<string, unknown>).path ?? '').trim());
 }
 
 // ========================================
@@ -153,6 +188,12 @@ export const updateGallerySortOrder = async (orderedIds: string[]): Promise<void
 // SERVICES MANAGEMENT  
 // ========================================
 
+const saveServices = async (services: Service[]): Promise<void> => {
+  console.log('💾 Saving services to PHP server...');
+  await saveServicesToPHP(services);
+  console.log('✅ Services saved');
+};
+
 export const getServices = async (): Promise<Service[]> => {
   console.log('📡 Fetching services from PHP server...');
   const data = await getServicesFromPHP();
@@ -165,6 +206,12 @@ export const getServices = async (): Promise<Service[]> => {
   const normalized = data.map((item, index) =>
     normalizeService(item as unknown as Record<string, unknown>, index)
   );
+
+  if (servicesNeedPathMigration(data)) {
+    console.log('🔧 Migrating services: adding missing page links');
+    await saveServices(normalized);
+  }
+
   console.log('✅ Got services:', normalized.length);
   return normalized;
 };
@@ -172,12 +219,6 @@ export const getServices = async (): Promise<Service[]> => {
 export const resetServicesToDefaults = async (): Promise<Service[]> => {
   await saveServices(DEFAULT_HOMEPAGE_SERVICES);
   return DEFAULT_HOMEPAGE_SERVICES;
-};
-
-const saveServices = async (services: Service[]): Promise<void> => {
-  console.log('💾 Saving services to PHP server...');
-  await saveServicesToPHP(services);
-  console.log('✅ Services saved');
 };
 
 export const addService = async (service: Omit<Service, 'id'>): Promise<Service> => {

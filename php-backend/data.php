@@ -30,7 +30,7 @@ function sendSuccess($data) {
 }
 
 function getFilePath($dataType) {
-    $allowedTypes = ['gallery', 'hero', 'services', 'translations', 'settings'];
+    $allowedTypes = ['gallery', 'hero', 'services', 'seoPages', 'translations', 'settings'];
     if (!in_array($dataType, $allowedTypes)) {
         sendError('Invalid data type');
     }

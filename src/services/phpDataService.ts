@@ -1,4 +1,6 @@
 // PHP Backend Data Service - Single source of truth for all data
+import { SeoPageConfig } from '../types/seoPage';
+
 const PHP_BASE_URL = 'https://files.foliensam.de';
 const PHP_UPLOAD_URL = `${PHP_BASE_URL}/upload.php`;
 const PHP_DATA_URL = `${PHP_BASE_URL}/data.php`;
@@ -175,6 +177,16 @@ export async function saveServicesData(services: Service[]): Promise<void> {
   await saveData('services', services);
 }
 
+// ==================== SEO PAGES ====================
+
+export async function getSeoPagesData(): Promise<Record<string, SeoPageConfig> | null> {
+  return await fetchData<Record<string, SeoPageConfig>>('seoPages');
+}
+
+export async function saveSeoPagesData(pages: Record<string, SeoPageConfig>): Promise<void> {
+  await saveData('seoPages', pages);
+}
+
 // ==================== TRANSLATIONS ====================
 
 export async function getTranslationsData(): Promise<TranslationData | null> {
@@ -212,6 +224,7 @@ export async function initializeAllData(): Promise<void> {
       premiumQualityGifUrl: 'https://images.cood.ai/hero.gif',
     } as HeroData,
     services: (await import('../data/homepageServices')).DEFAULT_HOMEPAGE_SERVICES as Service[],
+    seoPages: (await import('../data/seoPages')).SEO_PAGES,
     translations: {} as TranslationData,
     settings: {
       adminPassword: 'admin123',

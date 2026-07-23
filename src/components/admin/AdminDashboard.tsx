@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { LogOut, Image, Images, Briefcase, Settings, Languages, Search } from 'lucide-react';
+import { LogOut, Image, Images, Briefcase, Settings, Languages, Search, FileText } from 'lucide-react';
 import HeroManager from './HeroManager';
 import GalleryManager from './GalleryManager';
 import ServicesManager from './ServicesManager';
+import SeoPagesManager from './SeoPagesManager';
 import SettingsManager from './SettingsManager';
 import TranslationManager from './TranslationManager';
 import SEOManager from './SEOManager';
@@ -11,7 +12,7 @@ interface AdminDashboardProps {
   onLogout: () => void;
 }
 
-type TabType = 'hero' | 'gallery' | 'services' | 'translations' | 'seo' | 'settings';
+type TabType = 'hero' | 'gallery' | 'services' | 'seoPages' | 'translations' | 'seo' | 'settings';
 
 const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
   const [activeTab, setActiveTab] = useState<TabType>('hero');
@@ -21,6 +22,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
     { id: 'hero' as TabType, label: 'Hero Section', icon: <Image className="h-5 w-5" /> },
     { id: 'gallery' as TabType, label: 'Gallery', icon: <Images className="h-5 w-5" /> },
     { id: 'services' as TabType, label: 'Services', icon: <Briefcase className="h-5 w-5" /> },
+    { id: 'seoPages' as TabType, label: 'Service Pages', icon: <FileText className="h-5 w-5" /> },
     { id: 'translations' as TabType, label: 'Translations', icon: <Languages className="h-5 w-5" /> },
     { id: 'seo' as TabType, label: 'SEO Settings', icon: <Search className="h-5 w-5" /> },
     { id: 'settings' as TabType, label: 'Settings', icon: <Settings className="h-5 w-5" /> },
@@ -102,6 +104,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
           {activeTab === 'hero' && <HeroManager />}
           {activeTab === 'gallery' && <GalleryManager />}
           {activeTab === 'services' && <ServicesManager />}
+          {activeTab === 'seoPages' && <SeoPagesManager />}
           {activeTab === 'translations' && <TranslationManager />}
           {activeTab === 'seo' && <SEOManager />}
           {activeTab === 'settings' && <SettingsManager />}

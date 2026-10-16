@@ -7,6 +7,20 @@
     font-family: 'Poppins', 'Almarai', system-ui, sans-serif;
   }
 
+  /* Safety net against horizontal scrolling on phones (e.g. third-party widgets).
+     "clip" (unlike "hidden") does not create a scroll container, so sticky still works. */
+  html,
+  body {
+    overflow-x: clip;
+  }
+
+  /* Room for the sticky mobile CTA bar so it never covers the footer */
+  @media (max-width: 767px) {
+    body {
+      padding-bottom: 4.5rem;
+    }
+  }
+
   /* RTL Support */
   html[dir="rtl"] {
     text-align: right;
@@ -236,6 +250,106 @@
   height: 1rem;
   color: #8b0000;
   flex-shrink: 0;
+}
+
+/* Conversion hero (service pages): CTAs within the first mobile screen */
+.seo-page-hero--conversion {
+  min-height: 0;
+  align-items: stretch;
+  background-color: #000000;
+}
+
+.seo-page-hero--conversion .seo-page-hero-content {
+  padding-top: 5.5rem;
+  padding-bottom: 2rem;
+  width: 100%;
+}
+
+.seo-page-hero--conversion .seo-page-h1 {
+  font-size: 1.625rem;
+  margin-top: 0.5rem;
+}
+
+.seo-page-hero--conversion .seo-page-h1-accent {
+  margin-bottom: 0.875rem;
+}
+
+.seo-page-hero--conversion .seo-page-intro {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.seo-page-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    'text'
+    'photo'
+    'badges';
+  gap: 1.5rem;
+}
+
+.seo-page-hero-text {
+  grid-area: text;
+  min-width: 0;
+}
+
+.seo-page-hero-photo {
+  grid-area: photo;
+}
+
+.seo-page-hero-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center 60%;
+  border-radius: 1rem;
+  background-color: #1a1a1a;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.seo-page-hero-badges {
+  grid-area: badges;
+}
+
+.seo-page-hero-badges .seo-page-trust-bar {
+  margin-top: 0;
+  gap: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .seo-page-hero--conversion .seo-page-hero-content {
+    padding-top: 7rem;
+    padding-bottom: 3rem;
+  }
+
+  .seo-page-hero--conversion .seo-page-h1 {
+    font-size: 2.75rem;
+  }
+
+  .seo-page-hero--conversion .seo-page-intro {
+    font-size: 1.125rem;
+    line-height: 1.75;
+  }
+}
+
+@media (min-width: 1024px) {
+  .seo-page-hero-grid {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    grid-template-areas:
+      'text photo'
+      'badges photo';
+    grid-template-rows: auto 1fr;
+    column-gap: 3rem;
+    align-items: start;
+  }
+
+  .seo-page-hero-photo img {
+    aspect-ratio: 4 / 5;
+    max-height: 34rem;
+  }
 }
 
 /* Body layout */
@@ -594,6 +708,18 @@
   position: sticky;
   top: 6rem;
   border: 1px solid rgba(139, 0, 0, 0.25);
+}
+
+/* Card with embedded form: too tall to be sticky */
+.seo-cta-card--form {
+  position: static;
+}
+
+.seo-cta-divider {
+  margin: 1.5rem 0 0.75rem;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
 }
 
 .seo-cta-title {

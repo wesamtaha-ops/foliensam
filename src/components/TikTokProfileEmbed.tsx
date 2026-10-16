@@ -40,10 +40,32 @@ const TikTokProfileEmbed: React.FC<TikTokProfileEmbedProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobileView();
   const activeEmbedId = isMobile ? mobileEmbedId : embedId;
+  const [isInView, setIsInView] = useState(false);
+
+  // Lazy-load: only inject the SociableKIT script once the embed is near the viewport
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container || isInView) return;
+    if (!('IntersectionObserver' in window)) {
+      setIsInView(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setIsInView(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '300px 0px' }
+    );
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, [isInView]);
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container || !activeEmbedId) return;
+    if (!container || !activeEmbedId || !isInView) return;
 
     container.innerHTML = '';
 
@@ -60,7 +82,7 @@ const TikTokProfileEmbed: React.FC<TikTokProfileEmbedProps> = ({
     return () => {
       container.innerHTML = '';
     };
-  }, [activeEmbedId]);
+  }, [activeEmbedId, isInView]);
 
   if (!embedId && !mobileEmbedId) {
     return (

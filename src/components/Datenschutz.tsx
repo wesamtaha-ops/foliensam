@@ -63,7 +63,7 @@ const Datenschutz: React.FC = () => {
               <div className="p-3 bg-accent-blue/10 rounded-xl">
                 <Shield className="w-8 h-8 text-accent-blue" />
               </div>
-              <h1 className="text-3xl md:text-4xl font-bold text-primary-dark">
+              <h1 className="text-3xl md:text-4xl font-bold text-primary-dark break-words hyphens-auto">
                 {t('datenschutz.title')}
               </h1>
             </div>

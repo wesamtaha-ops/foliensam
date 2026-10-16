@@ -383,10 +383,10 @@ const Gallery = () => {
 
         {/* Tabs */}
         <div className="flex justify-center mb-8">
-          <div className="inline-flex bg-primary-light rounded-full p-1 gap-2">
+          <div className="inline-flex max-w-full bg-primary-light rounded-full p-1 gap-1 sm:gap-2">
             <button
               onClick={() => setActiveTab('tiktok')}
-              className={`flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
+              className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-6 py-2.5 sm:py-3 rounded-full text-sm sm:text-base font-semibold whitespace-nowrap transition-all duration-300 ${
                 activeTab === 'tiktok'
                   ? 'bg-[#00f2ea] text-black shadow-lg shadow-[#00f2ea]/50 scale-105'
                   : 'text-primary-silver hover:text-white hover:bg-primary-dark/50'
@@ -399,7 +399,7 @@ const Gallery = () => {
             </button>
             <button
               onClick={() => setActiveTab('videos')}
-              className={`flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
+              className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-6 py-2.5 sm:py-3 rounded-full text-sm sm:text-base font-semibold whitespace-nowrap transition-all duration-300 ${
                 activeTab === 'videos'
                   ? 'bg-accent-purple text-white shadow-lg shadow-accent-purple/50 scale-105'
                   : 'text-primary-silver hover:text-white hover:bg-primary-dark/50'
@@ -410,7 +410,7 @@ const Gallery = () => {
             </button>
             <button
               onClick={() => setActiveTab('images')}
-              className={`flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
+              className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-6 py-2.5 sm:py-3 rounded-full text-sm sm:text-base font-semibold whitespace-nowrap transition-all duration-300 ${
                 activeTab === 'images'
                   ? 'bg-accent-purple text-white shadow-lg shadow-accent-purple/50 scale-105'
                   : 'text-primary-silver hover:text-white hover:bg-primary-dark/50'

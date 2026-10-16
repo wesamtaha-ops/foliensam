@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Car, Play } from 'lucide-react';
+import { Car, Play, MessageCircle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { getHeroData, HeroData } from '../services/dataService';
+import TrustLine from './conversion/TrustLine';
+import { buildWhatsAppUrl } from '../data/conversion';
 
 const Hero = () => {
   const { t } = useTranslation();
@@ -88,17 +90,17 @@ const Hero = () => {
 
       {/* Main Content */}
       <div className="relative min-h-screen flex items-center">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-0">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-0">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Column - Text Content */}
-            <div className="text-center lg:text-left space-y-8">
+            <div className="min-w-0 text-center lg:text-left space-y-8">
               <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-lg px-4 py-2 rounded-full">
                 <Car className="h-5 w-5 text-white" />
                 <span className="text-white text-sm md:text-base">{t('hero.tagline')}</span>
               </div>
 
               <div className="space-y-4">
-                <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+                <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight break-words">
                   {t('hero.title')}
                 </h1>
 
@@ -107,25 +109,37 @@ const Hero = () => {
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <button 
+              <div data-hero-cta className="flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-4 justify-center lg:justify-start">
+                {/* Primary CTA – real wa.me link for the GTM link-click trigger */}
+                <a
+                  href={buildWhatsAppUrl()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 px-6 md:px-8 py-3 md:py-4 rounded-full bg-[#25D366] hover:bg-[#1ebe5a] text-white text-base md:text-lg font-semibold shadow-lg transition-colors"
+                >
+                  <MessageCircle className="w-5 h-5" aria-hidden="true" />
+                  Angebot per WhatsApp
+                </a>
+                <button
                   onClick={() => setShowVideo(true)}
                   className="group relative px-6 md:px-8 py-3 md:py-4 rounded-full text-base md:text-lg font-semibold overflow-hidden flex items-center justify-center gap-2"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-accent-purple to-accent-gold transition-transform duration-300 group-hover:scale-105 rounded-full" />
+                  <div className="absolute inset-0 border-2 border-white/40 rounded-full transition-transform duration-300 group-hover:scale-105" />
                   <Play className="relative w-5 h-5 text-white" />
                   <span className="relative text-white">{t('hero.watchShowreel')}</span>
                 </button>
-                <a 
+                <a
                   href="/kontakt"
-                  className="group relative px-6 md:px-8 py-3 md:py-4 rounded-full text-base md:text-lg font-semibold overflow-hidden"
+                  className="group relative px-6 md:px-8 py-3 md:py-4 rounded-full text-base md:text-lg font-semibold overflow-hidden text-center"
                 >
-                  <div className="absolute inset-0 border-2 border-accent-cream/30 rounded-full transition-transform duration-300 group-hover:scale-105" />
+                  <div className="absolute inset-0 border-2 border-white/40 rounded-full transition-transform duration-300 group-hover:scale-105" />
                   <span className="relative text-white group-hover:text-accent-gold transition-colors duration-300">
                     {t('nav.contact')}
                   </span>
                 </a>
               </div>
+
+              <TrustLine className="text-center lg:text-left" />
             </div>
 
             {/* Right Column - Video Circle */}
@@ -135,7 +149,7 @@ const Hero = () => {
                 <div className="absolute inset-0 rounded-full bg-gradient-to-r from-accent-purple to-accent-gold opacity-20 blur-xl animate-pulse" />
                 
                 {/* Inner circle with gradient */}
-                <div className="relative w-96 h-96 rounded-full overflow-hidden group-hover:scale-105 transition-transform duration-500">
+                <div className="relative w-72 h-72 sm:w-96 sm:h-96 max-w-full rounded-full overflow-hidden group-hover:scale-105 transition-transform duration-500">
                   <img
                     src={heroData.videoUrl}
                     alt="Car Wrapping Preview"

@@ -12,6 +12,8 @@ import SeoRelatedServices from './SeoRelatedServices';
 import StructuredData from './StructuredData';
 import { SeoPageConfig } from '../../types/seoPage';
 import { SEO_HERO_IMAGES } from '../../data/seoPages';
+import ReferenceGallery from '../conversion/ReferenceGallery';
+import { getServiceConversion, splitIntro } from '../../data/conversion';
 
 interface SeoPageLayoutProps {
   page: SeoPageConfig;
@@ -42,6 +44,9 @@ const SeoPageLayout: React.FC<SeoPageLayoutProps> = ({
   }, [page.path, location.hash]);
 
   const heroImage = page.heroImage || SEO_HERO_IMAGES[page.id];
+  const conversion = getServiceConversion(page.path);
+  // Service pages: max. 2 sentences above the fold, the rest moves into the body (nothing removed)
+  const [heroIntro, introRest] = conversion ? splitIntro(page.intro, 2) : [page.intro, ''];
 
   return (
     <div className="min-h-screen flex flex-col seo-page">
@@ -55,14 +60,28 @@ const SeoPageLayout: React.FC<SeoPageLayoutProps> = ({
       <main className="flex-grow seo-page-main">
         <SeoPageHero
           h1={page.meta.h1}
-          intro={page.intro}
+          intro={heroIntro}
           breadcrumbs={page.breadcrumbs}
           heroImage={heroImage}
+          conversion={
+            conversion
+              ? { whatsappText: conversion.whatsappText, photo: conversion.heroPhoto }
+              : undefined
+          }
         />
+
+        {conversion && <ReferenceGallery photos={conversion.gallery} />}
 
         <div className="seo-page-body-wrapper">
           <div className="seo-page-container seo-page-body">
             <div className="seo-page-content">
+              {introRest && (
+                <section className="seo-content-section mb-8">
+                  <div className="seo-content-section-body">
+                    <p className="seo-content-paragraph">{introRest}</p>
+                  </div>
+                </section>
+              )}
               <ContentRenderer sections={page.sections} />
               {page.faq && page.faq.length > 0 && (
                 <FaqSection items={page.faq} title={t('seoPages.faqTitle')} />
@@ -71,7 +90,12 @@ const SeoPageLayout: React.FC<SeoPageLayoutProps> = ({
               {children}
             </div>
 
-            {showSidebar && <SeoCtaSidebar />}
+            {showSidebar && (
+              <SeoCtaSidebar
+                service={conversion?.service}
+                whatsappText={conversion?.whatsappText}
+              />
+            )}
           </div>
         </div>
       </main>

@@ -1,11 +1,22 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { MessageCircle, Phone, Mail, Check } from 'lucide-react';
+import ContactForm from '../ContactForm';
+import {
+  buildWhatsAppUrl,
+  CONTACT_EMAIL,
+  PHONE_DISPLAY,
+  PHONE_HREF,
+} from '../../data/conversion';
 
-const SeoCtaSidebar: React.FC = () => {
+interface SeoCtaSidebarProps {
+  /** Preselects "Leistung" in the embedded form */
+  service?: string;
+  whatsappText?: string;
+}
+
+const SeoCtaSidebar: React.FC<SeoCtaSidebarProps> = ({ service, whatsappText }) => {
   const { t } = useTranslation();
-  const whatsappNumber = '+4915750000505';
 
   const benefits = [
     t('features.premiumMaterials.description'),
@@ -14,16 +25,17 @@ const SeoCtaSidebar: React.FC = () => {
   ];
 
   return (
-    <aside className="seo-page-sidebar">
-      <div className="seo-cta-card">
+    <aside className="seo-page-sidebar" id="angebot">
+      <div className="seo-cta-card seo-cta-card--form">
         <h2 className="seo-cta-title">{t('seoPages.cta.title')}</h2>
         <p className="seo-cta-text">{t('seoPages.cta.description')}</p>
+
+        <ContactForm service={service} variant="dark" />
+
+        <p className="seo-cta-divider">Oder direkt:</p>
         <div className="seo-cta-actions">
-          <Link to="/kontakt" className="seo-cta-primary">
-            {t('seoPages.cta.requestQuote')}
-          </Link>
           <a
-            href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(t('footer.whatsappMessage'))}`}
+            href={buildWhatsAppUrl(whatsappText)}
             target="_blank"
             rel="noopener noreferrer"
             className="seo-cta-whatsapp"
@@ -31,14 +43,14 @@ const SeoCtaSidebar: React.FC = () => {
             <MessageCircle className="seo-cta-icon" />
             WhatsApp
           </a>
-          <a href={`tel:${whatsappNumber}`} className="seo-cta-phone">
+          <a href={PHONE_HREF} className="seo-cta-phone">
             <Phone className="seo-cta-icon" />
-            +49 157 50000505
+            {PHONE_DISPLAY}
           </a>
-          <Link to="/kontakt" className="seo-cta-phone">
+          <a href={`mailto:${CONTACT_EMAIL}`} className="seo-cta-phone">
             <Mail className="seo-cta-icon" />
             {t('seoPages.cta.email')}
-          </Link>
+          </a>
         </div>
       </div>
 
